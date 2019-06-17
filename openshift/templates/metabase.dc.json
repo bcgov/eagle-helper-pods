@@ -9,7 +9,7 @@
         "kind": "Service",
         "apiVersion": "v1",
         "metadata": {
-          "name": "${NAME}${SUFFIX}",
+          "name": "${NAME}-${SUFFIX}",
           "annotations": {
             "description": "Exposes and load balances the application pods"
           }
@@ -24,7 +24,7 @@
             }
           ],
           "selector": {
-            "name": "${NAME}${SUFFIX}"
+            "name": "${NAME}-${SUFFIX}"
           },
           "type": "ClusterIP",
           "sessionAffinity": "None"
@@ -34,7 +34,7 @@
         "kind": "Route",
         "apiVersion": "v1",
         "metadata": {
-          "name": "${NAME}${SUFFIX}"
+          "name": "${NAME}-${SUFFIX}"
         },
         "spec": {
           "host": "${APPLICATION_DOMAIN}",
@@ -45,7 +45,7 @@
           "path": "/",
           "to": {
             "kind": "Service",
-            "name": "${NAME}${SUFFIX}"
+            "name": "${NAME}-${SUFFIX}"
           },
           "port": {
             "targetPort": "3000-tcp"
@@ -57,7 +57,7 @@
         "apiVersion": "v1",
         "kind": "PersistentVolumeClaim",
         "metadata": {
-          "name": "${NAME}${SUFFIX}",
+          "name": "${NAME}-${SUFFIX}",
           "annotations": {
             "volume.beta.kubernetes.io/storage-class": "gluster-file",
             "volume.beta.kubernetes.io/storage-provisioner": "kubernetes.io/glusterfs"
@@ -96,7 +96,7 @@
         "kind": "DeploymentConfig",
         "apiVersion": "v1",
         "metadata": {
-          "name": "${NAME}${SUFFIX}"
+          "name": "${NAME}-${SUFFIX}"
         },
         "spec": {
           "strategy": {
@@ -122,13 +122,13 @@
           ],
           "replicas": 1,
           "selector": {
-            "name": "${NAME}${SUFFIX}"
+            "name": "${NAME}-${SUFFIX}"
           },
           "template": {
             "metadata": {
-              "name": "${NAME}${SUFFIX}",
+              "name": "${NAME}-${SUFFIX}",
               "labels": {
-                "name": "${NAME}${SUFFIX}"
+                "name": "${NAME}-${SUFFIX}"
               }
             },
             "spec": {
@@ -181,7 +181,7 @@
                   "volumeMounts": [
                     {
                       "mountPath": "/app/data",
-                      "name": "${NAME}${SUFFIX}-data"
+                      "name": "${NAME}-${SUFFIX}-data"
                     }
                   ],
                   "resources": {
@@ -201,9 +201,9 @@
               ],
               "volumes": [
                 {
-                  "name": "${NAME}${SUFFIX}-data",
+                  "name": "${NAME}-${SUFFIX}-data",
                   "persistentVolumeClaim": {
-                    "claimName": "${NAME}${SUFFIX}"
+                    "claimName": "${NAME}-${SUFFIX}"
                   }
                 }
               ],
