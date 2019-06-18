@@ -302,7 +302,7 @@
     {
       "name": "ADMIN_PASSWORD",
       "displayName": "Admin Password",
-      "description": "The password for the metabase admin user. Requires 2 special, 2 upper, 2 lower, 2 numeric chars and minimum 16 char length",
+      "description": "The password for the metabase admin user. Requires 2 upper, 2 lower, 1 special, 1 numeric chars and minimum 8 char length",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{8}!@#$%^&_[a-zA-Z0-9]{8}",
       "required": true
