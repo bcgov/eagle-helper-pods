@@ -6,6 +6,24 @@
   },
   "objects": [
     {
+      "kind": "Secret",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}-${SUFFIX}-secret",
+        "annotations": {
+          "template.openshift.io/expose-password": "{.data['database-password']}",
+          "as-copy-of": "template.${NAME}-secret"
+        }
+      },
+      "stringData": {
+        "admin-email": "${ADMIN_EMAIL}",
+        "admin-password": "${ADMIN_PASSWORD}",
+        "admin-username": "${NAME}-admin",
+        "database-password": "${DATABASE_PASSWORD}",
+        "embedding-secret-key": "${EMBEDDING_SECRET_KEY}"
+      }
+    },
+    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
@@ -37,7 +55,7 @@
         "name": "${NAME}-${SUFFIX}"
       },
       "spec": {
-        "host": "${APPLICATION_DOMAIN}",
+        "host": "${NAME}-${SUFFIX}-${APPLICATION_DOMAIN}",
         "tls": {
           "insecureEdgeTerminationPolicy": "Redirect",
           "termination": "edge"
@@ -173,7 +191,7 @@
                     "name": "MB_ENCRYPTION_SECRET_KEY",
                     "valueFrom": {
                       "secretKeyRef": {
-                        "name": "${METABASE_SECRET_NAME}",
+                        "name": "${NAME}-${SUFFIX}-secret",
                         "key": "database-password"
                       }
                     }
@@ -252,7 +270,7 @@
     },
     {
       "name": "APPLICATION_DOMAIN",
-      "value": "epic-metabase-empr-mds-dev.pathfinder.gov.bc.ca",
+      "value": "esm.pathfinder.gov.bc.ca",
       "required": true
     },
     {
@@ -266,7 +284,7 @@
       "name": "TOOLSNAMESPACE",
       "displayName": "Tools Namespace",
       "description": "The OpenShift project namespace containing the builds and images",
-      "value": "",
+      "value": "mem-mmti-tools",
       "required": true
     },
     {
@@ -275,8 +293,34 @@
       "required": true
     },
     {
-      "name": "METABASE_SECRET_NAME",
-      "value": "template.epic-metabase-key"
+      "name": "ADMIN_EMAIL",
+      "displayName": "Admin Email",
+      "description": "The email associated with the metabase admin user",
+      "value": "",
+      "required": true
+    },
+    {
+      "name": "ADMIN_PASSWORD",
+      "displayName": "Admin Password",
+      "description": "The password for the metabase admin user",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{16}",
+      "required": true
+    },
+    {
+      "name": "DATABASE_PASSWORD",
+      "displayName": "Database Password",
+      "description": "A password that is generated in the target database, and then copied over into this field.",
+      "value": "",
+      "required": true
+    },
+    {
+      "name": "EMBEDDING_SECRET_KEY",
+      "displayName": "Embedding Secret Key",
+      "description": "A key that is used to embed metabase screens from within a website",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{16}",
+      "required": true
     }
   ]
 }
