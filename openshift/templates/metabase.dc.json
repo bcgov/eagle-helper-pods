@@ -310,8 +310,9 @@
     {
       "name": "DATABASE_PASSWORD",
       "displayName": "Database Password",
-      "description": "A password that is generated in the target database, and then copied over into this field.",
-      "value": "",
+      "description": "A minimum 16 character password that is generated in the target database, and then copied over into this field.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{16}",
       "required": true
     },
     {
