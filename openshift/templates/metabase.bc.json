@@ -2,7 +2,7 @@
     "kind": "Template",
     "apiVersion": "v1",
     "metadata": {
-      "name": "epic-metabase-bc",
+      "name": "epic-metabase",
       "creationTimestamp": null
     },
     "objects": [

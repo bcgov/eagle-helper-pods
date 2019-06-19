@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "epic-metabase-dc"
+    "name": "epic-metabase"
   },
   "objects": [
     {
@@ -164,7 +164,7 @@
                 "command": [
                   "bash",
                   "-c",
-                  "cd /app && if [[ $ENVIRONMENT_NAME == 'dev' ]]; then tail -f /dev/null; else java -jar metabase.jar; fi"
+                  "cd /app && if [[ $PR_ENVIRONMENT == 'true' ]]; then tail -f /dev/null; else java -jar metabase.jar; fi"
                 ],
                 "env": [
                   {
@@ -252,6 +252,12 @@
     },
     {
       "name": "ENVIRONMENT_NAME",
+      "value": "dev"
+    },
+    {
+      "name": "PR_ENVIRONMENT",
+      "displayName": "PR Based Environment",
+      "description": "A setting to turn off metabase in OpenShift namespaces where resources need to be minimized due to duplication of applications (one for each Pull Request).  Setting the value to 'true' will turn off metabase.",
       "value": ""
     },
     {
@@ -284,7 +290,7 @@
       "name": "TOOLSNAMESPACE",
       "displayName": "Tools Namespace",
       "description": "The OpenShift project namespace containing the builds and images",
-      "value": "mem-mmti-tools",
+      "value": "esm",
       "required": true
     },
     {
