@@ -1,0 +1,81 @@
+kind: Template
+apiVersion: v1
+objects:
+  - apiVersion: apps.openshift.io/v1
+    kind: DeploymentConfig
+    spec:
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        app: minio
+        deploymentconfig: minio-eagle-prod
+      strategy:
+        activeDeadlineSeconds: 21600
+        recreateParams:
+          timeoutSeconds: 600
+        resources: {}
+        type: Recreate
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: minio
+            deploymentconfig: minio-eagle-prod
+        spec:
+          containers:
+            - env:
+                - name: MINIO_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: MINIO_ACCESS_KEY
+                      name: minio-eagle-prod
+                - name: MINIO_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: MINIO_SECRET_KEY
+                      name: minio-eagle-prod
+                - name: MINIO_CONFIG_DIR
+                  value: /tmp
+                - name: MINIO_DATA_DIR
+                  value: /data
+              image: >-
+                172.50.0.2:5000/openshift/minio@sha256:02f81d40a3515ab8ba4a311d73849e046d5d06cc2d68db938b33af45906fdded
+              imagePullPolicy: Always
+              name: minio-eagle-prod
+              ports:
+                - containerPort: 9000
+                  protocol: TCP
+              resources: {}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              volumeMounts:
+                - mountPath: /data
+                  name: esm-prod-docs-pvc-gf
+          dnsPolicy: ClusterFirst
+          restartPolicy: Always
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+          volumes:
+            - name: esm-prod-docs-pvc-gf
+              persistentVolumeClaim:
+                claimName: esm-prod-docs-pvc-gf
+      test: false
+      triggers:
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - minio-eagle-prod
+            from:
+              kind: ImageStreamTag
+              name: 'minio:stable'
+              namespace: openshift
+          type: ImageChange
+        - type: ConfigChange
+    metadata:
+      annotations:
+        description: Defines how to deploy the minio server
+      generation: 1
+      labels:
+        app: eagle-api
+      name: minio-eagle-prod
