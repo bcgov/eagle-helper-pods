@@ -1,0 +1,21 @@
+kind: Template
+apiVersion: v1
+objects:
+  - apiVersion: v1
+    kind: Service
+    spec:
+      ports:
+        - name: 9000-tcp
+          port: 9000
+          protocol: TCP
+          targetPort: 9000
+      selector:
+        deploymentconfig: minio-eagle-prod
+      sessionAffinity: None
+      type: ClusterIP
+    metadata:
+      annotations:
+        description: Exposes the minio server
+      labels:
+        app: eagle-api
+      name: minio-eagle-prod

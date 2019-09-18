@@ -1,0 +1,22 @@
+kind: Template
+apiVersion: v1
+objects:
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    spec:
+      host: "${MINIO_HOST}"
+      port:
+        targetPort: 9000-tcp
+      tls:
+        termination: edge
+      to:
+        kind: Service
+        name: minio-eagle-dev
+        weight: 100
+      wildcardPolicy: None
+    metadata:
+      annotations:
+        openshift.io/host.generated: 'true'
+      labels:
+        app: eagle-api
+      name: minio-eagle-dev
