@@ -4,7 +4,7 @@ import geb.Module
 import geb.waiting.WaitTimeoutException
 
 
-class DocumentTableRows extends Module {
+class DocumentsTableRows extends Module {
   static content = {
       name { $('[data-label=Name]') }
       status { $('[data-label=Status]') }

@@ -13,7 +13,10 @@ class NavBarModule extends Module {
     navBar { $('.action-container') }
     // todo determine best way to handle the changing button in the navbar,based on what's selected in project details menu
     actionsDropdown { $('#actionDropdown') }
-    newCPButton { $('.action-continaer .breadcrumb .btn btn-primary') }
-    
+    newCPButton { $('#add') }
+  }
+
+  void clickNewCP() {
+    newCPButton.click()
   }
 }

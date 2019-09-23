@@ -1,9 +1,9 @@
-packages Pages.Admin
+package Pages.Admin
 
 import geb.waiting.WaitTimeoutException
 
 class CommentBannerPage extends BaseAppPage {
-  static content {
+  static content = {
     viewButton { $('#viewComment') }
     submitButton { $('#submitComment') }
     dateRange { $('.banner h5') }

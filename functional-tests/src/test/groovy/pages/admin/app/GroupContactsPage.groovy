@@ -1,6 +1,7 @@
 package Pages.Admin
 
 import Admin.modules.ContactsTableRows
+import Pages.Admin.ProjectGroupsPage
 
 class GroupContactsPage extends ProjectGroupsPage {
   static at = { pageTitle.text() == 'Name of Group' }

@@ -1,4 +1,4 @@
-package Admin.pages
+package Pages.Admin
 
 import geb.Page
 
@@ -13,6 +13,6 @@ class LoginPage extends Page {
         pageTitle { $('#kc-header-wrapper') }
         usernameField { $('#username') }
         passwordField { $('#password') }
-        logInButton { $('#kc-login') }
+        loginButton { $('#kc-login') }
     }
 }

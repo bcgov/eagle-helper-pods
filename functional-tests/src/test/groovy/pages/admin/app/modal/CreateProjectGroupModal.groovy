@@ -1,4 +1,6 @@
-package pages
+package Pages.Admin
+
+import Pages.Admin.BaseAppPage
 
 class CreateProjectGroupModal extends BaseAppPage {
   static at = { pageTitle.text() == 'Add Group' }

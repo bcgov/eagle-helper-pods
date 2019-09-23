@@ -5,7 +5,7 @@ import geb.Module
 class OrgTableRows extends Module {
   static content = {
     orgName { $('[data-label=Name]') }
-    orgType { $('[data-label=Organization'} }
+    orgType { $('[data-label=Organization]') }
     legal { $('#legal') }
     edit { $('[data-label=Event]') }
   }

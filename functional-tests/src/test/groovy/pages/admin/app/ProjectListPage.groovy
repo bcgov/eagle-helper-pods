@@ -4,7 +4,7 @@ import Admin.modules.TableRows
 import geb.waiting.WaitTimeoutException
 
 class ProjectListPage extends BaseAppPage {
-  static at ={ }
+  static at = { }
   static url = '/projects'
   static content = {
     // todo get a count of projects?
@@ -31,7 +31,8 @@ class ProjectListPage extends BaseAppPage {
   }
 
 // todo verify what we click is the same each time
-  void clickProjectLink() {
+  String clickProjectLink() {
       projectList[0].clickCell()
+      return projectList[0].name
   }
 }

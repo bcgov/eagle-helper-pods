@@ -1,11 +1,11 @@
-packages Pages.Admin
+package Pages.Admin
 
 import geb.waiting.WaitTimeoutException
 
 class ProjectDetailsPage extends BaseAppPage {
   static at = {}
 
-  static content {
+  static content = {
     // basic info
     proponentText { $('#proponent') }
     natureText { $('#nature') }

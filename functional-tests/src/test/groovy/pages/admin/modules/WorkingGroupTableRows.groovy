@@ -1,4 +1,4 @@
-packages Admin.modules
+package Admin.modules
 
 import geb.Module
 import geb.waiting.WaitTimeoutException

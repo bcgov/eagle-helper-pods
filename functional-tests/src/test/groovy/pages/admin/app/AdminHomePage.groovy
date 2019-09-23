@@ -1,11 +1,12 @@
-packages Pages.Admin
+package Pages.Admin
 
 import Admin.modules.TableRows
+import Pages.Admin.BaseAppPage
 import geb.waiting.WaitTimeoutException
 
-class HomePage extends BaseAppPage {
-  static at {}
-  static content {
+class AdminHomePage extends BaseAppPage {
+  static at = { pageTitle.text() == expectedTitle }
+  static content = {
     pageTitle { $('.search-container h2') }
     keywordInput { $('#keywordInput') }
     newProject { $('#addProject') }

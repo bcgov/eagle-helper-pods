@@ -37,47 +37,44 @@ class AddProjectPage extends BaseAppPage {
     // people
     projectLead { $('#projectLead') }
     projectEPD { $('#responsibleEPD') }
+  }
 
-    void clickSave() {
-      submitButton.click()
-    }
-    void clickCancel() {
-      cancelButton.click()
-    }
+  void clickSave() {
+    submitButton.click()
+  }
+  void clickCancel() {
+    cancelButton.click()
+  }
 
-    void setName(String name) {
-      projectName.value(name)
-    }
+  void setName(String name) {
+    projectName.value(name)
+  }
 
-    void selectType(String projType) {
-      typeDropdown.$('option', text:projType).click()
-    }
+  void selectType(String projType) {
+    typeDropdown.$('option', text:projType).click()
+  }
 
-    void selectSubType(String subType) {
-      subTypeDropdown.$('option', text:subType).click()
-    }
+  void selectSubType(String subType) {
+    subTypeDropdown.$('option', text:subType).click()
+  }
 
-    void selectNature(String nature) {
-      natureDropdown.$('option', text:nature).click()
-    }
+  void selectNature(String nature) {
+    natureDropdown.$('option', text:nature).click()
+  }
 
-    void setDescription(String someText) {
-      description.value(someText)
-    }
+  void setDescription(String someText) {
+    description.value(someText)
+  }
 
-    void setLocation(String address) {
-      location.value(address)
-    }
+  void setLocation(String address) {
+    location.value(address)
+  }
 
-    void setLat(String coord) {
-      lat.value(coord)
-    }
+  void setLat(String coord) {
+    lat.value(coord)
+  }
 
-    void setLon(String coord) {
-      lon.value(coord)
-    }
-    // todo dropdown methods
-
-
+  void setLon(String coord) {
+    lon.value(coord)
   }
 }
