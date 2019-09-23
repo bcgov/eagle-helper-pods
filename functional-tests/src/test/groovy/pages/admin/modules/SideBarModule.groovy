@@ -15,7 +15,7 @@ class SideBarModule extends Module {
     settings { $("#settings") }
     eguide { $("#eguide") }
     projectCP { $("#comment-period") }
-    projectCompliance { $("#comliance") }
+    projectCompliance { $("#compliance") }
     projectDocuments { $("#documents") }
     projectGroups { $("#groups") }
     projectUpdates { $("#updates") }
