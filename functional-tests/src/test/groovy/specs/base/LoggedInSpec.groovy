@@ -1,6 +1,10 @@
 package specs
 
+<<<<<<< HEAD
 import specs.traits.Login
+=======
+import spec.traits.Login
+>>>>>>> 70c1f22... add tests for comment periods
 
 /**
  * Base spec for tests that require login
