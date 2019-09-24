@@ -1,9 +1,10 @@
 package Pages.Admin
 
 import Admin.modules.WorkingGroupTableRows
+import Pages.Admin.BaseAppPage
 import geb.waiting.WaitTimeoutException
 
-class ProjectGroupssPage extends BaseAppPage {
+class ProjectGroupsPage extends BaseAppPage {
   static at = {}
   static content = {
     selectAllButton { $('#button-sa') }

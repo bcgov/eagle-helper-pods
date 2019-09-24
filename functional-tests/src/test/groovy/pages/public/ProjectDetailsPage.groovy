@@ -10,6 +10,36 @@ class ProjectDetailsPage extends BaseAppPage {
     certificate { $('.project .project-info .ea-decision') }
     // create module for basic info, ngcontent has no unique class/id to use
     legislation { $('.legislation-button') }
-
+    commentPeriodDate { $('h5') }
+    commentPeriodStatus { $('#cp-status') }
+    viewCommentPeriod { $('#view-cp') }
+    submitComment { $('#submit-c') }
+    commentText { $('#no-cp') }
+    
+    projectDetailsTab { $('a[ng-reflect-router-link=project-details]') }
+    projectCommentTab { $('a[ng-reflect-router-link=commenting]') }
+    projectDocumentsTab { $('a[ng-reflect-router-link=documents]') }
   }
+
+  void clickViewPeriod() {
+    viewCommentPeriod.click()
+  }
+
+  void clickSubmitComment() {
+    submitComment.click()
+  }
+
+  void clickProjectDetailsTab() {
+    projectDetailsTab.click()
+  }
+
+  void clickCommentTab() {
+    projectCommentTab.click()
+  }
+
+  void clickDocumentsTab() {
+    projectDocumentsTab.click()
+  }
+
+
 }

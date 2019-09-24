@@ -1,9 +1,9 @@
-packages Pages.Admin
+package Pages.Admin
 
 import Admin.modules.DocumentsTableRows
 import geb.waiting.WaitTimeoutException
 
-class ProjectDetailsPage extends BaseAppPage {
+class ProjectDocumentsPage extends BaseAppPage {
   static at = {}
   static content = {
     searchInput { $('#keywordInput') }

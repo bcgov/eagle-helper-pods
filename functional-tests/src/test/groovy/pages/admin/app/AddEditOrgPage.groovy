@@ -1,6 +1,6 @@
 package Pages.Admin
 
-class AddEditContactPage extends BaseAppPage {
+class AddEditOrgPage extends BaseAppPage {
   static at = {}
   static content = {
     pageTitle = { $('h2') }

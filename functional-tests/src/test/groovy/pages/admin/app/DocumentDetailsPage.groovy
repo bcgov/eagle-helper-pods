@@ -1,8 +1,8 @@
-packages Pages.Admin
+package Pages.Admin
 
 import geb.waiting.WaitTimeoutException
 
-class ProjectDetailsPage extends BaseAppPage {
+class DocumentDetailsPage extends BaseAppPage {
   static content = {
     title = { $('h1') }
     actionDropdown { $('#actionDropdown') }

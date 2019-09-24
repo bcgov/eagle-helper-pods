@@ -6,6 +6,7 @@ import Admin.modules.HeaderModule
 import Admin.modules.ModalModule
 import Admin.modules.FooterModule
 import Admin.modules.SideBarModule
+import Admin.modules.NavBarModule
 
 /**
  * Base app page where global selectors and modules used by all pages can be added.
@@ -18,6 +19,7 @@ class BaseAppPage extends Page {
     modalModule { module(ModalModule) }
     footerModule { module(FooterModule) }
     sidebarModule { module(SideBarModule) }
+    navBarModule { module(NavBarModule) }
     searchInput { $('#keywordInput') }
     searchButton { $('#search') }
   }

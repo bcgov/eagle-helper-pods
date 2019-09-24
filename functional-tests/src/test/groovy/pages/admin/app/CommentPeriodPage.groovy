@@ -1,4 +1,4 @@
-packages Pages.Admin
+package Pages.Admin
 
 import Admin.modules.CommentTableRows
 import geb.waiting.WaitTimeoutException

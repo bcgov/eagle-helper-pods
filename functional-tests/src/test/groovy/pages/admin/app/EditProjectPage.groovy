@@ -1,4 +1,4 @@
-packages Pages.Admin
+package Pages.Admin
 
 import Pages.Admin.AddProjectPage
 import geb.waiting.WaitTimeoutException
