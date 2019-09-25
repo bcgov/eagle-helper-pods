@@ -21,4 +21,9 @@ class OrganizationsPage extends BaseAppPage {
     orgList[0].clickEdit()
   }
 
+  String clickItem(){
+    orgList[0].clickCell()
+    return orgList[0].name.value()
+  }
+
 }

@@ -19,4 +19,21 @@ class ContactsPage extends BaseAppPage {
     contactList[0].clickAction()
   }
 
+  Boolean checkContact(String firstName, String lastName, String org){
+    for (contact in contactList) {
+      if(contact.name.value() == firstName + " " + lastName && contact.organization.value() == org){
+        return true
+      }
+      return false
+    }
+  }
+
+   void clickSearchButton() {
+    closeButton.click()
+  }
+
+  void setSearchTerms(String searchTerms) {
+    searchField.value(searchTerms)
+  }
+
 }
