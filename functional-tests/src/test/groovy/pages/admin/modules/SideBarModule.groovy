@@ -8,13 +8,13 @@ import geb.waiting.WaitTimeoutException
  */
 class SideBarModule extends Module {
   static content = {
-    allProjects { [text:'All Projects'] }
+    allProjects { $('#allProjects') }
     activityPosts { $("#activityPosts") }
     contacts { $('#contacts') }
     orgs { $("#orgs") }
     settings { $("#settings") }
     eguide { $("#eguide") }
-    projectCP { $("#comment-period") }
+    projectCP { $("#comment-periods") }
     projectCompliance { $("#compliance") }
     projectDocuments { $("#documents") }
     projectGroups { $("#groups") }
@@ -49,7 +49,8 @@ class SideBarModule extends Module {
   // }
 
   void clickCommentPeriod() {
-    projectCP.click()
+    // todo how to use the selector defined above? ask nick
+    sideBar.$("#comment-periods").click()
   }
 
   void clickCompliance() {

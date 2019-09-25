@@ -8,7 +8,7 @@ class ProjectListPage extends BaseAppPage {
   static url = '/projects-list'
   static content = {
     pageTitle { $('#top .hero-banner h1') }
-    closeButton { $('.input-group-append button.btn.btn-primary') }
+    searchButton { $('.input-group-append button.btn.btn-primary') }
     advancedSearchButton { $('show-advanced-search-button')}
     searchField { $('#keywordInput') }
     // todo get a count of projects?
@@ -23,7 +23,7 @@ class ProjectListPage extends BaseAppPage {
   }
 
   void clickSearchButton() {
-    closeButton.click()
+    searchButton.click()
   }
 
   void clickAdvancedSearchButton() {

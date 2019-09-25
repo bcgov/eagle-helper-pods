@@ -7,11 +7,11 @@ import geb.waiting.WaitTimeoutException
 class TableRows extends Module {
   static content = {
       name { $('[data-label=Name]')}
-      proponent ( $('[data-label=Proponent'))
-      type ( $('[data-label=Type'))
-      region ( $('[data-label=Region'))
-      phase ( $('[data-label=Phase'))
-      decision ( $('[data-label=Decision'))
+      proponent { $('[data-label=Proponent') }
+      type { $('[data-label=Type') }
+      region { $('[data-label=Region') }
+      phase { $('[data-label=Phase') }
+      decision { $('[data-label=Decision') }
   }
 
   void clickCell() {
