@@ -54,8 +54,9 @@ class AddEditContactPage extends BaseAppPage {
     department.value(dept)
   }
 
-  void clickLinkOrg() {
+  String clickLinkOrg() {
     orgButton.click()
+    return orgButton.value()
   }
 
   void setPhoneNumber(String num) {

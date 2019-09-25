@@ -6,6 +6,8 @@ class ContactsPage extends BaseAppPage {
   static at = {}
   static content = {
     newContactButton { $('#add-contact') }
+    searchField { $('#keywordInput') }
+    searchButton { $('button[type=submit]') }
     contactList {
         $('table tr').tail().moduleList(ContactsTableRows) // tailing to skip header row 
     }
@@ -24,12 +26,13 @@ class ContactsPage extends BaseAppPage {
       if(contact.name.value() == firstName + " " + lastName && contact.organization.value() == org){
         return true
       }
-      return false
     }
+    return false
+
   }
 
-   void clickSearchButton() {
-    closeButton.click()
+  void clickSearchButton() {
+    searchButton.click()
   }
 
   void setSearchTerms(String searchTerms) {

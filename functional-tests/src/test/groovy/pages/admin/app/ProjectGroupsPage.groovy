@@ -18,8 +18,9 @@ class ProjectGroupsPage extends BaseAppPage {
     }
   }
   
-  void clickWorkingGroup() {
+  String clickWorkingGroup() {
     workingGroupList[0].clickCell()
+    return workingGroupList[0].name.value()
   }
 
   void selectAll() {
@@ -44,5 +45,14 @@ class ProjectGroupsPage extends BaseAppPage {
 
   void copyEmails() {
     copyEmailsButton.click()
+  }
+
+  Boolean checkGroup(String name){
+    for (group in workingGroupList) {
+      if(group.name.value() == name){
+        return true
+      }
+    }
+    return false
   }
 }

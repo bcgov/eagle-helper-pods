@@ -18,7 +18,7 @@ class GroupContactsPage extends ProjectGroupsPage {
     }
     searchInput { $('#keywordInput') }
     searchButton { $('#search') }
-    createNewContact { $('#button-cc')}
+    addContact { $('#button-a')}
   }
 
   void clickSave() {

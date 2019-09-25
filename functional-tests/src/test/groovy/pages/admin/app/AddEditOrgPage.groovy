@@ -27,21 +27,24 @@ class AddEditOrgPage extends BaseAppPage {
     // notes 
   }
 
-  void setFirstName(String name) {
-    firstName.value(name)
+  void setOrgName(String name) {
+    orgName.value(name)
   }
 
-  void setMiddleName(String name) {
-    middleName.value(name)
+  void selectOrgType(String selection) {
+    orgType.$('option', text:selection).click()
   }
+
+  void clickParentLink(){
+    parentLink.click()
+  }
+/////////////////////////////////////
 
   void setLastName(String name) {
     lastName.value(name)
   }
 
-  void selectSalutation(String selection) {
-    salutationDropDown.$('option', text:selection).click()
-  }
+ 
 
   void setTitle(String name) {
     title.value(name)

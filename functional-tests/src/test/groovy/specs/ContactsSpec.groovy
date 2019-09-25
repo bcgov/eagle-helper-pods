@@ -3,14 +3,11 @@ package specs
 import Pages.Admin.AdminHomePage
 import Pages.Admin.AdminProjectListPage
 import Pages.Admin.ProjectDetailsPage
-import Pages.Public.HomePage
-import Pages.Public.WelcomePage
-import Pages.Public.ProjectListPage
-import Pages.Public.ProjectDetailsPage
 
-import Pages.Public.ContactsPage
-import Pages.Public.GroupContactsPage
-import Pages.Public.OrganizationsPage
+
+import Pages.Admin.ContactsPage
+import Pages.Admin.GroupContactsPage
+import Pages.Admin.OrganizationsPage
 
 import spock.lang.Title
 import spock.lang.Stepwise
@@ -18,14 +15,18 @@ import spock.lang.Narrative
 import spock.lang.Shared
 
 @Stepwise
-@Title('Test comment period creation and comment submission')
+@Title('Test contact page and related functionality')
 @Narrative('''I want to see this run in browserstack''')
-class CommentPeriodSpec extends LoggedInSpec {
+class ContactSpec extends LoggedInSpec {
 
   @Shared
   String currentProject
-  String firstName = "NOT"
-  String lastName = "HUMAN"
+  String newFirstName = "NOT"
+  String newLastName = "HUMAN"
+
+  //TODO: these needs to be the name that will be selected by the contact picker
+  String testFirstName ="" //TODO: 
+  String testLastName = "" //TODO:
 
   // Adding new contact
     // verify mandatory fields are mandatory
@@ -44,15 +45,16 @@ class CommentPeriodSpec extends LoggedInSpec {
     and: 'I create a new contact and link it to an org'
       to ContactsPage
       clickNewContact()
-      setFirstName(firstName)
-      setLastName(lastName)
-      String org = clickLinkOrg()
-      clickItem()
+      // only mandatory fields
+      setFirstName(newFirstName)
+      setLastName(newLastName)
+      clickLinkOrg()
+      String org = clickItem()
       clickSave()
     when: 'I navigate to the contact in the contact browser'
       to ContactsPage
     then: 'I should see that it exists and is linked to the correct org'
-      checkContact(firstName,lastName,org)
+      checkContact(newFirstName,newLastName,org)
   }
     
 
@@ -61,14 +63,6 @@ class CommentPeriodSpec extends LoggedInSpec {
   void 'Editing a contact works'(){
     given: 'I am logged in as an Admin user'
       login()
-    and: 'I create a new contact'
-      to ContactsPage
-      clickNewContact()
-      setFirstName(firstName)
-      setLastName(lastName)
-      String org = clickLinkOrg()
-      clickItem()
-      clickSave()
     when: 'I edit the contact'
       to ContactsPage
       clickEditContact()
@@ -76,85 +70,105 @@ class CommentPeriodSpec extends LoggedInSpec {
       setFirstName(newName)
       clickSave()
     then: 'I should see that the edit is saved'
-      checkContact(newName,lastName,org)
+      checkContact(newName,testLastName,org)
   }
   // Search contacts
     // verify search
-
+  void 'Searching for a contact works'(){
+    given: 'I am logged in as an Admin user'
+      login()
+    when: 'I search for a contact'
+      to ContactsPage
+      setSearchTerms()
+      clickSearchButton()
+    then: 'I should find the contact'
+      checkContact(testFirstName,testLastName,testOrg)
+  }
   // Organizations
     // Create new and link to parent company
-      // verify mandatory fields are mandatory
+      // todo: verify mandatory fields are mandatory
       // verify created
+  void 'Creating a new organization works'(){
+    given: 'I am logged in as an Admin user'
+      login()
+    and: 'I create a new organization and link it to a parent company'
+      to OrganizationsPage
+      clickNewOrg()
+      // fill mandatory fields
+      setOrgName(newOrgName)
+      selectOrgType(newOrgType)
+      setAddress1(newAddress)
+      setCity(newCity)
+      setCountry(newCountry)
+      clickParentLink()
+      String parent = clickItem()
+      clickSave()
+    when: 'I navigate to the org in the org browser'
+      to OrganizationsPage
+    then: 'I should see that it exists and is linked to the correct parent'
+      checkOrgParent(newOrgName,parent)
+  }
     // edit existing org
       // verify edit saved
+  void 'Editing an org works'(){
+    given: 'I am logged in as an Admin user'
+      login()
+    when: 'I edit the org'
+      to OrganizationsPage
+      clickEditOrg()
+      String newName = "TEST"
+      setOrgName(newName)
+      clickSave()
+    then: 'I should see that the edit is saved'
+      checkOrg(newName)
+  }
 
   // Working Groups
     // add new group
       // verify in list
-    // select group, add/edit contacts
-      // verify
-    // export spreadsheet
-    // copy emails 
-    // delete a group
-
-
-
-
-  void 'An unpublished comment period is not visible from public'() {
+  void 'Creating a group works'(){
     given: 'I am logged in as an Admin user'
       login()
-      // todo break this up?
-    and: 'I create a new comment period and set the date to the future'
+    and: 'I am on a project page'
       to AdminProjectListPage
-      currentProject = clickProjectLink()
-      clickCommentPeriod()
-      clickNewCP()
-      setStartDateFuture()
-      setEndDateFuture()
-      // verify if this test case should be pub/unpub
-      selectPublishState("Unpublished")
-      String commentInfo = "Sample information for a comment period"
-      enterInformation(commentInfo)
-      String milestone = "Section 7"
-      selectMilestone(milestone)
-      clickSave()
-    when: 'I verify the details in the admin comment period banner'
-      at CommentPeriodListPage
-      clickCommentPeriod()
-      getPublishState() == "Not Published"
-      getMilestone() == milestone
-    and: 'I find the project on the Public page'
-      to HomePage
-      clickCloseButton() // close welcome splash
-      clickMenuItem([text:'List of Projects'])
-      setSearchTerms(currentProject)
-      // todo parameterize
+      currentProject = getProjectName()
       clickProjectLink()
-    then: 'I should see no comment periods'
-      // at ProjectDetailsPage
-      clickCommentTab()
-      getCommentText() == "No comment periods are currently scheduled for this project."
-
+    when: 'I create a new group'
+      sidebarModule.clickGroups()
+      addGroup()
+      String testGroupName = "testgroup"
+      setGroupName(testGroupName)
+      clickSave()
+    then: 'I should see that it exists'
+      checkGroup(testGroupName)
   }
+    // select group, add/edit contacts
+      // verify
+  void 'Editing a group works'(){
+    given: 'I am logged in as an Admin user'
+      login()
+    and: 'I am on a project page'
+      to AdminProjectListPage
+      currentProject = getProjectName()
+      clickProjectLink()
+    when: 'I edit a contact group'
+      sidebarModule.clickGroups()
+      clickWorkingGroup()
+      editGroup()
+      addContact()
+      String contactName = selectContact()
+      clickSave()
 
-  // create cp on project x
-  // publish
-  // verify details on public
-  // submit an anon comment
-  // submit comment with name
-  // verify comments in admin and publish
-  // verify in public anon is anon
-  // verify in public that name is shown
-  void 'Published comment respects anonymity settings'() {
-
+    then: 'I should be able to see the change'
+      checkContact(contactName)
   }
-
-  // create cp on project x
-  // publish
-  // submit comment
-  // reject comment
-  // verify on public comment is not shown
-  void 'Rejected comment does not display on public'() {
-
+    // todo: export spreadsheet
+    // todo: copy emails 
+    // delete a group
+  void 'Deleting a group works'(){
+    given: 'I am logged in as an Admin user'
+      login()
+    when: 'I delete a contact group'
+    then: 'I should not be able to find it'
   }
 }

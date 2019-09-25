@@ -26,4 +26,8 @@ class OrganizationsPage extends BaseAppPage {
     return orgList[0].name.value()
   }
 
+  void clickNewOrg(){
+    addOrgButton.click()
+  }
+
 }
