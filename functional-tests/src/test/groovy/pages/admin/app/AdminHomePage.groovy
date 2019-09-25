@@ -5,24 +5,23 @@ import Pages.Admin.BaseAppPage
 import geb.waiting.WaitTimeoutException
 
 class AdminHomePage extends BaseAppPage {
-  static at = { pageTitle.text() == expectedTitle }
+  static at = { verifyTitle() }
   static content = {
-    pageTitle { $('.search-container h2') }
+    pageTitle { $('h1') }
     keywordInput { $('#keywordInput') }
-    newProject { $('#addProject') }
-    searchSubmit { $('#searchSubmit') }
+    searchSubmit { $('button[type=submit') }
+    // todo add selectors for docs/projects/vc and necessary tableRow modules
     projectList {
       $('table tr').tail().moduleList(TableRows) // tailing to skip header row?
     }
+    docsRadio { $('input', text:'Documents') }
+    projectsRadio { $('input', text:'Projects') }
+    vcRadio { $('input', text:'Valued Components')}
   }
-  private final String expectedTitle = 'Environmental Assessments in British Columbia'
+  private final String expectedTitle = 'Search Environmental Assessment Projects'
 
   Boolean verifyTitle() {
     pageTitle.text() == expectedTitle
-  }
-
-  void clickNewProjectButton() {
-    newProject.click()
   }
 
   void clickSearchButton() {
@@ -33,8 +32,8 @@ class AdminHomePage extends BaseAppPage {
     keywordInput.value(searchTerms)
   }
 
-// todo verify what we click is the same each time
-  void clickProjectLink() {
-      projectList[0].clickCell()
-  }
+// todo update based on new selectors and page content
+  // void clickProjectLink() {
+  //     projectList[0].clickCell()
+  // }
 }
