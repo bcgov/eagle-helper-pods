@@ -5,7 +5,7 @@ import Pages.Admin.BaseAppPage
 import geb.waiting.WaitTimeoutException
 
 class AdminProjectListPage extends BaseAppPage {
-  static at = { verifyTitle() }
+  static at = { isAngularReady() && verifyTitle() }
   static url = 'http://localhost:4200/admin/projects'
   static content = {
     pageTitle { $('h2') }

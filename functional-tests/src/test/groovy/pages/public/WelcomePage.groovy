@@ -6,7 +6,7 @@ import geb.waiting.WaitTimeoutException
  * The initial landing page the user is redirected to after logging in.
  */
 class WelcomePage extends BaseAppPage {
-  static at ={ pageTitle.text() == 'Welcome to New EPIC!' }
+  static at = { isAngularReady() && pageTitle.text() == 'Welcome to New EPIC!' }
   static content = {
     modalSelector(wait:true) { $('.modal-open .splash-modal') }
     pageTitle { $('.modal-open .splash-modal h2') }

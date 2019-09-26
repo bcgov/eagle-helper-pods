@@ -49,7 +49,6 @@ class SideBarModule extends Module {
   // }
 
   void clickCommentPeriod() {
-    // todo how to use the selector defined above? ask nick
     sideBar.$("#comment-periods").click()
   }
 

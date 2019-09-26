@@ -5,7 +5,7 @@ import Pages.Admin.BaseAppPage
 import geb.waiting.WaitTimeoutException
 
 class AdminHomePage extends BaseAppPage {
-  static at = { verifyTitle() }
+  static at = { isAngularReady() && verifyTitle() }
   static content = {
     pageTitle { $('h1') }
     keywordInput { $('#keywordInput') }

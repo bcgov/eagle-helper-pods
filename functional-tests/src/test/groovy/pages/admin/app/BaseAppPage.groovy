@@ -2,6 +2,7 @@ package Pages.Admin
 
 import geb.Page
 
+import pages.traits.Utils
 import Admin.modules.HeaderModule
 import Admin.modules.ModalModule
 import Admin.modules.FooterModule
@@ -13,7 +14,7 @@ import Admin.modules.NavBarModule
  *
  * All pages should extend this page.
  */
-class BaseAppPage extends Page {
+class BaseAppPage extends Page implements Utils {
   static content = {
     headerModule { module(HeaderModule) }
     modalModule { module(ModalModule) }

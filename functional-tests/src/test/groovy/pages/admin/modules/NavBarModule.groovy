@@ -17,6 +17,8 @@ class NavBarModule extends Module {
   }
 
   void clickNewCP() {
-    newCPButton.click()
+    waitFor {
+      navBar.$('#add').click()
+    }
   }
 }
