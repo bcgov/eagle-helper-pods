@@ -4,9 +4,11 @@ import Pages.Admin.AdminHomePage
 import Pages.Admin.AdminProjectListPage
 import Pages.Admin.ProjectDetailsPage
 import Pages.Admin.CommentPeriodListPage
-import Pages.Admin.CommentPeriodPage
+import Pages.Admin.AdminCommentPeriodPage
+import Pages.Admin.AddEditCommentPeriodPage
 import Pages.Admin.CommentBannerPage
 import Pages.Public.HomePage
+import Pages.Public.CommentPeriodPage
 import Pages.Public.WelcomePage
 import Pages.Public.ProjectListPage
 import Pages.Public.ProjectDetailsPage
@@ -48,8 +50,8 @@ class CommentPeriodSpec extends LoggedInSpec {
       currentProject = getProjectName()
       clickProjectLink()
       sidebarModule.clickCommentPeriod()
-      // made it to here
       navBarModule.clickNewCP()
+      at AddEditCommentPeriodPage
       setStartDateFuture()
       setEndDateFuture()
       // verify if this test case should be pub/unpub
@@ -62,19 +64,25 @@ class CommentPeriodSpec extends LoggedInSpec {
     when: 'I verify the details in the admin comment period banner'
       at CommentPeriodListPage
       clickCommentPeriod()
-      getPublishState() == "Not Published"
-      getMilestone() == milestone
+      at AdminCommentPeriodPage
+      publishState.text() == "Not Published"
+      milestone.value() == "Section 7"
     and: 'I find the project on the Public page'
       to HomePage
+      at WelcomePage
       clickCloseButton() // close welcome splash
-      clickMenuItem([text:'List of Projects'])
+      at HomePage 
+      // clickMenuItem([text:'List of Projects'])
+      headerModule.clickListProjects()
+      at ProjectListPage
       setSearchTerms(currentProject)
       // todo parameterize
+      scrollDown()
       clickProjectLink()
     then: 'I should see no comment periods'
-      // at ProjectDetailsPage
+      at ProjectDetailsPage
       clickCommentTab()
-      getCommentText() == "No comment periods are currently scheduled for this project."
+      CommentPeriodPage.getCommentText() == "No comment periods are currently scheduled for this project."
 
   }
 
