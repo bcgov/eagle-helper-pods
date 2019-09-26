@@ -3,7 +3,7 @@ package Pages.Admin
 import Admin.modules.CommentTableRows
 import geb.waiting.WaitTimeoutException
 
-class CommentPeriodPage extends BaseAppPage {
+class AdminCommentPeriodPage extends BaseAppPage {
   static at = { isAngularReady() }
   static content = {
     pageTitle { $('.container-fluid-padding h1') }

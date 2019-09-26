@@ -1,7 +1,7 @@
 package Pages.Public
 
 class ProjectDetailsPage extends BaseAppPage {
-  static at = { pageTitle.text() == 'Connect with us...' }
+  static at = { isAngularReady() }
 //   todo pass in project id? ie. /p/58851158aaecd9001b81e83f/projectDetails
 //  regex ex: browser.getCurrentUrl() =~ /(admin)?\/users\/edit\/[0-9]+$/
   static url = '/p'
@@ -17,7 +17,7 @@ class ProjectDetailsPage extends BaseAppPage {
     commentText { $('#no-cp') }
     
     projectDetailsTab { $('a[ng-reflect-router-link=project-details]') }
-    projectCommentTab { $('a[ng-reflect-router-link=commenting]') }
+    projectCommentTab(wait:true) { $('a[ng-reflect-router-link=commenting]') }
     projectDocumentsTab { $('a[ng-reflect-router-link=documents]') }
   }
 

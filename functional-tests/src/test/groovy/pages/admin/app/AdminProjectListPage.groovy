@@ -37,7 +37,7 @@ class AdminProjectListPage extends BaseAppPage {
   // }
 
   String getProjectName() {
-    return projectList[0].name.value()
+    return projectList[0].name.text()
   }
 // todo verify what we click is the same each time
   void clickProjectLink() {
