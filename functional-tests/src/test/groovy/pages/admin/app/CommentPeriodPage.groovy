@@ -4,8 +4,9 @@ import Admin.modules.CommentTableRows
 import geb.waiting.WaitTimeoutException
 
 class CommentPeriodPage extends BaseAppPage {
+  static at = { isAngularReady() }
   static content = {
-    title { $('.container-fluid-padding h1') }
+    pageTitle { $('.container-fluid-padding h1') }
     detailsTab { $('#mat-tab-label-0-0') }
     reviewTab { $('#mat-tab-label-0-1') }
     actionDropDown { $('#actionDropDown') }

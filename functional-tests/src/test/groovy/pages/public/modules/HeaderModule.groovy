@@ -19,12 +19,11 @@ class HeaderModule extends Module {
     headerNavigationBar { $('#header #mainNav .navbar-nav') }
   }
 
-  /**
-   * Clicks header menu anchor tags based on the displayed text.
-   *
-   * @param [text:'header link text'] the displayed text of the header menu anchor tag.
-   */
-  void clickMenuItem(Map<String, Object> itemSelector) {
-    headerNavigationBar.$(itemSelector, 'a').click()
+  void clickMenuItem(item) {
+    headerNavigationBar.$('a', item).click()
+  }
+
+  void clickListProjects() {
+    listProjects.click()
   }
 }

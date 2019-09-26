@@ -1,16 +1,20 @@
 package Pages.Admin
 
 import geb.waiting.WaitTimeoutException
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class AddEditCommentPeriodPage extends BaseAppPage {
+  static at = { isAngularReady() }
   static content = {
+    // dateStart { $('#inputStartDate') }
     dateStart { $('#inputStartDate') }
     dateEnd { $('#inputEndDate') }
-    publishStateDropDown { $('#publishedState') }
+    publishStateDropdown { $('#publishedState') }
     information { $('#infoForComment') }
     description { $('#description') }
     cpStatus { $('#status') }
-    milestoneDropDown { $('select[formcontrolname=milestoneSel') }
+    milestoneDropdown { $('select[formcontrolname=milestoneSel') }
 
     openHouseDate { $('#inputOpenHouseDate') }
     openHouseDescription { $('#openHouseDescription') }
@@ -19,22 +23,23 @@ class AddEditCommentPeriodPage extends BaseAppPage {
     submitButton { $('button[type=submit]') }
   }
 
-  Date currDate = new Date().format('yyyy-mm-dd')
+  LocalDate date = LocalDate.now()
+  
   void setStartDateFuture() {
-    dateStart.value(currDate + 7)
+    dateStart.value(date + 7)
   }
 
   void setEndDateFuture() {
-    dateEnd.value(currDate + 14)
+    dateEnd.value(date + 14)
   }
 
   void setStartDateNow() {
     // currdate
-    dateStart.value(currDate)
+    dateStart.value(date)
   }
 
   void setEndDateNow() {
-    dateEnd.value(currDate + 7)
+    dateEnd.value(date + 7)
   }
 
   void enterInformation(String info) {
@@ -45,11 +50,15 @@ class AddEditCommentPeriodPage extends BaseAppPage {
     description.value(desc)
   }
   void selectPublishState(String action) {
-    publishStateDropdown.$('.dropdown-item', text:action).click()
+    waitFor {
+      publishStateDropdown.$('option', text:action).click()
+    }
   }
 
   void selectMilestone(String action) {
-    milestoneDropdown.$('.dropdown-item', text:action).click()
+    waitFor {
+      milestoneDropdown.$('option', text:action).click()
+    }
   }
 
   void setDateOpenHouse() {
