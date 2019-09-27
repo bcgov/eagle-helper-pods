@@ -1,6 +1,6 @@
 package Pages.Admin
 
-import Admin.modules.ActivityPostsTableRows
+import Admin.modules.ActivityPostTableRows
 
 class ActivityPostPage extends BaseAppPage {
   static at = {}

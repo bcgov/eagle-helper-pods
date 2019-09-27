@@ -25,8 +25,8 @@ class ContactSpec extends LoggedInSpec {
   String newLastName = "HUMAN"
 
   //TODO: these needs to be the name that will be selected by the contact picker
-  String testFirstName ="" //TODO: 
-  String testLastName = "" //TODO:
+  String testFirstName ="NOT" //TODO: 
+  String testLastName = "HUMAN" //TODO:
 
   // Adding new contact
     // verify mandatory fields are mandatory
