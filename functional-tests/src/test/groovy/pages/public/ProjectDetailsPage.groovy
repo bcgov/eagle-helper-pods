@@ -1,5 +1,7 @@
 package Pages.Public
 
+import Public.modules.CommentPeriodModule
+
 class ProjectDetailsPage extends BaseAppPage {
   static at = { isAngularReady() }
 //   todo pass in project id? ie. /p/58851158aaecd9001b81e83f/projectDetails
@@ -17,8 +19,9 @@ class ProjectDetailsPage extends BaseAppPage {
     commentText { $('#no-cp') }
     
     projectDetailsTab { $('a[ng-reflect-router-link=project-details]') }
-    projectCommentTab(wait:true) { $('a[ng-reflect-router-link=commenting]') }
+    projectCommentButton(wait:true) { $('a[ng-reflect-router-link=commenting]') }
     projectDocumentsTab { $('a[ng-reflect-router-link=documents]') }
+    commentTab { module(CommentPeriodModule) }
   }
 
   void clickViewPeriod() {
@@ -34,7 +37,7 @@ class ProjectDetailsPage extends BaseAppPage {
   }
 
   void clickCommentTab() {
-    projectCommentTab.click()
+    projectCommentButton.click()
   }
 
   void clickDocumentsTab() {

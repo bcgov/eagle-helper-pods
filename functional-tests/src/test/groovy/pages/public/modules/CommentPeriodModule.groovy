@@ -1,6 +1,9 @@
-package Pages.Public
+package Public.modules
 
-class CommentPeriodPage extends BaseAppPage {
+import geb.Module
+import geb.waiting.WaitTimeoutException
+
+class CommentPeriodModule extends Module {
   static at = { isAngularReady() }
   static content = {
     pageTitle { $('h1') }
@@ -8,8 +11,7 @@ class CommentPeriodPage extends BaseAppPage {
     commentPeriodDate { $('#cp-date') }
     submitComment { $('#submit-c') }
     backButton { $('#back') }
-    noComments(wait:true) { $('#no-comm') }
-  // todo add selector for tab box?
+    noComments { $('#no-comm') }
   }
 
   String getCommentText() {

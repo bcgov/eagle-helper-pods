@@ -8,7 +8,7 @@ import Pages.Admin.AdminCommentPeriodPage
 import Pages.Admin.AddEditCommentPeriodPage
 import Pages.Admin.CommentBannerPage
 import Pages.Public.HomePage
-import Pages.Public.CommentPeriodPage
+
 import Pages.Public.WelcomePage
 import Pages.Public.ProjectListPage
 import Pages.Public.ProjectDetailsPage
@@ -76,13 +76,12 @@ class CommentPeriodSpec extends LoggedInSpec {
       headerModule.clickListProjects()
       at ProjectListPage
       setSearchTerms(currentProject)
-      // todo parameterize
       scrollDown()
       clickProjectLink()
-    then: 'I should see no comment periods'
       at ProjectDetailsPage
       clickCommentTab()
-      CommentPeriodPage.getCommentText() == "No comment periods are currently scheduled for this project."
+    then: 'I should see no comment periods'
+      commentTab.getCommentText() == "No comment periods are currently scheduled for this project."
 
   }
 
