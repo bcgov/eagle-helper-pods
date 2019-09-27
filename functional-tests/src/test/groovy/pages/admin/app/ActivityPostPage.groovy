@@ -10,7 +10,7 @@ class ActivityPostPage extends BaseAppPage {
     newActivityButton { $('[id=button-d]') }
     filterSection = $('[class= "btn-group btn-group-toggle"]')
     activityPostList {
-        $('table tr').tail().moduleList(ActivityPostsTableRows) // tailing to skip header row 
+        $('table tr').tail().moduleList(ActivityPostTableRows) // tailing to skip header row 
     }
     saveButton = { $('button[type=submit]') }
     resetButton = { $('button[type=reset]') }
