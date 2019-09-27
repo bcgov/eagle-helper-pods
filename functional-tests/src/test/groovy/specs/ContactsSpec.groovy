@@ -17,7 +17,7 @@ import spock.lang.Shared
 @Stepwise
 @Title('Test contact page and related functionality')
 @Narrative('''I want to see this run in browserstack''')
-class ContactSpec extends LoggedInSpec {
+class ContactsSpec extends LoggedInSpec {
 
   @Shared
   String currentProject
