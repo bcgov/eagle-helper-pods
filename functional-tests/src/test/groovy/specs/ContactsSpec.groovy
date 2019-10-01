@@ -8,6 +8,7 @@ import Pages.Admin.ProjectDetailsPage
 import Pages.Admin.ContactsPage
 import Pages.Admin.GroupContactsPage
 import Pages.Admin.OrganizationsPage
+import Pages.Admin.AddEditContactPage
 
 import spock.lang.Title
 import spock.lang.Stepwise
@@ -30,13 +31,13 @@ class ContactsSpec extends LoggedInSpec {
 
   // Adding new contact
     // verify mandatory fields are mandatory
-  void 'Adding a contact is not possible without filling in mandatory fields'(){
-    given: 'I am logged in as an Admin user'
-      login()
-    and: 'I navigate to the contact creation form'
-    when: 'I fill in all but one mandatory field'
-    then: 'I should not be able to submit'
-  }
+  // void 'Adding a contact is not possible without filling in mandatory fields'(){
+  //   given: 'I am logged in as an Admin user'
+  //     login()
+  //   and: 'I navigate to the contact creation form'
+  //   when: 'I fill in all but one mandatory field'
+  //   then: 'I should not be able to submit'
+  // }
     // link an org works
     // verify created
   void 'Adding a contact and linking to an org works'(){
@@ -44,15 +45,20 @@ class ContactsSpec extends LoggedInSpec {
       login()
     and: 'I create a new contact and link it to an org'
       to ContactsPage
-      clickNewContact()
+      navBarModule.clickNewContact()
+      at AddEditContactPage
       // only mandatory fields
       setFirstName(newFirstName)
       setLastName(newLastName)
       clickLinkOrg()
+      at OrganizationsPage
+      // String org = getItemName()
       String org = clickItem()
+      at AddEditContactPage
       clickSave()
     when: 'I navigate to the contact in the contact browser'
       to ContactsPage
+      clickShowAll()
     then: 'I should see that it exists and is linked to the correct org'
       checkContact(newFirstName,newLastName,org)
   }

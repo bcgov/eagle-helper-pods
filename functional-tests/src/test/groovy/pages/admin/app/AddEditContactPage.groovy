@@ -1,18 +1,18 @@
 package Pages.Admin
 
 class AddEditContactPage extends BaseAppPage {
-  static at = {}
+  static at = {isAngularReady()}
   static content = {
-    pageTitle = { $('h2') }
-    cancelButton = { $('button[type=cancel]') }
-    saveButton = { $('button[type=submit]') }
+    pageTitle { $('h2') }
+    cancelButton { $('button[type=cancel]') }
+    saveButton { $('button[type=submit]') }
 
     firstName { $('#firstName') }
     middleName { $('#middleName') }
     lastName { $('#lastName') }
     salutationDropDown { $('select[formcontrolname=salutation]') }
 
-    title { $('#title') }
+    _title { $('#title') }
     department { $('#department') }
     orgButton { $('#link-org') }
     phoneNumber { $('#phoneNumber') }
@@ -47,7 +47,7 @@ class AddEditContactPage extends BaseAppPage {
   }
 
   void setTitle(String name) {
-    title.value(name)
+    _title.value(name)
   }
 
   void setDepartment(String dept) {

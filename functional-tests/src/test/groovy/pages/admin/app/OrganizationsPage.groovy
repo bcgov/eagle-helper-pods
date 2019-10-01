@@ -3,12 +3,12 @@ package Pages.Admin
 import Admin.modules.OrgTableRows
 
 class OrganizationsPage extends BaseAppPage {
-  static at = {}
+  static at = {isAngularReady()}
   static url = '/orgs'
   static content = {
     addOrgButton { $('#add-org') }
     filterSection { $('.mb-3') }
-    orgList {
+    orgList{
         $('table tr').tail().moduleList(OrgTableRows) // tailing to skip header row , is necessary?
     }
   }
@@ -22,8 +22,14 @@ class OrganizationsPage extends BaseAppPage {
   }
 
   String clickItem(){
-    orgList[0].clickCell()
-    return orgList[0].name.value()
+    return waitFor{
+      String orgName = ""
+      if(orgList[0]){
+        orgName = orgList[0].orgName.text()
+        orgList[0].clickCell()
+      }
+      return orgName
+    }
   }
 
   void clickNewOrg(){

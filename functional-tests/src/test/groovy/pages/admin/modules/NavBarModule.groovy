@@ -21,4 +21,10 @@ class NavBarModule extends Module {
       navBar.$('#add').click()
     }
   }
+
+  void clickNewContact() {
+    waitFor {
+      navBar.$('#add-contact').click()
+    }
+  }
 }

@@ -27,7 +27,7 @@ if (!baseUrl) {
 USERNAME = env['BROWSERSTACK_USERNAME']
 AUTOMATE_KEY = env['BROWSERSTACK_TOKEN']
 DEBUG = env['DEBUG_MODE']
-
+DEBUG = 'true'
 if (!USERNAME || !AUTOMATE_KEY)
     throw RuntimeError('BROWSERSTACK_USERNAME and BROWSERSTACK_TOKEN are required');
 

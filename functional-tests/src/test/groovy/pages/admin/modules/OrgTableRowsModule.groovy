@@ -13,4 +13,7 @@ class OrgTableRows extends Module {
   void clickEdit() {
     edit.click()
   }
+  void clickCell(){
+    orgName.click()
+  }
 }

@@ -3,18 +3,15 @@ package Pages.Admin
 import Admin.modules.ContactsTableRows
 
 class ContactsPage extends BaseAppPage {
-  static at = {}
+  static at = {isAngularReady()}
+  static url = 'http://localhost:4200/admin/contacts'
   static content = {
-    newContactButton { $('#add-contact') }
     searchField { $('#keywordInput') }
     searchButton { $('button[type=submit]') }
-    contactList {
+    showAll(wait:true) { $("a",text: startsWith("Show All")) }
+    contactList (wait:true){
         $('table tr').tail().moduleList(ContactsTableRows) // tailing to skip header row 
     }
-  }
-
-  void clickNewContact() {
-    newContactButton.click()
   }
 
   void clickEditContact() {
@@ -23,7 +20,8 @@ class ContactsPage extends BaseAppPage {
 
   Boolean checkContact(String firstName, String lastName, String org){
     for (contact in contactList) {
-      if(contact.name.value() == firstName + " " + lastName && contact.organization.value() == org){
+      if(contact.name.text() == firstName + " " + lastName && contact.organization.text() == org){
+        // println("VERIFIED CONTACT")
         return true
       }
     }
@@ -37,6 +35,10 @@ class ContactsPage extends BaseAppPage {
 
   void setSearchTerms(String searchTerms) {
     searchField.value(searchTerms)
+  }
+
+  void clickShowAll(){
+    showAll.click()
   }
 
 }

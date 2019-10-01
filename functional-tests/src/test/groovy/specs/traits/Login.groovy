@@ -10,6 +10,7 @@ trait Login {
   Map env = System.getenv()
   String username = env['USER_NAME']
   String password = env['USER_PASS']
+  
 
   /**
    * Log in with the test user
