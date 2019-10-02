@@ -21,4 +21,10 @@ class NavBarModule extends Module {
       navBar.$('#add').click()
     }
   }
+
+  void clickNewAP() {
+    waitFor {
+      navBar.$('[id=button-d]').click()
+    }
+  }
 }
