@@ -9,6 +9,7 @@ import Pages.Admin.ContactsPage
 import Pages.Admin.GroupContactsPage
 import Pages.Admin.OrganizationsPage
 import Pages.Admin.AddEditContactPage
+import Pages.Admin.AddEditOrgPage
 
 import spock.lang.Title
 import spock.lang.Stepwise
@@ -25,9 +26,19 @@ class ContactsSpec extends LoggedInSpec {
   String newFirstName = "NOT"
   String newLastName = "HUMAN"
 
-  //TODO: these needs to be the name that will be selected by the contact picker
+  String newOrgName = "SHELL CORP"
+  String newOrgType = "Other"
+  String newAddress = "123 NOWHERE"
+  String newCity = "VANCOUVER"
+  String newCountry = "CANADA"
+
+  //TODO: these should be distinct from the values above, we should come up with some way of determining the expected values
   String testFirstName ="NOT" //TODO: 
   String testLastName = "HUMAN" //TODO:
+  String testOrgName = "445026 BC Limited" //TODO:
+
+
+  String editedFirstName = "FAKE"
 
   // Adding new contact
     // verify mandatory fields are mandatory
@@ -40,56 +51,60 @@ class ContactsSpec extends LoggedInSpec {
   // }
     // link an org works
     // verify created
-  void 'Adding a contact and linking to an org works'(){
-    given: 'I am logged in as an Admin user'
-      login()
-    and: 'I create a new contact and link it to an org'
-      to ContactsPage
-      navBarModule.clickNewContact()
-      at AddEditContactPage
-      // only mandatory fields
-      setFirstName(newFirstName)
-      setLastName(newLastName)
-      clickLinkOrg()
-      at OrganizationsPage
-      // String org = getItemName()
-      String org = clickItem()
-      at AddEditContactPage
-      clickSave()
-    when: 'I navigate to the contact in the contact browser'
-      to ContactsPage
-      clickShowAll()
-    then: 'I should see that it exists and is linked to the correct org'
-      checkContact(newFirstName,newLastName,org)
-  }
+
+  // void 'Adding a contact and linking to an org works'(){
+  //   given: 'I am logged in as an Admin user'
+  //     login()
+  //   and: 'I create a new contact and link it to an org'
+  //     to ContactsPage
+  //     navBarModule.clickNewContact()
+  //     at AddEditContactPage
+  //     // only mandatory fields
+  //     setFirstName(newFirstName)
+  //     setLastName(newLastName)
+  //     clickLinkOrg()
+  //     at OrganizationsPage
+  //     // String org = getItemName()
+  //     String org = clickItem()
+  //     at AddEditContactPage
+  //     clickSave()
+  //   when: 'I navigate to the contact in the contact browser'
+  //     to ContactsPage
+  //     clickShowAll()
+  //   then: 'I should see that it exists and is linked to the correct org'
+  //     checkContact(newFirstName,newLastName,org)
+  // }
     
 
-  // Edit a contact
-    // verify edit saved
-  void 'Editing a contact works'(){
-    given: 'I am logged in as an Admin user'
-      login()
-    when: 'I edit the contact'
-      to ContactsPage
-      clickEditContact()
-      String newName = "FAKE"
-      setFirstName(newName)
-      clickSave()
-    then: 'I should see that the edit is saved'
-      checkContact(newName,testLastName,org)
-  }
+  // // Edit a contact
+  //   // verify edit saved
+  // void 'Editing a contact works'(){
+  //   given: 'I am logged in as an Admin user'
+  //     login()
+  //   when: 'I edit the contact'
+  //     to ContactsPage
+  //     clickShowAll()
+  //     clickEditContact(testFirstName,testLastName,testOrgName)
+  //     at AddEditContactPage
+  //     setFirstName(editedFirstName)
+  //     clickSave()
+  //     at ContactsPage
+  //     clickShowAll()
+  //   then: 'I should see that the edit is saved'
+  //     checkContact(editedFirstName,testLastName,testOrgName)
+  // }
   // Search contacts
     // verify search
-  void 'Searching for a contact works'(){
-    given: 'I am logged in as an Admin user'
-      login()
-    when: 'I search for a contact'
-      to ContactsPage
-      setSearchTerms()
-      clickSearchButton()
-    then: 'I should find the contact'
-      checkContact(testFirstName,testLastName,testOrg)
-  }
+  // void 'Searching for a contact works'(){
+  //   given: 'I am logged in as an Admin user'
+  //     login()
+  //   when: 'I search for a contact'
+  //     to ContactsPage
+  //     setSearchTerms(editedFirstName+" "+testLastName)
+  //     clickSearchButton()
+  //   then: 'I should find the contact'
+  //     checkContact(editedFirstName,testLastName,testOrgName)
+  // }
   // Organizations
     // Create new and link to parent company
       // todo: verify mandatory fields are mandatory
@@ -99,14 +114,16 @@ class ContactsSpec extends LoggedInSpec {
       login()
     and: 'I create a new organization and link it to a parent company'
       to OrganizationsPage
-      clickNewOrg()
+      navBarModule.clickNewOrg()
+      at AddEditOrgPage
       // fill mandatory fields
       setOrgName(newOrgName)
-      selectOrgType(newOrgType)
+      selectOrgType(newOrgType) 
       setAddress1(newAddress)
       setCity(newCity)
       setCountry(newCountry)
       clickParentLink()
+      at OrganizationsPage
       String parent = clickItem()
       clickSave()
     when: 'I navigate to the org in the org browser'

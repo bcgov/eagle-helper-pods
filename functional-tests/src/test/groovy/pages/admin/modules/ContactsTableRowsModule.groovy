@@ -11,7 +11,7 @@ class ContactsTableRows extends Module {
       organization { $('[data-label=Organization]')}
       email { $('[data-label=Email]') }
       phoneNum { $('[data-label=Phone]') }
-      edit { $('[data-label=Event]') } //All contacts table only
+      edit{ $("i",class:"material-icons") } //All contacts table only
   }
 
   void clickCell() {
@@ -19,6 +19,6 @@ class ContactsTableRows extends Module {
   }
 
   void clickAction() {
-    edit.click()
+      edit.click()
   }
 }

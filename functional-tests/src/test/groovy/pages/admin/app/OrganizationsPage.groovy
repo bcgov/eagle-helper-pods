@@ -4,9 +4,8 @@ import Admin.modules.OrgTableRows
 
 class OrganizationsPage extends BaseAppPage {
   static at = {isAngularReady()}
-  static url = '/orgs'
+  static url = 'http://localhost:4200/admin/orgs'
   static content = {
-    addOrgButton { $('#add-org') }
     filterSection { $('.mb-3') }
     orgList{
         $('table tr').tail().moduleList(OrgTableRows) // tailing to skip header row , is necessary?
@@ -24,16 +23,14 @@ class OrganizationsPage extends BaseAppPage {
   String clickItem(){
     return waitFor{
       String orgName = ""
-      if(orgList[0]){
-        orgName = orgList[0].orgName.text()
-        orgList[0].clickCell()
+      if(orgList[1]){
+        orgName = orgList[1].orgName.text()
+        orgList[1].clickCell()
       }
       return orgName
     }
   }
 
-  void clickNewOrg(){
-    addOrgButton.click()
-  }
+
 
 }

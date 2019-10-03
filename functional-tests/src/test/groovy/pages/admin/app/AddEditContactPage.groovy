@@ -3,7 +3,6 @@ package Pages.Admin
 class AddEditContactPage extends BaseAppPage {
   static at = {isAngularReady()}
   static content = {
-    pageTitle { $('h2') }
     cancelButton { $('button[type=cancel]') }
     saveButton { $('button[type=submit]') }
 

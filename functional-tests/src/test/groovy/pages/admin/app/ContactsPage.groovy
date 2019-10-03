@@ -6,7 +6,7 @@ class ContactsPage extends BaseAppPage {
   static at = {isAngularReady()}
   static url = 'http://localhost:4200/admin/contacts'
   static content = {
-    searchField { $('#keywordInput') }
+    searchField(wait:true) { $('#keywordInput') }
     searchButton { $('button[type=submit]') }
     showAll(wait:true) { $("a",text: startsWith("Show All")) }
     contactList (wait:true){
@@ -14,19 +14,22 @@ class ContactsPage extends BaseAppPage {
     }
   }
 
-  void clickEditContact() {
-    contactList[0].clickAction()
+  void clickEditContact(String firstName, String lastName, String org) {
+    for (contact in contactList) {
+      if(contact.name.text() == firstName + " " + lastName && contact.organization.text() == org){
+        contact.clickAction()
+        break
+      }
+    }
   }
 
   Boolean checkContact(String firstName, String lastName, String org){
     for (contact in contactList) {
       if(contact.name.text() == firstName + " " + lastName && contact.organization.text() == org){
-        // println("VERIFIED CONTACT")
         return true
       }
     }
     return false
-
   }
 
   void clickSearchButton() {

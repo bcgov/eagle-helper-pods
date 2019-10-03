@@ -10,7 +10,7 @@ class NavBarModule extends Module {
   static content = {
     breadcrumb { $('.breadcrumb') }
     activeBreadcrumb { $('.breadcrumb active') }
-    navBar { $('.action-container') }
+    navBar(wait:true){ $('.action-container') }
     // todo determine best way to handle the changing button in the navbar,based on what's selected in project details menu
     actionsDropdown { $('#actionDropdown') }
     newCPButton { $('#add') }
@@ -23,8 +23,9 @@ class NavBarModule extends Module {
   }
 
   void clickNewContact() {
-    waitFor {
-      navBar.$('#add-contact').click()
-    }
+    navBar.$('#add-contact').click()
+  }
+  void clickNewOrg(){
+    navBar.$('#add-org').click()
   }
 }

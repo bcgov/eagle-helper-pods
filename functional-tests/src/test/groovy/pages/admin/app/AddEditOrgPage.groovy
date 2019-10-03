@@ -1,11 +1,11 @@
 package Pages.Admin
 
 class AddEditOrgPage extends BaseAppPage {
-  static at = {}
+  static at = {isAngularReady()}
   static content = {
-    pageTitle = { $('h2') }
-    cancelButton = { $('button[type=cancel]') }
-    saveButton = { $('button[type=submit]') }
+    pageTitle { $('h2') }
+    cancelButton { $('button[type=cancel]') }
+    saveButton { $('button[type=submit]') }
 
     orgName { $('#name') }
     orgType { $('select[formcontrolname=companyType]')}
@@ -32,7 +32,13 @@ class AddEditOrgPage extends BaseAppPage {
   }
 
   void selectOrgType(String selection) {
-    orgType.$('option', text:selection).click()
+    // orgType.click()
+    waitFor{
+      if(orgType.$('option', text:selection)){
+        orgType.$('option', text:selection).click()
+        return true
+      }
+    }
   }
 
   void clickParentLink(){
