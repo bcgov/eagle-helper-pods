@@ -1,6 +1,7 @@
 package Pages.Public
 
 import Public.modules.CommentPeriodModule
+import Public.modules.CommentPeriodRowsModule
 
 class ProjectDetailsPage extends BaseAppPage {
   static at = { isAngularReady() }
@@ -22,6 +23,9 @@ class ProjectDetailsPage extends BaseAppPage {
     projectCommentButton(wait:true) { $('a[ng-reflect-router-link=commenting]') }
     projectDocumentsTab { $('a[ng-reflect-router-link=documents]') }
     commentTab { module(CommentPeriodModule) }
+    commentPeriods { 
+      $('.tab-section').moduleList(CommentPeriodRowsModule) 
+    }
   }
 
   void clickViewPeriod() {
@@ -44,5 +48,7 @@ class ProjectDetailsPage extends BaseAppPage {
     projectDocumentsTab.click()
   }
 
-
+  void clickCommentPeriod() {
+    commentPeriods[0].clickCommentPeriod()
+  }
 }

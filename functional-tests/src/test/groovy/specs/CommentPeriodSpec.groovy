@@ -23,24 +23,10 @@ import spock.lang.Shared
 @Narrative('''I want to see this run in browserstack''')
 class CommentPeriodSpec extends LoggedInSpec {
 
+  // todo add cleanup step to clean up created CPs
   @Shared
   String currentProject
 
-  // void 'The Welcome modal displays on first visit to EPIC'() {
-  //   given: 'I browse to the main page'
-  //     to WelcomePage
-  //   expect: 'Verify welcome content'
-  //     verifyWelcomeContent()
-  //   when: 'I see and close the welcome splash'
-  //     clickCloseButton()
-  //   then: 'I am at the home page'
-  //     at HomePage
-  // }
-
-  // create cp on project x
-  // don't publish
-  // verify details in admin
-  // verify not published on public
   void 'An unpublished comment period is not visible from public'() {
     given: 'I am logged in as an Admin user'
       login()
@@ -82,6 +68,92 @@ class CommentPeriodSpec extends LoggedInSpec {
       clickCommentTab()
     then: 'I should see no comment periods'
       commentTab.getCommentText() == "No comment periods are currently scheduled for this project."
+
+  }
+
+  void 'A published future comment period is pending on public'() {
+    // todo login each time (do we clean up and reset browser each test? each suite?)
+    // given: 'I am logged in as an Admin user'
+    //   login()
+    given: 'I am at Admin home page'
+      to AdminProjectListPage
+    and: 'I create a new comment period and set the date to the future'
+      currentProject = getProjectName()
+      clickProjectLink()
+      sidebarModule.clickCommentPeriod()
+      navBarModule.clickNewCP()
+      at AddEditCommentPeriodPage
+      setStartDateFuture()
+      setEndDateFuture()
+      selectPublishState("Published")
+      String commentInfo = "Sample information for a comment period"
+      enterInformation(commentInfo)
+      String milestone = "Section 7"
+      selectMilestone(milestone)
+      clickSave()
+    when: 'I verify the details in the admin comment period banner'
+      at CommentPeriodListPage
+      clickCommentPeriod()
+      at AdminCommentPeriodPage
+      publishState.text() == "Published"
+      milestone.value() == "Section 7"
+    and: 'I find the project on the Public page'
+      to HomePage
+      at WelcomePage
+      clickCloseButton() // close welcome splash
+      at HomePage
+      headerModule.clickListProjects()
+      at ProjectListPage
+      setSearchTerms(currentProject)
+      scrollDown()
+      clickProjectLink()
+      at ProjectDetailsPage
+      clickCommentTab()
+    then: 'I verify the comment period is pending'
+    // todo not pick the fist one everytime
+      commentPeriods[0].cpStatus[0].text() == "Pending"
+
+  }
+
+  void 'A published comment period is visible from public'() {
+    // given: 'I am logged in as an Admin user'
+    //   login()
+    given: 'I am at the Admin home page'
+      to AdminProjectListPage
+    and: 'I create a new comment period and set the date to the future'
+      currentProject = getProjectName()
+      clickProjectLink()
+      sidebarModule.clickCommentPeriod()
+      navBarModule.clickNewCP()
+      at AddEditCommentPeriodPage
+      setStartDateNow()
+      setEndDateNow()
+      selectPublishState("Published")
+      String commentInfo = "Sample information for a comment period"
+      enterInformation(commentInfo)
+      String milestone = "Section 7"
+      selectMilestone(milestone)
+      clickSave()
+    when: 'I verify the details in the admin comment period banner'
+      at CommentPeriodListPage
+      clickCommentPeriod()
+      at AdminCommentPeriodPage
+      publishState.text() == "Published"
+      milestone.value() == "Section 7"
+    and: 'I find the project on the Public page'
+      to HomePage
+      at WelcomePage
+      clickCloseButton() // close welcome splash
+      at HomePage
+      headerModule.clickListProjects()
+      at ProjectListPage
+      setSearchTerms(currentProject)
+      scrollDown()
+      clickProjectLink()
+      at ProjectDetailsPage
+      clickCommentTab()
+    then: 'I verify the comment period is open'
+      commentPeriods[0].cpStatus[0].text() == "Open"
 
   }
 

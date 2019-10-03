@@ -7,7 +7,7 @@ class CommentPeriodListPage extends BaseAppPage {
   static at = { isAngularReady() }
   static content = {
     pageTitle { $('.container-fluid-padding h1') }
-    commentPeriodList {
+    commentPeriodList(wait:true) {
       $('table tr').tail().moduleList(CPTableRows) // tailing to skip header row 
     }
   }

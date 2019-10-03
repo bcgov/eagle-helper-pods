@@ -15,7 +15,6 @@ class CommentPeriodModule extends Module {
   }
 
   String getCommentText() {
-    System.out.format("Comment text: %s", noComments.text())
     return noComments.text()
   }
 }

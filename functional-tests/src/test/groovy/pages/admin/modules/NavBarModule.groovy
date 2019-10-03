@@ -28,4 +28,9 @@ class NavBarModule extends Module {
   void clickNewOrg(){
     navBar.$('#add-org').click()
   }
+  void clickNewAP() {
+    waitFor {
+      navBar.$('[id=button-d]').click()
+    }
+  }
 }

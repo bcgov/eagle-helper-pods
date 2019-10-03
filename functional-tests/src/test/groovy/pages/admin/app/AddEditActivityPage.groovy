@@ -1,14 +1,20 @@
 package Pages.Admin
+import geb.module.TextInput
 
 class AddEditActivityPostPage extends BaseAppPage {
-  static at = {}
+  static at = { isAngularReady() }
+  static url = ''
   static content = {
-    pageTitle = { $('h2') }
-    cancelButton = { $('button[type=cancel]') }
-    saveButton = { $('button[type=submit]') }
+    pageTitle { $('h2') }
+    cancelButton { $('button[type=cancel]') }
+    saveButton { $('button[type=submit]') }
+
+    iframeName { $('input', id:'fname').module(TextInput) }
 
     headline { $('#headline') }
-    content { $('#content') }
+    textbox { $('#tinymce') }
+    iframe(wait:true) { $('#content_ifr') }
+    tinymce(wait:true)  { $('[class="mce-content-body"]') }
     project { $('select[formcontrolname=project]')  }
     type { $('select[formcontrolname=type]') }
 
@@ -19,15 +25,16 @@ class AddEditActivityPostPage extends BaseAppPage {
     publishedNo { $('#no') }
 
     // todo deal with notes iframe
-    // notes 
+    // notes
   }
 
   void setHeadline(String name) {
     headline.value(name)
   }
 
-  void setContent(String name) {
-    content.value(name)
+  void inputText() {
+    // TODO Handle iFrame Content here
+    println(iframe)
   }
 
   void selectProject(String selection) {
@@ -50,11 +57,11 @@ class AddEditActivityPostPage extends BaseAppPage {
     orgButton.click()
   }
 
-  void setPublish(String num) {
+  void setPublish() {
     publishedYes.click()
   }
 
-  void setUnPublish(String num) {
+  void setUnPublish() {
     publishedNo.click()
   }
 
