@@ -52,59 +52,59 @@ class ContactsSpec extends LoggedInSpec {
     // link an org works
     // verify created
 
-  // void 'Adding a contact and linking to an org works'(){
-  //   given: 'I am logged in as an Admin user'
-  //     login()
-  //   and: 'I create a new contact and link it to an org'
-  //     to ContactsPage
-  //     navBarModule.clickNewContact()
-  //     at AddEditContactPage
-  //     // only mandatory fields
-  //     setFirstName(newFirstName)
-  //     setLastName(newLastName)
-  //     clickLinkOrg()
-  //     at OrganizationsPage
-  //     // String org = getItemName()
-  //     String org = clickItem()
-  //     at AddEditContactPage
-  //     clickSave()
-  //   when: 'I navigate to the contact in the contact browser'
-  //     to ContactsPage
-  //     clickShowAll()
-  //   then: 'I should see that it exists and is linked to the correct org'
-  //     checkContact(newFirstName,newLastName,org)
-  // }
+  void 'Adding a contact and linking to an org works'(){
+    given: 'I am logged in as an Admin user'
+      login()
+    and: 'I create a new contact and link it to an org'
+      to ContactsPage
+      navBarModule.clickNewContact()
+      at AddEditContactPage
+      // only mandatory fields
+      setFirstName(newFirstName)
+      setLastName(newLastName)
+      clickLinkOrg()
+      at OrganizationsPage
+      // String org = getItemName()
+      String org = clickItem()
+      at AddEditContactPage
+      clickSave()
+    when: 'I navigate to the contact in the contact browser'
+      to ContactsPage
+      clickShowAll()
+    then: 'I should see that it exists and is linked to the correct org'
+      checkContact(newFirstName,newLastName,org)
+  }
     
 
-  // // Edit a contact
-  //   // verify edit saved
-  // void 'Editing a contact works'(){
-  //   given: 'I am logged in as an Admin user'
-  //     login()
-  //   when: 'I edit the contact'
-  //     to ContactsPage
-  //     clickShowAll()
-  //     clickEditContact(testFirstName,testLastName,testOrgName)
-  //     at AddEditContactPage
-  //     setFirstName(editedFirstName)
-  //     clickSave()
-  //     at ContactsPage
-  //     clickShowAll()
-  //   then: 'I should see that the edit is saved'
-  //     checkContact(editedFirstName,testLastName,testOrgName)
-  // }
-  // Search contacts
-    // verify search
-  // void 'Searching for a contact works'(){
-  //   given: 'I am logged in as an Admin user'
-  //     login()
-  //   when: 'I search for a contact'
-  //     to ContactsPage
-  //     setSearchTerms(editedFirstName+" "+testLastName)
-  //     clickSearchButton()
-  //   then: 'I should find the contact'
-  //     checkContact(editedFirstName,testLastName,testOrgName)
-  // }
+  // Edit a contact
+    // verify edit saved
+  void 'Editing a contact works'(){
+    given: 'I am logged in as an Admin user'
+      login()
+    when: 'I edit the contact'
+      to ContactsPage
+      clickShowAll()
+      clickEditContact(testFirstName,testLastName,testOrgName)
+      at AddEditContactPage
+      setFirstName(editedFirstName)
+      clickSave()
+      at ContactsPage
+      clickShowAll()
+    then: 'I should see that the edit is saved'
+      checkContact(editedFirstName,testLastName,testOrgName)
+  }
+  Search contacts
+    verify search
+  void 'Searching for a contact works'(){
+    given: 'I am logged in as an Admin user'
+      login()
+    when: 'I search for a contact'
+      to ContactsPage
+      setSearchTerms(editedFirstName+" "+testLastName)
+      clickSearchButton()
+    then: 'I should find the contact'
+      checkContact(editedFirstName,testLastName,testOrgName)
+  }
   // Organizations
     // Create new and link to parent company
       // todo: verify mandatory fields are mandatory
@@ -118,7 +118,7 @@ class ContactsSpec extends LoggedInSpec {
       at AddEditOrgPage
       // fill mandatory fields
       setOrgName(newOrgName)
-      selectOrgType(newOrgType) 
+      selectOrgType(9) 
       setAddress1(newAddress)
       setCity(newCity)
       setCountry(newCountry)

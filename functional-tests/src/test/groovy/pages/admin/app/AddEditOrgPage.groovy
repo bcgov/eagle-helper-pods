@@ -1,5 +1,5 @@
 package Pages.Admin
-
+import org.openqa.selenium.Keys
 class AddEditOrgPage extends BaseAppPage {
   static at = {isAngularReady()}
   static content = {
@@ -31,14 +31,12 @@ class AddEditOrgPage extends BaseAppPage {
     orgName.value(name)
   }
 
-  void selectOrgType(String selection) {
-    // orgType.click()
-    waitFor{
-      if(orgType.$('option', text:selection)){
-        orgType.$('option', text:selection).click()
-        return true
-      }
+  void selectOrgType(int idx) {
+    orgType.click()
+    1.upto(idx){
+      orgType << Keys.ARROW_DOWN
     }
+    orgType << Keys.ENTER
   }
 
   void clickParentLink(){
