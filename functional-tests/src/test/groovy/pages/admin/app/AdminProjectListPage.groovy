@@ -6,6 +6,7 @@ import geb.waiting.WaitTimeoutException
 
 class AdminProjectListPage extends BaseAppPage {
   static at = { isAngularReady() && verifyTitle() }
+  // todo make relative for pipeline
   static url = 'http://localhost:4200/admin/projects'
   static content = {
     pageTitle { $('h2') }

@@ -56,6 +56,7 @@ dependencies {
         exclude group: "org.codehaus.groovy"
     }
     testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
+    // todo remove hardcoded version
     testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
 
 
