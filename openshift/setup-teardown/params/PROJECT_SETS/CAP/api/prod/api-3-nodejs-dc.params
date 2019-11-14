@@ -1,0 +1,4 @@
+APPLICATION_DOMAIN=cap-eagle-prod.pathfinder.gov.bc.ca
+MINIO_HOST=cap-eagle-api-minio-prod.pathfinder.gov.bc.ca
+APP_IMAGE_NAMESPACE=oabrei-test
+APP_DEPLOYMENT_TAG=prod

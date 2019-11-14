@@ -1,0 +1,3 @@
+IMAGE_NAMESPACE=oabrei-tools
+APPLICATION_DOMAIN=cap-eagle-dev.pathfinder.gov.bc.ca
+TAG_NAME=dev

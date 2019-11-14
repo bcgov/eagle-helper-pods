@@ -1,0 +1,4 @@
+APPLICATION_DOMAIN=eagle-test.pathfinder.gov.bc.ca
+MINIO_HOST=eagle-api-minio-test.pathfinder.gov.bc.ca
+APP_IMAGE_NAMESPACE=esm
+APP_DEPLOYMENT_TAG=test

@@ -1,0 +1,3 @@
+IMAGE_NAMESPACE=esm
+APPLICATION_DOMAIN=eagle-dev.pathfinder.gov.bc.ca
+TAG_NAME=dev

@@ -1,0 +1,5 @@
+NAME=eagle-admin
+IMAGE_NAMESPACE=your-tools-namespace
+REAL_IP_FROM=172.51.0.0/16
+APPLICATION_DOMAIN=eagle-your-openshift-namespace.pathfinder.gov.bc.ca
+TAG_NAME=prod
