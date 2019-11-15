@@ -1,0 +1,5 @@
+NAME=demo-eagle-public
+GROUP_NAME=demo-demo-eagle-epic
+IMAGE_NAMESPACE=oabrei-prod
+APPLICATION_DOMAIN=demo-eagle-oabrei-prod.pathfinder.gov.bc.ca
+TAG_NAME=prod
