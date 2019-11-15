@@ -1,5 +1,0 @@
-NAME=eagle-admin
-S2I_NAMESPACE=openshift
-NODEJS_VER=8
-SOURCE_REPOSITORY_URL=https://github.com/bcgov/eagle-api
-SOURCE_REPOSITORY_REF=develop

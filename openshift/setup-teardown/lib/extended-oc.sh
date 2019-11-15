@@ -107,6 +107,15 @@ getVerifiedRemoteTemplateAndLocalParams(){
     local _template_folder_url=$1;
     local _template_folder_filename=$2;
     local _local_params_filename=$3;
+
+    if [ -z "${_template_folder_url}" -o -z "${_template_folder_filename}" -o -z "${_local_params_filename}" ]; then
+        echo -e \\n"getVerifiedRemoteTemplateAndLocalParams missing field:"\\n;
+        echo -e \\n\\t"_template_folder_url = '${_template_folder_url}'"\\n;
+        echo -e \\n\\t"_template_folder_filename = '${_template_folder_filename}'"\\n;
+        echo -e \\n\\t"_local_params_filename = '${_local_params_filename}'"\\n;
+        exit 1;
+    fi
+
     curl -LJO ${_template_folder_url}${_template_folder_filename};
     checkFileExists "template", ${_template_folder_filename};
     checkFileExists "parameters", ${_local_params_filename};
@@ -126,7 +135,7 @@ sinkProjectOutput(){
     fi
 }
 
-cleanProject(){
+removeFromProject(){
     local _application_name=$1
     local _namespace=$2
 

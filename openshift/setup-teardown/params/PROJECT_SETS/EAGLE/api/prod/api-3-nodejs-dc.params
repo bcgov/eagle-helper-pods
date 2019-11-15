@@ -1,4 +1,0 @@
-APPLICATION_DOMAIN=eagle-prod.pathfinder.gov.bc.ca
-MINIO_HOST=eagle-api-minio-prod.pathfinder.gov.bc.ca
-APP_IMAGE_NAMESPACE=esm
-APP_DEPLOYMENT_TAG=prod

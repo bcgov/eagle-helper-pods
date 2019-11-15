@@ -1,4 +1,0 @@
-NAME=eagle-admin
-ANGULAR_BUILDER_IMAGE=eagle-admin-angular-builder
-NGINX_RUNTIME_IMAGE=eagle-admin-nginx-runtime
-GIT_SOURCE_URL=https://github.com/bcgov/eagle-admin

@@ -1,0 +1,5 @@
+NAME=cap-eagle-admin
+GROUP_NAME=cap-eagle-epic
+IMAGE_NAMESPACE=oabrei-dev
+APPLICATION_DOMAIN=cap-eagle-dev.pathfinder.gov.bc.ca
+TAG_NAME=dev
