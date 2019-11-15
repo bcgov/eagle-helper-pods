@@ -1,0 +1,5 @@
+NAME=eagle-public
+GROUP_NAME=eagle-epic
+IMAGE_NAMESPACE=noexist-tools
+APPLICATION_DOMAIN=eagle-noexist-dev.pathfinder.gov.bc.ca
+TAG_NAME=dev
