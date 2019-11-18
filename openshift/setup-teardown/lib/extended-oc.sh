@@ -1,4 +1,4 @@
-#version 1.1
+#version 1.2
 
 checkJqPresent(){
     if jq --version | grep -q '^sh: jq: command not found'; then
