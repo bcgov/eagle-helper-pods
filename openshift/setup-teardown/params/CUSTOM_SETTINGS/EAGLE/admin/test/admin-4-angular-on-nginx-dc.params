@@ -3,4 +3,4 @@ GROUP_NAME=eagle-epic
 IMAGE_NAMESPACE=noexist-tools
 APPLICATION_DOMAIN=eagle-noexist-test.pathfinder.gov.bc.ca
 TAG_NAME=test
-REMOTE_API_PATH=eagle-noexist-test.pathfinder.gov.bc.ca/api/public
+REMOTE_API_PATH=eagle-noexist-test.pathfinder.gov.bc.ca/api
