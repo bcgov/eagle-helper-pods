@@ -155,3 +155,16 @@ loadEnvSettings $(<${ENV_ARGS_FILE});
 deployApi $(<${API_ARGS_FILE});
 deployAdmin $(<${ADMIN_ARGS_FILE});
 deployPublic $(<${PUBLIC_ARGS_FILE});
+
+
+# Go watch your builds.  In about 20 minutes they should complete.  
+# When they are done, run the following commands to trigger your deployments
+# Don't uncomment them here because they need to be run after the builds are done.  
+# Edit them to fit your settings and run them separately in a terminal.
+# Typically your-target-env is one of [dev, test, prod]
+
+###################################################### SNIP #######################################################
+#oc tag your-tools-namespace/your-app-name-api:latest your-tools-namespace/your-app-name-api:your-target-env
+#oc tag your-tools-namespace/your-app-name-public:latest your-tools-namespace/your-app-name-public:your-target-env
+#oc tag your-tools-namespace/your-app-name-admin:latest your-tools-namespace/your-app-name-admin:your-target-env
+#################################################### END SNIP #####################################################
