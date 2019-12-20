@@ -1,0 +1,3 @@
+NAME=kit-sandbox-api
+SOURCE_REPOSITORY_URL=https://github.com/KitArmstrong/eagle-api
+SOURCE_REPOSITORY_REF=kitSandbox
