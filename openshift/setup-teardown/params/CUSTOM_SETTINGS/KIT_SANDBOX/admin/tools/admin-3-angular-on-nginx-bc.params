@@ -1,0 +1,3 @@
+NAME=kit-sandbox-admin
+ANGULAR_BUILDER_IMAGE=kit-sandbox-admin-angular-builder
+NGINX_RUNTIME_IMAGE=kit-sandbox-admin-nginx-runtime
