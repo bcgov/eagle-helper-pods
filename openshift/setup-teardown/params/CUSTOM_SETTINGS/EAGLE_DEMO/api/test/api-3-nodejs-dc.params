@@ -6,4 +6,4 @@ MINIO_SECRET_NAME=demo-eagle-api-minio-keys
 DATABASE_SERVICE_NAME=demo-eagle-api-mongodb
 APP_IMAGE_NAME=demo-eagle-api
 APP_IMAGE_NAMESPACE=esm
-APP_DEPLOYMENT_TAG=dev
+APP_DEPLOYMENT_TAG=demo
