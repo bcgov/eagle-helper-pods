@@ -26,8 +26,12 @@
       "spec": {
         "runPolicy": "Serial",
         "source": {
-          "dockerfile": "FROM registry.access.redhat.com/openshift3/jenkins-agent-nodejs-8-rhel7\n USER root\n RUN yum repolist > /dev/null && yum install -y yum-utils && wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && yum repolist all && yum -y install redhat-lsb libXScrnSaver && yum -y localinstall google-chrome-stable_current_x86_64.rpm \n USER 1001",
-          "type": "Dockerfile"
+          "type": "Git",
+          "git": {
+            "uri": "${SOURCE_REPOSITORY_URL}",
+            "ref": "${GIT_REF}"
+          },
+          "contextDir": "${SOURCE_CONTEXT_DIR}"
         },
 				"strategy": {
 					"type": "Docker",
@@ -75,11 +79,25 @@
       "value": "eagle-unit-tester"
     },
     {
-      "name": "DOCKER_FILE_PATH",
-      "displayName": "Docker file path",
-      "description": "File path to the docker file defining the build",
+      "name": "SOURCE_REPOSITORY_URL",
+      "displayName": "Git Repo URL",
+      "description": "The URL to the Git repository.",
       "required": true,
-      "value": "openshift/templates/build-tester/Dockerfile"
+      "value": "https://github.com/bcgov/eagle-helper-pods.git"
+    },
+    {
+      "name": "GIT_REF",
+      "displayName": "Git Reference",
+      "description": "The git reference or branch.",
+      "required": true,
+      "value": "master"
+    },
+    {
+      "name": "SOURCE_CONTEXT_DIR",
+      "displayName": "Source Context Directory",
+      "description": "The source context directory.",
+      "required": false,
+      "value": "docker-images/eagle-unit-tester"
     }
   ]
 }
