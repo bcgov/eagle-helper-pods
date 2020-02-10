@@ -1,0 +1,85 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "eagle-unit-tester",
+    "creationTimestamp": null
+  },
+  "objects": [
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}"
+      }
+    },
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}",
+        "creationTimestamp": null,
+        "labels": {
+          "app": "${NAME}"
+        }
+      },
+      "spec": {
+        "runPolicy": "Serial",
+        "source": {
+          "dockerfile": "FROM registry.access.redhat.com/openshift3/jenkins-agent-nodejs-8-rhel7\n USER root\n RUN yum repolist > /dev/null && yum install -y yum-utils && wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && yum repolist all && yum -y install redhat-lsb libXScrnSaver && yum -y localinstall google-chrome-stable_current_x86_64.rpm \n USER 1001",
+          "type": "Dockerfile"
+        },
+				"strategy": {
+					"type": "Docker",
+					"dockerStrategy": {
+						"dockerfilePath": "Dockerfile"
+					}
+				},
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "${NAME}:latest"
+          }
+        },
+        "triggers": [
+          {
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "resources": {
+          "requests": {
+            "cpu": "100m",
+            "memory": "2Gi"
+          },
+          "limits": {
+            "cpu": "1",
+            "memory": "4Gi"
+          }
+        },
+        "postCommit": {}
+      },
+      "status": {
+        "lastVersion": 0
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "NAME",
+      "displayName": "Name",
+      "description": "The name assigned to all of the frontend objects defined in this template.  You should keep this as default unless your know what your doing.",
+      "required": true,
+      "value": "eagle-unit-tester"
+    },
+    {
+      "name": "DOCKER_FILE_PATH",
+      "displayName": "Docker file path",
+      "description": "File path to the docker file defining the build",
+      "required": true,
+      "value": "openshift/templates/build-tester/Dockerfile"
+    }
+  ]
+}
