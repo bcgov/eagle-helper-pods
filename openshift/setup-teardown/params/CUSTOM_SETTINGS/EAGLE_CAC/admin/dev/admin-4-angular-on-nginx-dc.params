@@ -1,4 +1,4 @@
-NAME=eagle-admin-cac
+NAME=cac-eagle-admin
 GROUP_NAME=cac-eagle-epic
 IMAGE_NAMESPACE=esm
 APPLICATION_DOMAIN=eagle-cac-dev.pathfinder.gov.bc.ca
