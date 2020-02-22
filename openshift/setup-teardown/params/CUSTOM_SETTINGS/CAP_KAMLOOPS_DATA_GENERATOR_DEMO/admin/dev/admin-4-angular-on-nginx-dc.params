@@ -1,0 +1,8 @@
+NAME=cap-kamloops-data-generator-demo-admin
+GROUP_NAME=cap-kamloops-data-generator-demo-epic
+IMAGE_NAMESPACE=oabrei-dev
+APPLICATION_DOMAIN=cap-kamloops-data-generator-demo-dev.pathfinder.gov.bc.ca
+TAG_NAME=dev
+REMOTE_API_PATH=https://cap-kamloops-data-generator-demo-dev.pathfinder.gov.bc.ca/api
+REMOTE_PUBLIC_PATH=https://cap-kamloops-data-generator-demo-dev.pathfinder.gov.bc.ca
+KEYCLOAK_CLIENT_ID=cap-admin-console

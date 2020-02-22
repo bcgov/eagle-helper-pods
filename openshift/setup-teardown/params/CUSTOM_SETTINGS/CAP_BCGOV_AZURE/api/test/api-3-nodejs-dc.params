@@ -1,0 +1,9 @@
+NAME=cap-bcgov-azure-api
+GROUP_NAME=cap-bcgov-azure-epic
+APPLICATION_DOMAIN=cap-bcgov-azure-test.apps.ocp4lab.clearwater.devops.gov.bc.ca
+MINIO_HOST=cap-bcgov-azure-api-minio
+MINIO_SECRET_NAME=cap-bcgov-azure-api-minio-keys
+DATABASE_SERVICE_NAME=cap-bcgov-azure-api-mongodb
+APP_IMAGE_NAME=cap-bcgov-azure-api
+APP_IMAGE_NAMESPACE=tnhlex-test
+APP_DEPLOYMENT_TAG=test

@@ -1,0 +1,3 @@
+NAME=cap-bcgov-azure-public
+ANGULAR_BUILDER_IMAGE=cap-bcgov-azure-public-angular-builder
+NGINX_RUNTIME_IMAGE=cap-bcgov-azure-public-nginx-runtime

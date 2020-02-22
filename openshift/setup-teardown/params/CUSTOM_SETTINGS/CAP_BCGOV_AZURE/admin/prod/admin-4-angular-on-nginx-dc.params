@@ -1,0 +1,8 @@
+NAME=cap-bcgov-azure-admin
+GROUP_NAME=cap-bcgov-azure-epic
+IMAGE_NAMESPACE=tnhlex-prod
+APPLICATION_DOMAIN=cap-bcgov-azure-prod.apps.ocp4lab.clearwater.devops.gov.bc.ca
+TAG_NAME=prod
+REMOTE_API_PATH=https://cap-bcgov-azure-prod.apps.ocp4lab.clearwater.devops.gov.bc.ca/api
+REMOTE_PUBLIC_PATH=https://cap-bcgov-azure-prod.apps.ocp4lab.clearwater.devops.gov.bc.ca
+KEYCLOAK_CLIENT_ID=cap-admin-console

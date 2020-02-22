@@ -1,0 +1,3 @@
+NAME=cap-kamloops-data-generator-demo-public
+ANGULAR_BUILDER_IMAGE=cap-kamloops-data-generator-demo-public-angular-builder
+NGINX_RUNTIME_IMAGE=cap-kamloops-data-generator-demo-public-nginx-runtime

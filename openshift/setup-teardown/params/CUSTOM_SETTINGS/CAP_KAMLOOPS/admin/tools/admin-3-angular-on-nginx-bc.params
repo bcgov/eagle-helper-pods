@@ -1,0 +1,3 @@
+NAME=cap-kamloops-admin
+ANGULAR_BUILDER_IMAGE=cap-kamloops-admin-angular-builder
+NGINX_RUNTIME_IMAGE=cap-kamloops-admin-nginx-runtime

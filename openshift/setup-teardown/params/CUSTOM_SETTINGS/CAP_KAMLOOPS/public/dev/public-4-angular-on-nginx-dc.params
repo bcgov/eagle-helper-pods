@@ -1,0 +1,7 @@
+NAME=cap-kamloops-public
+GROUP_NAME=cap-kamloops-epic
+IMAGE_NAMESPACE=oabrei-dev
+APPLICATION_DOMAIN=cap-kamloops-dev.pathfinder.gov.bc.ca
+TAG_NAME=dev
+REMOTE_API_PATH=https://cap-kamloops-dev.pathfinder.gov.bc.ca/api/public
+REMOTE_ADMIN_PATH=https://cap-kamloops-dev.pathfinder.gov.bc.ca/admin/
