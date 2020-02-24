@@ -1,0 +1,7 @@
+NAME=cac-eagle-admin
+GROUP_NAME=cac-eagle-epic
+IMAGE_NAMESPACE=esm
+APPLICATION_DOMAIN=eagle-cac-dev.pathfinder.gov.bc.ca
+TAG_NAME=cac
+REMOTE_API_PATH=https://eagle-cac-dev.pathfinder.gov.bc.ca/api
+REMOTE_PUBLIC_PATH=https://eagle-cac-dev.pathfinder.gov.bc.ca
