@@ -1,7 +1,7 @@
 NAME=cap-kamloops-api
 GROUP_NAME=cap-kamloops-epic
 APPLICATION_DOMAIN=cap-kamloops-test.pathfinder.gov.bc.ca
-MINIO_HOST=cap-kamloops-api-minio
+MINIO_HOST=cap-kamloops-api-minio-oabrei-test.pathfinder.gov.bc.ca
 MINIO_SECRET_NAME=cap-kamloops-api-minio-keys
 DATABASE_SERVICE_NAME=cap-kamloops-api-mongodb
 APP_IMAGE_NAME=cap-kamloops-api
