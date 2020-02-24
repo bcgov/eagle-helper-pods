@@ -1,0 +1,9 @@
+NAME=cap-kamloops-data-generator-demo-api
+GROUP_NAME=cap-kamloops-data-generator-demo-epic
+APPLICATION_DOMAIN=cap-kamloops-data-generator-demo-dev.pathfinder.gov.bc.ca
+MINIO_HOST=cap-kamloops-data-generator-demo-api-minio-oabrei-dev.pathfinder.gov.bc.ca
+MINIO_SECRET_NAME=cap-kamloops-data-generator-demo-api-minio-keys
+DATABASE_SERVICE_NAME=cap-kamloops-data-generator-demo-api-mongodb
+APP_IMAGE_NAME=cap-kamloops-data-generator-demo-api
+APP_IMAGE_NAMESPACE=oabrei-dev
+APP_DEPLOYMENT_TAG=dev

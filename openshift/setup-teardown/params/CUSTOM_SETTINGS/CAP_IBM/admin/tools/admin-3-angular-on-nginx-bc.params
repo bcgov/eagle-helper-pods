@@ -1,0 +1,3 @@
+NAME=cap-ibm-admin
+ANGULAR_BUILDER_IMAGE=cap-ibm-admin-angular-builder
+NGINX_RUNTIME_IMAGE=cap-ibm-admin-nginx-runtime

@@ -1,0 +1,7 @@
+NAME=cap-ibm-public
+GROUP_NAME=cap-ibm-epic
+IMAGE_NAMESPACE=oabrei-test
+APPLICATION_DOMAIN=cap-ibm-test.pathfinder.gov.bc.ca
+TAG_NAME=test
+REMOTE_API_PATH=https://cap-ibm-test.pathfinder.gov.bc.ca/api/public
+REMOTE_ADMIN_PATH=https://cap-ibm-test.pathfinder.gov.bc.ca/admin/

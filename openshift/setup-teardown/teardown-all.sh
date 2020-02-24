@@ -31,6 +31,7 @@ cleanApi() {
     echo -e \\n"clean-api: Removing builds."\\n;
 
     removeFromProject ${API_NODEJS_BUILD_NAME} ${TOOLS_PROJECT}
+    removeFromProject ${API_MINIO_BUILD_NAME} ${TOOLS_PROJECT}
 
     echo -e \\n"clean-api: Removing deployments."\\n;
 

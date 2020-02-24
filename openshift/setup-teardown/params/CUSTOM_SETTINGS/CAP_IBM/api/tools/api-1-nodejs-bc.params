@@ -1,0 +1,4 @@
+NAME=cap-ibm-api
+SOURCE_REPOSITORY_URL=https://github.com/bcgov/cap-eagle-api
+SOURCE_REPOSITORY_REF=develop
+NODE_ENV=development

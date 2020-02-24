@@ -1,0 +1,9 @@
+NAME=cap-kamloops-api-minio
+GROUP_NAME=cap-kamloops-epic
+MINIO_IMAGE_NAME=cap-kamloops-api-minio
+MINIO_IMAGE_NAMESPACE=oabrei-prod
+MINIO_IMAGE_TAG=prod
+STORAGE_CLASS=netapp-file-standard
+STORAGE_PROVIDER=kubernetes.io/netapp
+MINIO_DATA_DIR=/data
+LOCAL_STORAGE_SIZE=20Gi

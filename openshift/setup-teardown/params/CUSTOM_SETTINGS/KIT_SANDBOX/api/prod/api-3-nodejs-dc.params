@@ -1,9 +1,9 @@
 NAME=kit-sandbox-api
 GROUP_NAME=kit-sandbox-epic
-APPLICATION_DOMAIN=kit-sandbox-oabrei-prod.pathfinder.gov.bc.ca
-MINIO_HOST=kit-sandbox-api-minio-oabrei-prod.pathfinder.gov.bc.ca
+APPLICATION_DOMAIN=kit-sandbox-mem-mmti-prod.pathfinder.gov.bc.ca
+MINIO_HOST=kit-sandbox-api-minio-mem-mmti-prod.pathfinder.gov.bc.ca
 MINIO_SECRET_NAME=kit-sandbox-api-minio-keys
 DATABASE_SERVICE_NAME=kit-sandbox-api-mongodb
 APP_IMAGE_NAME=kit-sandbox-api
-APP_IMAGE_NAMESPACE=oabrei-prod
+APP_IMAGE_NAMESPACE=mem-mmti-prod
 APP_DEPLOYMENT_TAG=prod
