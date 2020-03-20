@@ -38,6 +38,7 @@ deployApi() {
     cp ../${PARAMS_FOLDER}/api/tools/*.params .;
     cp ../${PARAMS_FOLDER}/api/${TAG}/*.params .;
 
+    getVerifiedRemoteTemplateAndLocalParams ${API_BC_MINIO_TEMPLATE_FOLDER_URL} ${API_BC_MINIO_TEMPLATE_FILENAME} ${API_BC_MINIO_PARAMS};
     getVerifiedRemoteTemplateAndLocalParams ${API_BC_NODEJS_TEMPLATE_FOLDER_URL} ${API_BC_NODEJS_TEMPLATE_FILENAME} ${API_BC_NODEJS_PARAMS};
     getVerifiedRemoteTemplateAndLocalParams ${API_DC_MINIO_TEMPLATE_FOLDER_URL} ${API_DC_MINIO_TEMPLATE_FILENAME} ${API_DC_MINIO_PARAMS};
     getVerifiedRemoteTemplateAndLocalParams ${API_DC_NODEJS_AND_MONGO_TEMPLATE_FOLDER_URL} ${API_DC_NODEJS_AND_MONGO_TEMPLATE_FILENAME} ${API_DC_NODEJS_AND_MONGO_PARAMS};
@@ -46,6 +47,7 @@ deployApi() {
 
     oc project ${TOOLS_PROJECT};
     oc -n ${TOOLS_PROJECT} process -f ${API_BC_NODEJS_TEMPLATE_FILENAME} --param-file=${API_BC_NODEJS_PARAMS} | oc create -f -
+    oc -n ${TOOLS_PROJECT} process -f ${API_BC_MINIO_TEMPLATE_FILENAME} --param-file=${API_BC_MINIO_PARAMS} | oc create -f -
 
     echo -e \\n"deploy-api: Deploying images."\\n;
 
