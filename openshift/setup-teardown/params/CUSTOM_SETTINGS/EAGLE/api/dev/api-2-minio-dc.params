@@ -1,6 +1,6 @@
 NAME=eagle-api-minio
 GROUP_NAME=eagle-epic
-MINIO_IMAGE_NAME=eagle-api-minio
+MINIO_IMAGE_NAME=eagle-minio
 MINIO_IMAGE_NAMESPACE=esm
 MINIO_IMAGE_TAG=dev
 STORAGE_CLASS=netapp-file-standard
