@@ -1,7 +1,7 @@
 NAME=eagle-api-minio
 GROUP_NAME=eagle-epic
 MINIO_IMAGE_NAME=eagle-api-minio
-MINIO_IMAGE_NAMESPACE=noexist-tools
+MINIO_IMAGE_NAMESPACE=openshift
 MINIO_IMAGE_TAG=dev
 STORAGE_CLASS=netapp-file-standard
 STORAGE_PROVIDER=kubernetes.io/netapp
