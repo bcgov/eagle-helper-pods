@@ -1,8 +1,8 @@
 NAME=eagle-admin
 GROUP_NAME=eagle-epic
-IMAGE_NAMESPACE=noexist-tools
-APPLICATION_DOMAIN=eagle-noexist-dev.pathfinder.gov.bc.ca
+IMAGE_NAMESPACE=esm
+APPLICATION_DOMAIN=eagle-dev.pathfinder.gov.bc.ca
 TAG_NAME=dev
-REMOTE_API_PATH=https://eagle-noexist-dev.pathfinder.gov.bc.ca/api
-REMOTE_PUBLIC_PATH=https://eagle-noexist-dev.pathfinder.gov.bc.ca
+REMOTE_API_PATH=https://eagle-dev.pathfinder.gov.bc.ca/api
+REMOTE_PUBLIC_PATH=https://eagle-dev.pathfinder.gov.bc.ca/
 KEYCLOAK_CLIENT_ID=eagle-admin-console
