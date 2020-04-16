@@ -1,0 +1,8 @@
+NAME=hotfix-eagle-admin
+GROUP_NAME=hotfix-eagle-epic
+IMAGE_NAMESPACE=esm
+APPLICATION_DOMAIN=hotfix-eagle-test.pathfinder.gov.bc.ca
+TAG_NAME=hotfix
+REMOTE_API_PATH=https://hotfix-eagle-test.pathfinder.gov.bc.ca/api
+REMOTE_PUBLIC_PATH=https://hotfix-eagle-test.pathfinder.gov.bc.ca
+KEYCLOAK_CLIENT_ID=eagle-admin-console
