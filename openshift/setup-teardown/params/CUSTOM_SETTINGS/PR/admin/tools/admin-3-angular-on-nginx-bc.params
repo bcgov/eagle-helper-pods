@@ -1,0 +1,3 @@
+NAME=pr-placeholder-eagle-admin
+ANGULAR_BUILDER_IMAGE=pr-placeholder-eagle-admin-angular-builder
+NGINX_RUNTIME_IMAGE=pr-placeholder-eagle-admin-nginx-runtime
