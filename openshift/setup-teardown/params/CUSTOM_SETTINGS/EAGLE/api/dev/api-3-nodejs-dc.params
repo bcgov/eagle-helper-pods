@@ -8,3 +8,5 @@ APP_IMAGE_NAME=eagle-api
 APP_IMAGE_NAMESPACE=esm
 APP_DEPLOYMENT_TAG=dev
 ENABLE_VIRUS_SCANNING=true
+GETOK_ENDPOINT=https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
+CHES_ENDPOINT=https://ches-master-9f0fbe-dev.pathfinder.gov.bc.ca/
