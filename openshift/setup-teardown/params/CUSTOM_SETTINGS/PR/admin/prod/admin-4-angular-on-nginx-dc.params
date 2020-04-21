@@ -1,0 +1,7 @@
+NAME=noexist-eagle-admin
+GROUP_NAME=noexist-eagle-epic
+IMAGE_NAMESPACE=noexist-tools
+APPLICATION_DOMAIN=eagle-noexist-prod.pathfinder.gov.bc.ca
+TAG_NAME=noexist
+REMOTE_API_PATH=https://eagle-noexist-prod.pathfinder.gov.bc.ca/api
+REMOTE_PUBLIC_PATH=https://eagle-noexist-prod.pathfinder.gov.bc.ca
