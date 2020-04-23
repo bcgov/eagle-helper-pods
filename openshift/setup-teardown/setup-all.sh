@@ -20,6 +20,15 @@ loadEnvSettings() {
     checkProjectExists ${TARGET_PROJECT};
 }
 
+
+
+
+
+#######################################################################################################################################
+############################################################   DEPLOYMENTS   ##########################################################
+#######################################################################################################################################
+
+
 deployApi() {
     checkOpenshiftSession;
 
@@ -29,7 +38,7 @@ deployApi() {
     source ${API_ARGS_FILE};
 
     local original_namespace=$(oc project --short=true);
-    
+
     echo -e \\n"deploy-api: Pre deployment tasks."\\n;
 
     rm -rf ./tmp;
@@ -43,7 +52,7 @@ deployApi() {
     getVerifiedRemoteTemplateAndLocalParams ${API_BC_MINIO_TEMPLATE_FOLDER_URL} ${API_BC_MINIO_TEMPLATE_FILENAME} ${API_BC_MINIO_PARAMS};
     getVerifiedRemoteTemplateAndLocalParams ${API_DC_MINIO_TEMPLATE_FOLDER_URL} ${API_DC_MINIO_TEMPLATE_FILENAME} ${API_DC_MINIO_PARAMS};
     getVerifiedRemoteTemplateAndLocalParams ${API_DC_NODEJS_AND_MONGO_TEMPLATE_FOLDER_URL} ${API_DC_NODEJS_AND_MONGO_TEMPLATE_FILENAME} ${API_DC_NODEJS_AND_MONGO_PARAMS};
-    
+
     echo -e \\n"deploy-api: Building images."\\n;
 
     oc project ${TOOLS_PROJECT};
@@ -75,7 +84,7 @@ deployAdmin() {
     source ${ADMIN_ARGS_FILE};
 
     local original_namespace=$(oc project --short=true);
-    
+
     echo -e \\n"deploy-admin: Pre deployment tasks."\\n;
 
     rm -rf ./tmp;
@@ -88,7 +97,7 @@ deployAdmin() {
     getVerifiedRemoteTemplateAndLocalParams ${ADMIN_BC_NGINX_RUNTIME_TEMPLATE_FOLDER_URL} ${ADMIN_BC_NGINX_RUNTIME_TEMPLATE_FILENAME} ${ADMIN_BC_NGINX_RUNTIME_PARAMS};
     getVerifiedRemoteTemplateAndLocalParams ${ADMIN_BC_ANGULAR_ON_NGINX_TEMPLATE_FOLDER_URL} ${ADMIN_BC_ANGULAR_ON_NGINX_TEMPLATE_FILENAME} ${ADMIN_BC_ANGULAR_ON_NGINX_PARAMS};
     getVerifiedRemoteTemplateAndLocalParams ${ADMIN_DC_ANGULAR_ON_NGINX_TEMPLATE_FOLDER_URL} ${ADMIN_DC_ANGULAR_ON_NGINX_TEMPLATE_FILENAME} ${ADMIN_DC_ANGULAR_ON_NGINX_PARAMS};
-    
+
     echo -e \\n"deploy-admin: Building images."\\n;
 
     oc project ${TOOLS_PROJECT};
@@ -119,7 +128,7 @@ deployPublic() {
     source ${PUBLIC_ARGS_FILE};
 
     local original_namespace=$(oc project --short=true);
-    
+
     echo -e \\n"deploy-public: Pre deployment tasks."\\n;
 
     rm -rf ./tmp;
@@ -132,7 +141,7 @@ deployPublic() {
     getVerifiedRemoteTemplateAndLocalParams ${PUBLIC_BC_NGINX_RUNTIME_TEMPLATE_FOLDER_URL} ${PUBLIC_BC_NGINX_RUNTIME_TEMPLATE_FILENAME} ${PUBLIC_BC_NGINX_RUNTIME_PARAMS};
     getVerifiedRemoteTemplateAndLocalParams ${PUBLIC_BC_ANGULAR_ON_NGINX_TEMPLATE_FOLDER_URL} ${PUBLIC_BC_ANGULAR_ON_NGINX_TEMPLATE_FILENAME} ${PUBLIC_BC_ANGULAR_ON_NGINX_PARAMS};
     getVerifiedRemoteTemplateAndLocalParams ${PUBLIC_DC_ANGULAR_ON_NGINX_TEMPLATE_FOLDER_URL} ${PUBLIC_DC_ANGULAR_ON_NGINX_TEMPLATE_FILENAME} ${PUBLIC_DC_ANGULAR_ON_NGINX_PARAMS};
-    
+
     echo -e \\n"deploy-public: Building images."\\n;
 
     oc project ${TOOLS_PROJECT};
@@ -154,16 +163,138 @@ deployPublic() {
     echo -e \\n"deploy-public: Completed deployment."\\n;
 }
 
+
+
+
+
+#######################################################################################################################################
+############################################################   PIPELINES   ############################################################
+#######################################################################################################################################
+
+
+deployApiPipeline() {
+    checkOpenshiftSession;
+
+    source ./params/COMMON_SETTINGS/api/api.config;
+
+    checkFileExists "config" ${API_ARGS_FILE};
+    source ${API_ARGS_FILE};
+
+    local original_namespace=$(oc project --short=true);
+
+    echo -e \\n"deploy-api-pipeline: Pre deployment tasks."\\n;
+
+    rm -rf ./tmp;
+    mkdir ./tmp;  # pull down locally so that if something goes wrong it will be easier to debug with local artifacts
+    cd tmp;
+    cp ../${PARAMS_FOLDER}/api/tools/*.params .;
+
+    getVerifiedRemoteTemplateAndLocalParams ${API_BC_PIPELINE_TEMPLATE_FOLDER_URL} ${API_BC_PIPELINE_TEMPLATE_FILENAME} ${API_BC_PIPELINE_PARAMS};
+
+    echo -e \\n"deploy-api-pipeline: Deploying pipeline."\\n;
+
+    oc project ${TOOLS_PROJECT};
+    oc -n ${TOOLS_PROJECT} process -f ${API_BC_PIPELINE_TEMPLATE_FILENAME} --param-file=${API_BC_PIPELINE_PARAMS} | oc apply -n ${TOOLS_PROJECT} -f -
+
+    echo -e \\n"deploy-api-pipeline: Post deployment tasks."\\n;
+
+    oc project ${original_namespace};
+    cd ..;
+    rm -rf ./tmp;
+
+    echo -e \\n"deploy-api-pipeline: Completed deployment."\\n;
+}
+
+deployAdminPipeline() {
+    checkOpenshiftSession;
+
+    source ./params/COMMON_SETTINGS/admin/admin.config;
+
+    checkFileExists "config" ${ADMIN_ARGS_FILE};
+    source ${ADMIN_ARGS_FILE};
+
+    local original_namespace=$(oc project --short=true);
+
+    echo -e \\n"deploy-admin-pipeline: Pre deployment tasks."\\n;
+
+    rm -rf ./tmp;
+    mkdir ./tmp;  # pull down locally so that if something goes wrong it will be easier to debug with local artifacts
+    cd tmp;
+    cp ../${PARAMS_FOLDER}/admin/tools/*.params .;
+
+    getVerifiedRemoteTemplateAndLocalParams ${ADMIN_BC_PIPELINE_TEMPLATE_FOLDER_URL} ${ADMIN_BC_PIPELINE_TEMPLATE_FILENAME} ${ADMIN_BC_PIPELINE_PARAMS};
+
+    echo -e \\n"deploy-admin-pipeline: Deploying pipeline."\\n;
+
+    oc project ${TOOLS_PROJECT};
+    oc -n ${TOOLS_PROJECT} process -f ${ADMIN_BC_PIPELINE_TEMPLATE_FILENAME} --param-file=${ADMIN_BC_PIPELINE_PARAMS} | oc apply -n ${TOOLS_PROJECT} -f -
+
+    echo -e \\n"deploy-admin-pipeline: Post deployment tasks."\\n;
+
+    oc project ${original_namespace};
+    cd ..;
+    rm -rf ./tmp;
+
+    echo -e \\n"deploy-admin-pipeline: Completed deployment."\\n;
+}
+
+deployPublicPipeline() {
+    checkOpenshiftSession;
+
+    source ./params/COMMON_SETTINGS/public/public.config;
+
+    checkFileExists "config" ${PUBLIC_ARGS_FILE};
+    source ${PUBLIC_ARGS_FILE};
+
+    local original_namespace=$(oc project --short=true);
+
+    echo -e \\n"deploy-public-pipeline: Pre deployment tasks."\\n;
+
+    rm -rf ./tmp;
+    mkdir ./tmp;  # pull down locally so that if something goes wrong it will be easier to debug with local artifacts
+    cd tmp;
+    cp ../${PARAMS_FOLDER}/public/tools/*.params .;
+
+    echo "${PUBLIC_BC_PIPELINE_TEMPLATE_FILENAME}";
+
+    getVerifiedRemoteTemplateAndLocalParams ${PUBLIC_BC_PIPELINE_TEMPLATE_FOLDER_URL} ${PUBLIC_BC_PIPELINE_TEMPLATE_FILENAME} ${PUBLIC_BC_PIPELINE_PARAMS};
+
+    echo -e \\n"deploy-public-pipeline: Deploying pipeline."\\n;
+
+    oc project ${TARGET_PROJECT};
+    oc -n ${TOOLS_PROJECT} process -f ${PUBLIC_BC_PIPELINE_TEMPLATE_FILENAME} --param-file=${PUBLIC_BC_PIPELINE_PARAMS} | oc apply -n ${TOOLS_PROJECT} -f -
+
+    echo -e \\n"deploy-public-pipeline: Post deployment tasks."\\n;
+
+    oc project ${original_namespace};
+    cd ..;
+    rm -rf ./tmp;
+
+    echo -e \\n"deploy-public-pipeline: Completed deployment."\\n;
+}
+
+
+
+
+
+#######################################################################################################################################
+###############################################################   RUN   ###############################################################
+#######################################################################################################################################
+
+
 loadEnvSettings $(<${ENV_ARGS_FILE});
 
-deployApi $(<${API_ARGS_FILE});
-deployAdmin $(<${ADMIN_ARGS_FILE});
-deployPublic $(<${PUBLIC_ARGS_FILE});
+# deployApi $(<${API_ARGS_FILE});
+# deployAdmin $(<${ADMIN_ARGS_FILE});
+# deployPublic $(<${PUBLIC_ARGS_FILE});
 
+deployApiPipeline $(<${API_ARGS_FILE});
+deployAdminPipeline $(<${ADMIN_ARGS_FILE});
+deployPublicPipeline $(<${PUBLIC_ARGS_FILE});
 
-# Go watch your builds.  In about 20 minutes they should complete.  
+# Go watch your builds.  In about 20 minutes they should complete.
 # When they are done, run the following commands to trigger your deployments
-# Don't uncomment them here because they need to be run after the builds are done.  
+# Don't uncomment them here because they need to be run after the builds are done.
 # Edit them to fit your settings and run them separately in a terminal.
 # Typically your-target-env is one of [dev, test, prod]
 

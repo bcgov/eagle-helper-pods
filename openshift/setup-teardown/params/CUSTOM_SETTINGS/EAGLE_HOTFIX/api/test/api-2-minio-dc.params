@@ -1,8 +1,8 @@
 NAME=hotfix-eagle-api-minio
 GROUP_NAME=hotfix-eagle-epic
 MINIO_IMAGE_NAME=hotfix-eagle-api-minio
-MINIO_IMAGE_NAMESPACE=noexist-tools
-MINIO_IMAGE_TAG=test
+MINIO_IMAGE_NAMESPACE=esm
+MINIO_IMAGE_TAG=stable
 STORAGE_CLASS=netapp-file-standard
 STORAGE_PROVIDER=kubernetes.io/netapp
 MINIO_DATA_DIR=/data

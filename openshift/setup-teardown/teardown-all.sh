@@ -20,9 +20,18 @@ loadEnvSettings() {
     checkProjectExists ${TARGET_PROJECT};
 }
 
+
+
+
+
+#######################################################################################################################################
+############################################################   DEPLOYMENTS   ##########################################################
+#######################################################################################################################################
+
+
 cleanApi() {
     checkOpenshiftSession;
-    
+
     source ./params/COMMON_SETTINGS/api/api.config;
 
     checkFileExists "config" ${API_ARGS_FILE};
@@ -62,7 +71,7 @@ cleanApi() {
 
 cleanAdmin() {
     checkOpenshiftSession;
-    
+
     source ./params/COMMON_SETTINGS/admin/admin.config;
 
     checkFileExists "config" ${ADMIN_ARGS_FILE};
@@ -83,7 +92,7 @@ cleanAdmin() {
 
 cleanPublic() {
     checkOpenshiftSession;
-    
+
     source ./params/COMMON_SETTINGS/public/public.config;
 
     checkFileExists "config" ${PUBLIC_ARGS_FILE};
@@ -102,10 +111,77 @@ cleanPublic() {
     echo -e \\n"clean-public: Completed clean."\\n
 }
 
+
+
+
+
+#######################################################################################################################################
+############################################################   PIPELINES   ############################################################
+#######################################################################################################################################
+
+
+cleanApiPipeline() {
+    checkOpenshiftSession;
+
+    source ./params/COMMON_SETTINGS/api/api.config;
+
+    checkFileExists "config" ${API_ARGS_FILE};
+    source ${API_ARGS_FILE};
+
+    echo -e \\n"clean-api-pipeline: Removing deployments."\\n;
+
+    removeFromProject ${API_BC_PIPELINE_NAME} ${TOOLS_PROJECT}
+
+    echo -e \\n"clean-api-pipeline: Completed clean."\\n
+}
+
+cleanAdminPipeline() {
+    checkOpenshiftSession;
+
+    source ./params/COMMON_SETTINGS/admin/admin.config;
+
+    checkFileExists "config" ${ADMIN_ARGS_FILE};
+    source ${ADMIN_ARGS_FILE};
+
+    echo -e \\n"clean-admin-pipeline: Removing deployments."\\n;
+
+    removeFromProject ${ADMIN_BC_PIPELINE_NAME} ${TOOLS_PROJECT}
+
+    echo -e \\n"clean-admin-pipeline: Completed clean."\\n
+}
+
+cleanPublicPipeline() {
+    checkOpenshiftSession;
+
+    source ./params/COMMON_SETTINGS/public/public.config;
+
+    checkFileExists "config" ${PUBLIC_ARGS_FILE};
+    source ${PUBLIC_ARGS_FILE};
+
+    echo -e \\n"clean-public-pipeline: Removing deployments."\\n;
+
+    removeFromProject ${PUBLIC_BC_PIPELINE_NAME} ${TOOLS_PROJECT}
+
+    echo -e \\n"clean-public-pipeline: Completed clean."\\n
+}
+
+
+
+
+
+#######################################################################################################################################
+###############################################################   RUN   ###############################################################
+#######################################################################################################################################
+
+
 loadEnvSettings $(<${ENV_ARGS_FILE});
 
 cleanApi $(<${API_ARGS_FILE});
 cleanAdmin $(<${ADMIN_ARGS_FILE});
 cleanPublic $(<${PUBLIC_ARGS_FILE});
+
+cleanApiPipeline $(<${API_ARGS_FILE});
+cleanAdminPipeline $(<${ADMIN_ARGS_FILE});
+cleanPublicPipeline $(<${PUBLIC_ARGS_FILE});
 
 removeFromProject ${GROUP_NAME} ${TARGET_PROJECT};
