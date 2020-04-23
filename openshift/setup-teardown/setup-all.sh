@@ -282,9 +282,9 @@ deployPublicPipeline() {
 
 loadEnvSettings $(<${ENV_ARGS_FILE});
 
-# deployApi $(<${API_ARGS_FILE});
-# deployAdmin $(<${ADMIN_ARGS_FILE});
-# deployPublic $(<${PUBLIC_ARGS_FILE});
+deployApi $(<${API_ARGS_FILE});
+deployAdmin $(<${ADMIN_ARGS_FILE});
+deployPublic $(<${PUBLIC_ARGS_FILE});
 
 deployApiPipeline $(<${API_ARGS_FILE});
 deployAdminPipeline $(<${ADMIN_ARGS_FILE});
