@@ -255,8 +255,6 @@ deployPublicPipeline() {
     cd tmp;
     cp ../${PARAMS_FOLDER}/public/tools/*.params .;
 
-    echo "${PUBLIC_BC_PIPELINE_TEMPLATE_FILENAME}";
-
     getVerifiedRemoteTemplateAndLocalParams ${PUBLIC_BC_PIPELINE_TEMPLATE_FOLDER_URL} ${PUBLIC_BC_PIPELINE_TEMPLATE_FILENAME} ${PUBLIC_BC_PIPELINE_PARAMS};
 
     echo -e \\n"deploy-public-pipeline: Deploying pipeline."\\n;
