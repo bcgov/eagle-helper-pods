@@ -5,3 +5,4 @@ APPLICATION_DOMAIN=cap-bcgov-azure-prod.apps.ocp4lab.clearwater.devops.gov.bc.ca
 TAG_NAME=prod
 REMOTE_API_PATH=https://cap-bcgov-azure-prod.apps.ocp4lab.clearwater.devops.gov.bc.ca/api/public
 REMOTE_ADMIN_PATH=https://cap-bcgov-azure-prod.apps.ocp4lab.clearwater.devops.gov.bc.ca/admin/
+BANNER_COLOUR=none

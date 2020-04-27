@@ -6,3 +6,4 @@ TAG_NAME=prod
 REMOTE_API_PATH=https://cap-kamloops-prod.pathfinder.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://cap-kamloops-prod.pathfinder.gov.bc.ca
 KEYCLOAK_CLIENT_ID=cap-admin-console
+BANNER_COLOUR=none

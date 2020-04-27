@@ -6,3 +6,4 @@ TAG_NAME=test
 REMOTE_API_PATH=https://eagle-check-params-test.pathfinder.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://eagle-check-params-test.pathfinder.gov.bc.ca
 KEYCLOAK_CLIENT_ID=eagle-admin-console
+BANNER_COLOUR=green

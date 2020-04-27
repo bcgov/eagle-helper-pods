@@ -5,3 +5,4 @@ APPLICATION_DOMAIN=demo-eagle-noexist-test.pathfinder.gov.bc.ca
 TAG_NAME=test
 REMOTE_API_PATH=https://demo-eagle-noexist-test.pathfinder.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://demo-eagle-noexist-test.pathfinder.gov.bc.ca
+BANNER_COLOUR=green
