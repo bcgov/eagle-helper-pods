@@ -1,8 +1,12 @@
 NAME=eagle-public
 GROUP_NAME=eagle-epic
-IMAGE_NAMESPACE=noexist-tools
-APPLICATION_DOMAIN=eagle-noexist-test.pathfinder.gov.bc.ca
+IMAGE_NAMESPACE=esm
+APPLICATION_DOMAIN=eagle-test.pathfinder.gov.bc.ca
 TAG_NAME=test
-REMOTE_API_PATH=https://eagle-noexist-test.pathfinder.gov.bc.ca/api/public
-REMOTE_ADMIN_PATH=https://eagle-noexist-test.pathfinder.gov.bc.ca/admin/
+REMOTE_API_PATH=https://eagle-test.pathfinder.gov.bc.ca/api/public
+REMOTE_ADMIN_PATH=https://eagle-test.pathfinder.gov.bc.ca/admin/
+NODEJS_CPU_REQUEST=10m
+NODEJS_CPU_LIMIT=500m
+NODEJS_MEMORY_REQUEST=100Mi
+NODEJS_MEMORY_LIMIT=1Gi
 BANNER_COLOUR=green
