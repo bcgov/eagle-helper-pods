@@ -23,8 +23,16 @@ parameters:
   description: A name of the github repo owner
   required: true
   value: bcgov
-- name: REPO_NAME
-  displayName: Application Repository Name
+- name: REPO_NAME_ADMIN
+  displayName: Application Repository Name for eagle-admin
+  description: Name of the application repository (code to build)
+  required: true
+- name: REPO_NAME_API
+  displayName: Application Repository Name for eagle-api
+  description: Name of the application repository (code to build)
+  required: true
+- name: REPO_NAME_PUBLIC
+  displayName: Application Repository Name for eagle-public
   description: Name of the application repository (code to build)
   required: true
 - name: APP_NAME
