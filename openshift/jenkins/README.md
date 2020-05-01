@@ -1,7 +1,7 @@
 # EPIC Jenkins
 This Jenkins setup and configuration is based on the example provided by [nr-showcase-devops-tools](https://github.com/bcgov/nr-showcase-devops-tools/tree/master/tools).
 
-The configuration has been modified to support EPIC's multi-repository nature.
+The configuration has been modified to support EPIC's multi-repository structure.
 
 ## Prerequisites
 
@@ -89,3 +89,7 @@ Ensure all the required environment variables above have been sourced to your en
 ```
 
 If there were no errors, wait a couple minutes then check your tools namespace for deployments.
+
+### Delete Deployment
+
+
