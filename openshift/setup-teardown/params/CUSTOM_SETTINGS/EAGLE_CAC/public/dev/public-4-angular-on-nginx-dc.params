@@ -3,6 +3,6 @@ GROUP_NAME=cac-eagle-epic
 IMAGE_NAMESPACE=esm
 APPLICATION_DOMAIN=eagle-cac-dev.pathfinder.gov.bc.ca
 TAG_NAME=dev
+BANNER_COLOUR=orange
 REMOTE_API_PATH=https://eagle-cac-dev.pathfinder.gov.bc.ca/api/public
 REMOTE_ADMIN_PATH=https://eagle-cac-dev.pathfinder.gov.bc.ca/admin/
-BANNER_COLOUR=orange

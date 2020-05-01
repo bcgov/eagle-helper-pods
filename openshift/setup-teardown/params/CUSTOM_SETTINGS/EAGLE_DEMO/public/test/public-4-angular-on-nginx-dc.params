@@ -3,6 +3,6 @@ GROUP_NAME=demo-eagle-epic
 IMAGE_NAMESPACE=esm
 APPLICATION_DOMAIN=demo-eagle-test.pathfinder.gov.bc.ca
 TAG_NAME=demo
+BANNER_COLOUR=yellow
 REMOTE_API_PATH=https://demo-eagle-test.pathfinder.gov.bc.ca/api/public
 REMOTE_ADMIN_PATH=https://demo-eagle-test.pathfinder.gov.bc.ca/admin/
-BANNER_COLOUR=yellow
