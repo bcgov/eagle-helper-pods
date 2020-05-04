@@ -41,6 +41,13 @@ def masterTraits = [
     new WipeWorkspaceTrait()
 ]
 
+def hotfixTraits = [
+    new RegexSCMHeadFilterTrait("^(hotfix)"),
+    new BranchDiscoveryTrait(1),
+    new DisableStatusUpdateTrait(),
+    new WipeWorkspaceTrait()
+]
+
 core_jobs = [ new Expando(jobName: "dev-${name}-public",
                           displayName: "dev-${name}-public",
                           owner: repoOwner,
@@ -94,7 +101,7 @@ core_jobs = [ new Expando(jobName: "dev-${name}-public",
                           repo: appRepoPublic,
                           credentialsId: githubCredentialsId,
                           jenkinsFilePath: "Jenkinsfile-hotfix",
-                          traits: masterTraits,
+                          traits: hotfixTraits,
                           startJob: true),
                    new Expando(jobName: "hotfix-${name}-api",
                           displayName: "hotfix-${name}-api",
@@ -102,7 +109,7 @@ core_jobs = [ new Expando(jobName: "dev-${name}-public",
                           repo: appRepoApi,
                           credentialsId: githubCredentialsId,
                           jenkinsFilePath: "Jenkinsfile-hotfix",
-                          traits: masterTraits,
+                          traits: hotfixTraits,
                           startJob: true),
                    new Expando(jobName: "hotfix-${name}-admin",
                           displayName: "hotfix-${name}-admin",
@@ -110,7 +117,7 @@ core_jobs = [ new Expando(jobName: "dev-${name}-public",
                           repo: appRepoAdmin,
                           credentialsId: githubCredentialsId,
                           jenkinsFilePath: "Jenkinsfile-hotfix",
-                          traits: masterTraits,
+                          traits: hotfixTraits,
                           startJob: true),
             ]
 
