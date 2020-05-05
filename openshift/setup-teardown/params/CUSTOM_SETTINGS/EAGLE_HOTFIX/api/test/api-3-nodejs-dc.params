@@ -1,0 +1,9 @@
+NAME=hotfix-eagle-api
+GROUP_NAME=hotfix-eagle-epic
+APPLICATION_DOMAIN=hotfix-eagle-test.pathfinder.gov.bc.ca
+MINIO_HOST=hotfix-eagle-api-minio-esm-test.pathfinder.gov.bc.ca
+MINIO_SECRET_NAME=hotfix-eagle-api-minio-keys
+DATABASE_SERVICE_NAME=hotfix-eagle-api-mongodb
+APP_IMAGE_NAME=hotfix-eagle-api
+APP_IMAGE_NAMESPACE=esm
+APP_DEPLOYMENT_TAG=hotfix

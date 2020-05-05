@@ -3,6 +3,7 @@ GROUP_NAME=cap-bcgov-azure-epic
 IMAGE_NAMESPACE=tnhlex-test
 APPLICATION_DOMAIN=cap-bcgov-azure-test.apps.ocp4lab.clearwater.devops.gov.bc.ca
 TAG_NAME=test
+BANNER_COLOUR=green
 REMOTE_API_PATH=https://cap-bcgov-azure-test.apps.ocp4lab.clearwater.devops.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://cap-bcgov-azure-test.apps.ocp4lab.clearwater.devops.gov.bc.ca
 KEYCLOAK_CLIENT_ID=cap-admin-console

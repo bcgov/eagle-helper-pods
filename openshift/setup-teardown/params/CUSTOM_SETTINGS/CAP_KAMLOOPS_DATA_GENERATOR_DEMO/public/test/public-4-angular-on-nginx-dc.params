@@ -3,5 +3,6 @@ GROUP_NAME=cap-kamloops-data-generator-demo-epic
 IMAGE_NAMESPACE=oabrei-test
 APPLICATION_DOMAIN=cap-kamloops-data-generator-demo-test.pathfinder.gov.bc.ca
 TAG_NAME=test
+BANNER_COLOUR=green
 REMOTE_API_PATH=https://cap-kamloops-data-generator-demo-test.pathfinder.gov.bc.ca/api/public
 REMOTE_ADMIN_PATH=https://cap-kamloops-data-generator-demo-test.pathfinder.gov.bc.ca/admin/

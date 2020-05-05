@@ -3,5 +3,6 @@ GROUP_NAME=demo-eagle-epic
 IMAGE_NAMESPACE=noexist-tools
 APPLICATION_DOMAIN=demo-eagle-noexist-prod.pathfinder.gov.bc.ca
 TAG_NAME=prod
+BANNER_COLOUR=
 REMOTE_API_PATH=https://demo-eagle-noexist-prod.pathfinder.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://demo-eagle-noexist-prod.pathfinder.gov.bc.ca

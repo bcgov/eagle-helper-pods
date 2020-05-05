@@ -3,6 +3,7 @@ GROUP_NAME=cap-kamloops-epic
 IMAGE_NAMESPACE=oabrei-dev
 APPLICATION_DOMAIN=cap-kamloops-dev.pathfinder.gov.bc.ca
 TAG_NAME=dev
+BANNER_COLOUR=orange
 REMOTE_API_PATH=https://cap-kamloops-dev.pathfinder.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://cap-kamloops-dev.pathfinder.gov.bc.ca
 KEYCLOAK_CLIENT_ID=cap-admin-console

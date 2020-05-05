@@ -1,0 +1,4 @@
+JENKINSFILE_PATH=Jenkinsfile-hotfix
+GROUP_NAME=eagle-pipeline-hotfix
+GIT_REPO_BRANCH=hotfix
+NAME=hotfix-eagle-public

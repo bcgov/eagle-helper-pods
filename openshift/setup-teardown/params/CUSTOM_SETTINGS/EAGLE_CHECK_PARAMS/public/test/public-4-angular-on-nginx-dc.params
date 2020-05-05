@@ -3,5 +3,6 @@ GROUP_NAME=eagle-check-params-epic
 IMAGE_NAMESPACE=mem-mmti-prod
 APPLICATION_DOMAIN=eagle-check-params-test.pathfinder.gov.bc.ca
 TAG_NAME=test
+BANNER_COLOUR=green
 REMOTE_API_PATH=https://eagle-check-params-test.pathfinder.gov.bc.ca/api/public
 REMOTE_ADMIN_PATH=https://eagle-check-params-test.pathfinder.gov.bc.ca/admin/

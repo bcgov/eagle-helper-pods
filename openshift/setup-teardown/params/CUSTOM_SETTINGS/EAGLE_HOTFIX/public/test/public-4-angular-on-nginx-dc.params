@@ -1,0 +1,8 @@
+NAME=hotfix-eagle-public
+GROUP_NAME=hotfix-eagle-epic
+IMAGE_NAMESPACE=esm
+APPLICATION_DOMAIN=hotfix-eagle-test.pathfinder.gov.bc.ca
+TAG_NAME=hotfix
+BANNER_COLOUR=purple
+REMOTE_API_PATH=https://hotfix-eagle-test.pathfinder.gov.bc.ca/api/public
+REMOTE_ADMIN_PATH=https://hotfix-eagle-test.pathfinder.gov.bc.ca/admin/

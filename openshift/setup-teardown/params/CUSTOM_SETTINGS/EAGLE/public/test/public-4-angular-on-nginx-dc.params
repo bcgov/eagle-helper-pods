@@ -3,6 +3,7 @@ GROUP_NAME=eagle-epic
 IMAGE_NAMESPACE=esm
 APPLICATION_DOMAIN=eagle-test.pathfinder.gov.bc.ca
 TAG_NAME=test
+BANNER_COLOUR=green
 REMOTE_API_PATH=https://eagle-test.pathfinder.gov.bc.ca/api/public
 REMOTE_ADMIN_PATH=https://eagle-test.pathfinder.gov.bc.ca/admin/
 NODEJS_CPU_REQUEST=10m

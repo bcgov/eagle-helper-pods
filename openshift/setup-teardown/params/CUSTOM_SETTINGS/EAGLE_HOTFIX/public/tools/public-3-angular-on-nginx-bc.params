@@ -1,0 +1,3 @@
+NAME=hotfix-eagle-public
+ANGULAR_BUILDER_IMAGE=hotfix-eagle-public-angular-builder
+NGINX_RUNTIME_IMAGE=hotfix-eagle-public-nginx-runtime
