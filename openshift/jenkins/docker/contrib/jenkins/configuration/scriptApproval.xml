@@ -17,7 +17,7 @@
     <string>method org.jenkins.plugins.lockableresources.LockableResourcesManager getResources</string>
     <string>method org.jenkins.plugins.lockableresources.LockableResource isLocked</string>
     <string>method org.jenkins.plugins.lockableresources.LockableResource getName</string>
-    <string>method hudson.model.Saveable save</script>
+    <string>method hudson.model.Saveable save</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
