@@ -1,6 +1,6 @@
 NAME=pr-placeholder-eagle-public
 GROUP_NAME=pr-placeholder-epic
-IMAGE_NAMESPACE=md4m71-tools
+IMAGE_NAMESPACE=esm
 APPLICATION_DOMAIN=eagle-pr-placeholder-dev.pathfinder.gov.bc.ca
 TAG_NAME=dev
 BANNER_COLOUR=orange
