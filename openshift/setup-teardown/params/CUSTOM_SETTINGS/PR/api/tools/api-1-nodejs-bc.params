@@ -1,3 +1,4 @@
 NAME=pr-placeholder-eagle-api
-SOURCE_REPOSITORY_URL=https://github.com/bcgov/eagle-api
-SOURCE_REPOSITORY_REF=pr-placeholder
+SOURCE_REPOSITORY_URL=https://github.com/fork-placeholder/eagle-api
+SOURCE_REPOSITORY_REF=branch-placeholder
+NODE_ENV=development
