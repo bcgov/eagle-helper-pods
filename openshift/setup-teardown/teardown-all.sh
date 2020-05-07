@@ -180,8 +180,8 @@ cleanApi $(<${API_ARGS_FILE});
 cleanAdmin $(<${ADMIN_ARGS_FILE});
 cleanPublic $(<${PUBLIC_ARGS_FILE});
 
-cleanApiPipeline $(<${API_ARGS_FILE});
-cleanAdminPipeline $(<${ADMIN_ARGS_FILE});
-cleanPublicPipeline $(<${PUBLIC_ARGS_FILE});
+# cleanApiPipeline $(<${API_ARGS_FILE});
+# cleanAdminPipeline $(<${ADMIN_ARGS_FILE});
+# cleanPublicPipeline $(<${PUBLIC_ARGS_FILE});
 
 removeFromProject ${GROUP_NAME} ${TARGET_PROJECT};
