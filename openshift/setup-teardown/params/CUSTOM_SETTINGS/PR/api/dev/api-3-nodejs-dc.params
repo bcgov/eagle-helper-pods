@@ -6,4 +6,4 @@ MINIO_SECRET_NAME=pr-placeholder-eagle-api-minio-keys
 DATABASE_SERVICE_NAME=pr-placeholder-eagle-api-mongodb
 APP_IMAGE_NAME=pr-placeholder-eagle-api
 APP_IMAGE_NAMESPACE=esm
-APP_DEPLOYMENT_TAG=dev
+APP_DEPLOYMENT_TAG=latest
