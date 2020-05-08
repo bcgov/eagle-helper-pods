@@ -7,3 +7,4 @@ DATABASE_SERVICE_NAME=pr-placeholder-eagle-api-mongodb
 APP_IMAGE_NAME=pr-placeholder-eagle-api
 APP_IMAGE_NAMESPACE=esm
 APP_DEPLOYMENT_TAG=latest
+CHES_SECRET_NAME=getok-credentials
