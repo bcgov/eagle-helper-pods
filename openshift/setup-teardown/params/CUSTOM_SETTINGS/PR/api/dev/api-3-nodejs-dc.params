@@ -1,7 +1,7 @@
 NAME=pr-placeholder-eagle-api
 GROUP_NAME=pr-placeholder-epic
 APPLICATION_DOMAIN=eagle-pr-placeholder-dev.pathfinder.gov.bc.ca
-MINIO_HOST=eagle-api-minio-pr-placeholder-dev.pathfinder.gov.bc.ca
+MINIO_HOST=pr-placeholder-eagle-api-minio-esm-dev.pathfinder.gov.bc.ca
 MINIO_SECRET_NAME=pr-placeholder-eagle-api-minio-keys
 DATABASE_SERVICE_NAME=pr-placeholder-eagle-api-mongodb
 APP_IMAGE_NAME=pr-placeholder-eagle-api
