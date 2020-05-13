@@ -29,21 +29,20 @@ def githubCredentialsId = "github-account"
 
 def pullRequestTraits = [
     new ForkPullRequestDiscoveryTrait([ChangeRequestCheckoutStrategy.MERGE].toSet(),new ForkPullRequestDiscoveryTrait.TrustContributors()),
-    new OriginPullRequestDiscoveryTrait(1),
     new DisableStatusUpdateTrait(),
     new WipeWorkspaceTrait()
 ]
 
 def masterTraits = [
     new RegexSCMHeadFilterTrait("^(develop|test|master)"),
-    new BranchDiscoveryTrait(1),
+    new BranchDiscoveryTrait(3),
     new DisableStatusUpdateTrait(),
     new WipeWorkspaceTrait()
 ]
 
 def hotfixTraits = [
     new RegexSCMHeadFilterTrait("^(hotfix)"),
-    new BranchDiscoveryTrait(1),
+    new BranchDiscoveryTrait(3),
     new DisableStatusUpdateTrait(),
     new WipeWorkspaceTrait()
 ]
