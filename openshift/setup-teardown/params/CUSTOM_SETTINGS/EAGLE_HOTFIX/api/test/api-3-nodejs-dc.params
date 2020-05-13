@@ -7,3 +7,4 @@ DATABASE_SERVICE_NAME=hotfix-eagle-api-mongodb
 APP_IMAGE_NAME=hotfix-eagle-api
 APP_IMAGE_NAMESPACE=esm
 APP_DEPLOYMENT_TAG=hotfix
+ENABLE_VIRUS_SCANNING=true
