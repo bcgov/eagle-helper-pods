@@ -61,7 +61,6 @@ deployApi() {
     echo -e \\n"deploy-api: Deploying images."\\n;
 
     oc project ${TARGET_PROJECT};
-    oc -n ${TARGET_PROJECT} process -f ${API_BC_MINIO_TEMPLATE_FILENAME} --param-file=${API_BC_MINIO_PARAMS} | oc create -f -
     oc -n ${TARGET_PROJECT} process -f ${API_DC_MINIO_TEMPLATE_FILENAME} --param-file=${API_DC_MINIO_PARAMS} | oc create -f -
     oc -n ${TARGET_PROJECT} process -f ${API_DC_NODEJS_AND_MONGO_TEMPLATE_FILENAME} --param-file=${API_DC_NODEJS_AND_MONGO_PARAMS} | oc create -f -
 
