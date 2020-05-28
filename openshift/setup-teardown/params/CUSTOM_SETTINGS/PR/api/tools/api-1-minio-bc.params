@@ -1,5 +1,2 @@
 NAME=pr-placeholder-eagle-api-minio
-GIT_REPO_URL=https://github.com/bcgov/eagle-minio-openshift
-GIT_REF=master
-SOURCE_CONTEXT_DIR=docker
-OUTPUT_IMAGE_TAG=latest
+
