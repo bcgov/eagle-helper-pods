@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "epic-metabase"
+    "name": "mds-metabase-dc"
   },
   "objects": [
     {
@@ -12,7 +12,7 @@
         "name": "${NAME}-${SUFFIX}-secret",
         "annotations": {
           "template.openshift.io/expose-password": "{.data['database-password']}",
-          "as-copy-of": "template.${NAME}-secret"
+          "as-copy-of": "template.${NAME}-${SUFFIX}-secret"
         }
       },
       "stringData": {
@@ -20,6 +20,7 @@
         "admin-password": "${ADMIN_PASSWORD}",
         "admin-username": "${NAME}-admin",
         "database-password": "${DATABASE_PASSWORD}",
+        "database-admin-password": "${DATABASE_ADMIN_PASSWORD}",
         "embedding-secret-key": "${EMBEDDING_SECRET_KEY}"
       }
     },
@@ -73,16 +74,45 @@
     },
     {
       "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "template.openshift.io/expose-uri": "postgres://{.spec.clusterIP}:{.spec.ports[?(.name==\"postgresql\")].port}"
+        },
+        "name": "${NAME_DATABASE}-${SUFFIX}"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "postgresql",
+            "port": 5432,
+            "protocol": "TCP",
+            "targetPort": 5432
+          }
+        ],
+        "selector": {
+          "name": "${NAME}-${SUFFIX}"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "apiVersion": "v1",
       "kind": "PersistentVolumeClaim",
       "metadata": {
-        "name": "${NAME}-${SUFFIX}",
+        "name": "${NAME_DATABASE}-${SUFFIX}",
         "annotations": {
-          "volume.beta.kubernetes.io/storage-class": "gluster-file",
-          "volume.beta.kubernetes.io/storage-provisioner": "kubernetes.io/glusterfs"
+          "volume.beta.kubernetes.io/storage-provisioner": "netapp.io/trident"
         }
       },
       "spec": {
-        "accessModes": ["ReadWriteMany"],
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
         "resources": {
           "requests": {
             "storage": "${METABASE_PVC_SIZE}"
@@ -111,6 +141,23 @@
       }
     },
     {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME_DATABASE}",
+        "creationTimestamp": null,
+        "labels": {
+          "shared": "true"
+        }
+      },
+      "spec": {
+        "lookupPolicy": {
+          "local": false
+        },
+        "tags": []
+      }
+    },
+    {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
@@ -118,7 +165,7 @@
       },
       "spec": {
         "strategy": {
-          "type": "Rolling",
+          "type": "Recreate",
           "maxSurge": "50%",
           "maxUnavailable": 0
         },
@@ -130,10 +177,26 @@
             "type": "ImageChange",
             "imageChangeParams": {
               "automatic": true,
-              "containerNames": ["${NAME}"],
+              "containerNames": [
+                "${NAME}"
+              ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "${NAME}:${VERSION}",
+                "name": "${NAME}-${SUFFIX}:${VERSION}",
+                "namespace": "${TOOLSNAMESPACE}"
+              }
+            }
+          },
+          {
+            "type": "ImageChange",
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "${NAME_DATABASE}"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "${NAME_DATABASE}:${VERSION}",
                 "namespace": "${TOOLSNAMESPACE}"
               }
             }
@@ -176,12 +239,33 @@
                     "value": "0.0.0.0"
                   },
                   {
-                    "name": "MB_DB_FILE",
-                    "value": "/app/data/metabase.db"
+                    "name": "MB_DB_TYPE",
+                    "value": "postgres"
                   },
                   {
-                    "name": "MB_DB_TYPE",
-                    "value": "h2"
+                    "name": "MB_DB_DBNAME",
+                    "value": "metabase"
+                  },
+                  {
+                    "name": "MB_DB_PORT",
+                    "value": "5432"
+                  },
+                  {
+                    "name": "MB_DB_USER",
+                    "value": "metabase"
+                  },
+                  {
+                    "name": "MB_DB_PASS",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "${NAME}-${SUFFIX}-secret",
+                        "key": "database-password"
+                      }
+                    }
+                  },
+                  {
+                    "name": "MB_DB_HOST",
+                    "value": "${NAME_DATABASE}-${SUFFIX}"
                   },
                   {
                     "name": "ENVIRONMENT_NAME",
@@ -197,12 +281,6 @@
                     }
                   }
                 ],
-                "volumeMounts": [
-                  {
-                    "mountPath": "/app/data",
-                    "name": "${NAME}-${SUFFIX}-data"
-                  }
-                ],
                 "resources": {
                   "requests": {
                     "cpu": "${CPU_REQUEST}",
@@ -216,13 +294,88 @@
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent",
                 "capabilities": {}
+              },
+              {
+                "name": "${NAME_DATABASE}",
+                "image": " ",
+                "ports": [
+                  {
+                    "containerPort": 5432,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "POSTGRESQL_USER",
+                    "value": "metabase"
+                  },
+                  {
+                    "name": "POSTGRESQL_DATABASE",
+                    "value": "metabase"
+                  },
+                  {
+                    "name": "POSTGRESQL_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "${NAME}-${SUFFIX}-secret",
+                        "key": "database-password"
+                      }
+                    }
+                  },
+                  {
+                    "name": "POSTGRESQL_ADMIN_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "${NAME}-${SUFFIX}-secret",
+                        "key": "database-admin-password"
+                      }
+                    }
+                  }
+                ],
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "/bin/bash",
+                      "-c",
+                      "pg_isready -h localhost -p 5432"
+                    ]
+                  },
+                  "initialDelaySeconds": 20,
+                  "timeoutSeconds": 15
+                },
+                "livenessProbe": {
+                  "initialDelaySeconds": 30,
+                  "tcpSocket": {
+                    "port": 5432
+                  },
+                  "timeoutSeconds": 10
+                },
+                "volumeMounts": [
+                  {
+                    "mountPath": "/var/lib/pgsql/data",
+                    "name": "${NAME_DATABASE}-${SUFFIX}-data"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "${DB_CPU_REQUEST}",
+                    "memory": "${DB_MEMORY_REQUEST}"
+                  },
+                  "limits": {
+                    "cpu": "${DB_CPU_LIMIT}",
+                    "memory": "${DB_MEMORY_LIMIT}"
+                  }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent",
+                "capabilities": {}
               }
             ],
             "volumes": [
               {
-                "name": "${NAME}-${SUFFIX}-data",
+                "name": "${NAME_DATABASE}-${SUFFIX}-data",
                 "persistentVolumeClaim": {
-                  "claimName": "${NAME}-${SUFFIX}"
+                  "claimName": "${NAME_DATABASE}-${SUFFIX}"
                 }
               }
             ],
@@ -248,17 +401,27 @@
     },
     {
       "name": "MEMORY_REQUEST",
-      "value": "1.5Gi"
+      "value": "1Gi"
+    },
+    {
+      "name": "DB_CPU_LIMIT",
+      "value": "100m"
+    },
+    {
+      "name": "DB_MEMORY_LIMIT",
+      "value": "1Gi"
+    },
+    {
+      "name": "DB_CPU_REQUEST",
+      "value": "50m"
+    },
+    {
+      "name": "DB_MEMORY_REQUEST",
+      "value": "512Mi"
     },
     {
       "name": "ENVIRONMENT_NAME",
       "value": "dev"
-    },
-    {
-      "name": "PR_ENVIRONMENT",
-      "displayName": "PR Based Environment",
-      "description": "A setting to turn off metabase in OpenShift namespaces where resources need to be minimized due to duplication of applications (one for each Pull Request).  Setting the value to 'true' will turn off metabase.",
-      "value": ""
     },
     {
       "name": "NAME",
@@ -268,15 +431,13 @@
       "required": true
     },
     {
-      "name": "VERSION",
-      "displayName": "Build Image Stream version",
-      "description": "The version of the image stream that this corresponds to.  This should be the same as the VERSION in the metabase build config file.",
-      "value": "1",
+      "name": "NAME_DATABASE",
+      "value": "metabase-postgres",
       "required": true
     },
     {
       "name": "APPLICATION_DOMAIN",
-      "value": "esm.pathfinder.gov.bc.ca",
+      "value": "esm-dev.pathfinder.gov.bc.ca",
       "required": true
     },
     {
@@ -284,6 +445,13 @@
       "displayName": "Name Suffix",
       "description": "A suffix appended to all objects",
       "value": "epic",
+      "required": true
+    },
+    {
+      "name": "VERSION",
+      "displayName": "Build Image Stream version",
+      "description": "The version of the image stream that this corresponds to.  This should be the same as the VERSION in the metabase build config file.",
+      "value": "stable",
       "required": true
     },
     {
@@ -315,6 +483,14 @@
     },
     {
       "name": "DATABASE_PASSWORD",
+      "displayName": "Database Password",
+      "description": "A minimum 16 character password that is generated in the target database, and then copied over into this field.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{16}",
+      "required": true
+    },
+    {
+      "name": "DATABASE_ADMIN_PASSWORD",
       "displayName": "Database Password",
       "description": "A minimum 16 character password that is generated in the target database, and then copied over into this field.",
       "generate": "expression",
