@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "mds-metabase-dc"
+    "name": "eagle-metabase-dc"
   },
   "objects": [
     {
@@ -19,6 +19,7 @@
         "admin-email": "${ADMIN_EMAIL}",
         "admin-password": "${ADMIN_PASSWORD}",
         "admin-username": "${NAME}-admin",
+        "database-user": "${DATABASE_USER}",
         "database-password": "${DATABASE_PASSWORD}",
         "database-admin-password": "${DATABASE_ADMIN_PASSWORD}",
         "embedding-secret-key": "${EMBEDDING_SECRET_KEY}"
@@ -85,9 +86,9 @@
         "ports": [
           {
             "name": "postgresql",
-            "port": 5432,
+            "port": "${DATABASE_PORT}",
             "protocol": "TCP",
-            "targetPort": 5432
+            "targetPort": "${DATABASE_PORT}"
           }
         ],
         "selector": {
@@ -248,11 +249,16 @@
                   },
                   {
                     "name": "MB_DB_PORT",
-                    "value": "5432"
+                    "value": "${DATABASE_PORT}"
                   },
                   {
                     "name": "MB_DB_USER",
-                    "value": "metabase"
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "${NAME}-${SUFFIX}-secret",
+                        "key": "database-user"
+                      }
+                    }
                   },
                   {
                     "name": "MB_DB_PASS",
@@ -300,14 +306,19 @@
                 "image": " ",
                 "ports": [
                   {
-                    "containerPort": 5432,
+                    "containerPort": "${DATABASE_PORT}",
                     "protocol": "TCP"
                   }
                 ],
                 "env": [
                   {
                     "name": "POSTGRESQL_USER",
-                    "value": "metabase"
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "${NAME}-${SUFFIX}-secret",
+                        "key": "database-user"
+                      }
+                    }
                   },
                   {
                     "name": "POSTGRESQL_DATABASE",
@@ -337,7 +348,7 @@
                     "command": [
                       "/bin/bash",
                       "-c",
-                      "pg_isready -h localhost -p 5432"
+                      "pg_isready -h localhost -p ${DATABASE_PORT}"
                     ]
                   },
                   "initialDelaySeconds": 20,
@@ -479,6 +490,20 @@
       "description": "The password for the metabase admin user. Requires 2 upper, 2 lower, 1 special, 1 numeric chars and minimum 8 char length",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{8}!@#$%^&_[a-zA-Z0-9]{8}",
+      "required": true
+    },
+    {
+      "name": "DATABASE_PORT",
+      "displayName": "Database Port",
+      "description": "Port used to conncet to Postgres backend DB.",
+      "value": 5432,
+      "required": true
+    },
+    {
+      "name": "DATABASE_USER",
+      "displayName": "Database User",
+      "description": "A minimum 16 character password that is generated in the target database, and then copied over into this field.",
+      "value": "metabase",
       "required": true
     },
     {
