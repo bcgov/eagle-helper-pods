@@ -1,4 +1,4 @@
-NAME=dev-pr-placeholder-eagle-admin
+NAME=pr-placeholder-eagle-admin
 GROUP_NAME=pr-placeholder-epic
 IMAGE_NAMESPACE=esm
 APPLICATION_DOMAIN=eagle-pr-placeholder-dev.pathfinder.gov.bc.ca
