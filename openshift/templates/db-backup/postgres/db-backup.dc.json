@@ -209,24 +209,6 @@
                     }
                   },
                   {
-                    "name": "MONGODB_EAGLE_USER",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "name": "${MONGO_DEPLOYMENT_NAME}",
-                        "key": "${MONGO_USER_KEY_NAME}"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_EAGLE_PASSWORD",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "name": "${MONGO_DEPLOYMENT_NAME}",
-                        "key": "${MONGO_PASSWORD_KEY_NAME}"
-                      }
-                    }
-                  },
-                  {
                     "name": "FTP_URL",
                     "valueFrom": {
                       "secretKeyRef": {
@@ -483,21 +465,21 @@
       "displayName": "Number of Daily Backups to Retain",
       "description": "The number of daily backup files to be retained.  Used for the `rolling` backup strategy.",
       "required": false,
-      "value": ""
+      "value": "7"
     },
     {
       "name": "WEEKLY_BACKUPS",
       "displayName": "Number of Weekly Backups to Retain",
       "description": "The number of weekly backup files to be retained.  Used for the `rolling` backup strategy.",
       "required": false,
-      "value": ""
+      "value": "5"
     },
     {
       "name": "MONTHLY_BACKUPS",
       "displayName": "Number of Monthly Backups to Retain",
       "description": "The number of monthly backup files to be retained.  Used for the `rolling` backup strategy.",
       "required": false,
-      "value": ""
+      "value": "12"
     },
     {
       "name": "BACKUP_PERIOD",
@@ -518,7 +500,7 @@
       "displayName": "Config Map Name",
       "description": "The name of the configuration map.",
       "required": true,
-      "value": "backup-conf"
+      "value": "postgres-backup-conf"
     },
     {
       "name": "CONFIG_MOUNT_PATH",
@@ -553,7 +535,7 @@
       "displayName": "Verification Volume Name",
       "description": "The name for the verification volume, used for restoring and verifying backups.  When using the recommend nfs-backup storage class for backups, this volume MUST be either netapp-file-standard or netapp-block-standard storage; netapp-block-standard is recommended (it has far better performance).",
       "required": false,
-      "value": "backup-verification"
+      "value": "postgres-backup-verification"
     },
     {
       "name": "VERIFICATION_VOLUME_SIZE",
