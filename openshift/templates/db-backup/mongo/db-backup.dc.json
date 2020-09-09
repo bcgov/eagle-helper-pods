@@ -305,7 +305,7 @@
       "displayName": "Image Namespace",
       "description": "The namespace of the OpenShift project containing the imagestream for the application.",
       "required": true,
-      "value": "backup-container"
+      "value": "esm"
     },
     {
       "name": "TAG_NAME",
@@ -368,14 +368,14 @@
       "displayName": "Database User Key Name",
       "description": "The datbase user key name stoed in database deployment resources specified by POSTGRES_DEPLOYMENT_NAME.",
       "required": true,
-      "value": "database-user"
+      "value": "MONGODB_EAGLE_ADMIN_USER"
     },
     {
       "name": "MONGO_PASSWORD_KEY_NAME",
       "displayName": "Database Password Key Name",
       "description": "The database password key name stored in database deployment resources specified by POSTGRES_DEPLOYMENT_NAME.",
       "required": true,
-      "value": "database-password"
+      "value": "MONGODB_EAGLE_ADMIN_PASSWORD"
     },
     {
       "name": "MSSQL_SA_PASSWORD",

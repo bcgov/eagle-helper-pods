@@ -305,7 +305,7 @@
       "displayName": "Image Namespace",
       "description": "The namespace of the OpenShift project containing the imagestream for the application.",
       "required": true,
-      "value": "backup-container"
+      "value": "esm"
     },
     {
       "name": "TAG_NAME",
