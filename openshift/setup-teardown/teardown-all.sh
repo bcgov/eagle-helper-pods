@@ -41,11 +41,13 @@ cleanApi() {
 
     removeFromProject ${API_MINIO_BUILD_NAME} ${TOOLS_PROJECT}
     removeFromProject ${API_NODEJS_BUILD_NAME} ${TOOLS_PROJECT}
+    removeFromProject ${API_NODEJS_BUILD_NAME}-generator ${TOOLS_PROJECT}
     removeFromProject ${API_MINIO_BUILD_NAME} ${TOOLS_PROJECT}
 
     echo -e \\n"clean-api: Removing deployments."\\n;
 
     removeFromProject ${API_NODEJS_DEPLOYMENT_NAME} ${TARGET_PROJECT}
+    removeFromProject ${API_NODEJS_DEPLOYMENT_NAME}-generator ${TARGET_PROJECT}
     removeFromProject ${API_MONGODB_DEPLOYMENT_NAME} ${TARGET_PROJECT}
     removeFromProject ${API_MONGODB_DEPLOYMENT_NAME}-data ${TARGET_PROJECT}
     removeFromProject ${API_MINIO_DEPLOYMENT_NAME} ${TARGET_PROJECT}
