@@ -94,7 +94,6 @@ module.exports = class KeyCloakClient {
         (item) => !item.includes(this.appHost)
       );
     }
-
     if (hasRedirectUris) {
       this.api
         .put(this.appClientPath, putData)
