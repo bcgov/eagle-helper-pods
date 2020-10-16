@@ -2,4 +2,3 @@ NAME=pr-placeholder-eagle-api
 GROUP_NAME=pr-placeholder-epic
 SOURCE_REPOSITORY_URL=https://github.com/fork-placeholder/eagle-api
 SOURCE_REPOSITORY_REF=branch-placeholder
-#NODE_ENV=development
