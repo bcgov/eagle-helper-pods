@@ -47,9 +47,8 @@ module.exports = class KeyCloakClient {
   async getUris() {
     const response = await this.api.get(this.appClientPath);
     const data = { ...response.data };
-    const redirectUris = data.redirectUris;
 
-    return { data, redirectUris };
+    return data;
   }
 
   async addUris() {
@@ -57,15 +56,13 @@ module.exports = class KeyCloakClient {
 
     console.log("Attempting to add RedirectUri and WebOrigins");
 
-    const { data, redirectUris } = await this.getUris();
-    const putData = { id: data.id, clientId: data.clientId };
+    const putData = await this.getUris();
 
-    const hasRedirectUris = redirectUris.find((item) =>
+    const hasRedirectUris = putData.redirectUris.find((item) =>
       item.includes(this.appHost)
     );
     if (!hasRedirectUris) {
-      redirectUris.push(`https://${this.appHost}/*`);
-      putData.redirectUris = redirectUris;
+      putData.redirectUris.push(`https://${this.appHost}/*`);
     }
 
     if (!hasRedirectUris) {
@@ -82,18 +79,18 @@ module.exports = class KeyCloakClient {
 
     console.log("Attempting to remove RedirectUri and WebOrigins");
 
-    const { data, redirectUris } = await this.getUris();
-    const putData = { id: data.id, clientId: data.clientId };
+    const putData = await this.getUris();
 
-    const hasRedirectUris = redirectUris.find((item) =>
+    const hasRedirectUris = putData.redirectUris.find((item) =>
       item.includes(this.appHost)
     );
 
     if (hasRedirectUris) {
-      putData.redirectUris = redirectUris.filter(
+      putData.redirectUris = putData.redirectUris.filter(
         (item) => !item.includes(this.appHost)
       );
     }
+
     if (hasRedirectUris) {
       this.api
         .put(this.appClientPath, putData)
