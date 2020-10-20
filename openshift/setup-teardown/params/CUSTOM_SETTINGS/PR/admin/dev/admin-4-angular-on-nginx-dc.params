@@ -6,4 +6,4 @@ TAG_NAME=latest
 BANNER_COLOUR=orange
 REMOTE_API_PATH=https://eagle-pr-placeholder-dev.pathfinder.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://eagle-pr-placeholder-dev.pathfinder.gov.bc.ca
-KEYCLOAK_CLIENT_ID=eagle-admin-pr-console
+KEYCLOAK_CLIENT_ID=eagle-admin-pr-client
