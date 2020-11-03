@@ -1,0 +1,14 @@
+NAME=eagle-api
+GROUP_NAME=eagle-epic
+APPLICATION_DOMAIN=eagle-test.silver.devops.gov.bc.ca
+MINIO_HOST=eagle-api-minio-6cdc9e-test.silver.devops.gov.bc.ca
+MINIO_SECRET_NAME=eagle-api-minio-keys
+DATABASE_SERVICE_NAME=eagle-api-mongodb
+APP_IMAGE_NAME=eagle-api
+APP_IMAGE_NAMESPACE=6cdc9e-tools
+APP_DEPLOYMENT_TAG=test
+NODEJS_MEMORY_REQUEST=1Gi
+NODEJS_MEMORY_LIMIT=2Gi
+ENABLE_VIRUS_SCANNING=true
+GETOK_ENDPOINT=https://test.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
+CHES_ENDPOINT=https://ches-master-9f0fbe-test.pathfinder.gov.bc.ca/
