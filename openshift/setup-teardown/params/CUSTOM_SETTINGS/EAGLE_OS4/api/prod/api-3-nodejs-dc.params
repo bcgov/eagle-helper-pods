@@ -1,7 +1,7 @@
 NAME=eagle-api
 GROUP_NAME=eagle-epic
-APPLICATION_DOMAIN=eagle-noexist-prod.silver.devops.gov.bc.ca
-MINIO_HOST=eagle-api-minio-prod.silver.devops.gov.bc.ca
+APPLICATION_DOMAIN=eagle-prod.apps.silver.devops.gov.bc.ca
+MINIO_HOST=eagle-api-minio-prod.apps.silver.devops.gov.bc.ca
 MINIO_SECRET_NAME=eagle-api-minio-keys
 DATABASE_SERVICE_NAME=eagle-api-mongodb
 APP_IMAGE_NAME=eagle-api
