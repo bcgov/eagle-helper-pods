@@ -5,5 +5,5 @@ APPLICATION_DOMAIN=eagle-prod.apps.silver.devops.gov.bc.ca
 TAG_NAME=prod
 BANNER_COLOUR=
 REMOTE_API_PATH=https://eagle-prod.apps.silver.devops.gov.bc.ca/api
-REMOTE_PUBLIC_PATH=https://eagle-prod.app.silver.devops.gov.bc.ca
+REMOTE_PUBLIC_PATH=https://eagle-prod.apps.silver.devops.gov.bc.ca
 KEYCLOAK_CLIENT_ID=eagle-admin-console
