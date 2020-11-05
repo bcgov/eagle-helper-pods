@@ -6,3 +6,5 @@ TAG_NAME=cac
 BANNER_COLOUR=orange
 REMOTE_API_PATH=https://eagle-cac-dev.pathfinder.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://eagle-cac-dev.pathfinder.gov.bc.ca
+GETOK_ENDPOINT=https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
+CHES_ENDPOINT=https://ches-dev.pathfinder.gov.bc.ca/

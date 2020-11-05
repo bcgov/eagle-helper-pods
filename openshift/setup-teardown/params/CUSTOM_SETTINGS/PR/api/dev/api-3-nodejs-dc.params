@@ -17,3 +17,5 @@ NODEJS_CPU_LIMIT=500m
 NODEJS_MEMORY_REQUEST=500Mi
 NODEJS_MEMORY_LIMIT=750Mi
 ENABLE_VIRUS_SCANNING=true
+GETOK_ENDPOINT=https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
+CHES_ENDPOINT=https://ches-dev.pathfinder.gov.bc.ca/
