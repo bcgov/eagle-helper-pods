@@ -1,0 +1,30 @@
+{
+  "@bcgov/generator-bcdk": {
+    "promptValues": {
+      "modules": {
+        "jenkins": {
+          "path": ".jenkins",
+          "name": "jenkins-epic",
+          "namespace": "6cdc9e-tools",
+          "version": "1.0.0",
+          "environments": {
+            "build": {
+              "namespace": "6cdc9e-tools"
+            },
+            "dev": {
+              "namespace": "6cdc9e-tools"
+            },
+            "prod": {
+              "namespace": "6cdc9e-tools"
+            }
+          },
+          "jenkinsJobName": "_jenkins",
+          "github_owner": "bcgov",
+          "github_repo": "eagle-helper-pods",
+          "jenkinsFilePath": ".jenkins/Jenkinsfile",
+          "uuid": "56020793-db35-47d4-a2e2-5c156e163dce"
+        }
+      }
+    }
+  }
+}
