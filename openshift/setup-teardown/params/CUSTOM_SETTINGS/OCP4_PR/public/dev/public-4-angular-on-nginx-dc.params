@@ -1,0 +1,8 @@
+NAME=pr-placeholder-eagle-public
+GROUP_NAME=pr-placeholder-epic
+IMAGE_NAMESPACE=6cdc9e-tools
+APPLICATION_DOMAIN=eagle-pr-placeholder-dev.apps.silver.devops.gov.bc.ca
+TAG_NAME=latest
+BANNER_COLOUR=orange
+REMOTE_API_PATH=https://eagle-pr-placeholder-dev.apps.silver.devops.gov.bc.ca/api/public
+REMOTE_ADMIN_PATH=https://eagle-pr-placeholder-dev.apps.silver.devops.gov.bc.ca/admin/

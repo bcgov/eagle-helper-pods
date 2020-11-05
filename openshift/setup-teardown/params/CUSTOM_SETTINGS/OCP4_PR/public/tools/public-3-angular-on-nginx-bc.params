@@ -1,0 +1,4 @@
+NAME=pr-placeholder-eagle-public
+GROUP_NAME=pr-placeholder-epic
+ANGULAR_BUILDER_IMAGE=pr-placeholder-eagle-public-angular-builder
+NGINX_RUNTIME_IMAGE=pr-placeholder-eagle-public-nginx-runtime

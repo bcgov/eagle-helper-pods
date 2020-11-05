@@ -1,0 +1,4 @@
+NAME=pr-placeholder-eagle-public-nginx-runtime
+GROUP_NAME=pr-placeholder-epic
+GIT_REPO_URL=https://github.com/fork-placeholder/eagle-public
+GIT_REPO_BRANCH=branch-placeholder
