@@ -1,0 +1,44 @@
+---
+kind: Template
+apiVersion: v1
+labels:
+  app: jenkins-prod
+metadata:
+  name: jenkins
+objects:
+- apiVersion: v1
+  data:
+    app.name: "${APP_NAME}"
+    app.domain: "${APP_DOMAIN}"
+    repo.name.Admin: "${REPO_NAME_ADMIN}"
+    repo.name.Api: "${REPO_NAME_API}"
+    repo.name.Public: "${REPO_NAME_PUBLIC}"
+    repo.owner: "${REPO_OWNER}"
+  kind: ConfigMap
+  metadata:
+    name: jobs-config
+parameters:
+- name: REPO_OWNER
+  displayName: Application Repository Owner
+  description: A name of the github repo owner
+  required: true
+  value: bcgov
+- name: REPO_NAME_ADMIN
+  displayName: Application Repository Name for eagle-admin
+  description: Name of the application repository (code to build)
+  required: true
+- name: REPO_NAME_API
+  displayName: Application Repository Name for eagle-api
+  description: Name of the application repository (code to build)
+  required: true
+- name: REPO_NAME_PUBLIC
+  displayName: Application Repository Name for eagle-public
+  description: Name of the application repository (code to build)
+  required: true
+- name: APP_NAME
+  description: Short name (one word, lowercase) of the application
+  required: true
+- name: APP_DOMAIN
+  description: Internet domain for the application
+  required: true
+  value: pathfinder.gov.bc.ca
