@@ -9,5 +9,7 @@ APP_IMAGE_NAMESPACE=6cdc9e-tools
 APP_DEPLOYMENT_TAG=prod
 ENABLE_VIRUS_SCANNING=true
 GETOK_ENDPOINT=https://oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
-CHES_ENDPOINT=https://ches-master-9f0fbe-prod.pathfinder.gov.bc.ca/
+CHES_ENDPOINT=https://ches.pathfinder.gov.bc.ca/
+SSO_ISSUER=https://oidc.gov.bc.ca/auth/realms/eagle
+SSO_JWKSURI=https://oidc.gov.bc.ca/auth/realms/eagle/protocol/openid-connect/certs
 

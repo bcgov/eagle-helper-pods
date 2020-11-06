@@ -11,4 +11,6 @@ NODEJS_MEMORY_REQUEST=1Gi
 NODEJS_MEMORY_LIMIT=2Gi
 ENABLE_VIRUS_SCANNING=true
 GETOK_ENDPOINT=https://test.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
-CHES_ENDPOINT=https://ches-master-9f0fbe-test.pathfinder.gov.bc.ca/
+CHES_ENDPOINT=https://ches-test.pathfinder.gov.bc.ca/
+SSO_ISSUER=https://test.oidc.gov.bc.ca/auth/realms/eagle
+SSO_JWKSURI=https://test.oidc.gov.bc.ca/auth/realms/eagle/protocol/openid-connect/certs
