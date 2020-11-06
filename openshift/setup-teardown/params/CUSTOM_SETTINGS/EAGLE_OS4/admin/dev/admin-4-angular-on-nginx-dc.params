@@ -1,0 +1,9 @@
+NAME=eagle-admin
+GROUP_NAME=eagle-epic
+IMAGE_NAMESPACE=6cdc9e-tools
+APPLICATION_DOMAIN=eagle-dev.apps.silver.devops.gov.bc.ca
+TAG_NAME=dev
+BANNER_COLOUR=orange
+REMOTE_API_PATH=https://eagle-dev.apps.silver.devops.gov.bc.ca/api
+REMOTE_PUBLIC_PATH=https://eagle-dev.apps.silver.devops.gov.bc.ca/
+KEYCLOAK_CLIENT_ID=eagle-admin-console
