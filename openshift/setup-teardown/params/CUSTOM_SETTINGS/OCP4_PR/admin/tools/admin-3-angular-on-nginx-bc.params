@@ -1,0 +1,4 @@
+NAME=pr-placeholder-eagle-admin
+GROUP_NAME=pr-placeholder-epic
+ANGULAR_BUILDER_IMAGE=pr-placeholder-eagle-admin-angular-builder
+NGINX_RUNTIME_IMAGE=pr-placeholder-eagle-admin-nginx-runtime

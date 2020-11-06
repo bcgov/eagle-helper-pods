@@ -1,0 +1,7 @@
+NAME=pr-placeholder-eagle-api-minio
+GROUP_NAME=pr-placeholder-epic
+MINIO_DATA_DIR=/data
+OPENSHIFT_REGISTRY=image-registry.openshift-image-registry.svc:5000
+MINIO_IMAGE_NAME=pr-placeholder-eagle-api-minio
+MINIO_IMAGE_NAMESPACE=6cdc9e-tools
+MINIO_IMAGE_TAG=latest
