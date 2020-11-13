@@ -1,0 +1,151 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+parameters:
+- name: NAMESPACE
+objects:
+
+
+
+# Internet Communication Policies
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-api-egress-internet
+    app: eagle-epic
+  spec:
+    description: "allow api to talk to the internet in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=api
+    destination:
+      - - ext:network=any
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-frontend-admin-egress-internet
+    app: eagle-epic
+  spec:
+    description: "allow frontend-admin to talk to the internet in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=frontend-admin
+    destination:
+      - - ext:network=any
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-frontend-public-egress-internet
+    app: eagle-epic
+  spec:
+    description: "allow frontend-public to talk to the internet in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=frontend-public
+    destination:
+      - - ext:network=any
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-minio-egress-internet
+    app: eagle-epic
+  spec:
+    description: "allow minio to talk to the internet in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=minio
+    destination:
+      - - ext:network=any
+
+
+
+# Inter Pod Communication Policies
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-api-database-intra-namespace-comms
+    app: eagle-epic
+  spec:
+    description: "allow api to talk to database in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=api
+    destination:
+      - - $namespace=${NAMESPACE}
+      - - $role=database
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-api-minio-intra-namespace-comms
+    app: eagle-epic
+  spec:
+    description: "allow api to talk to minio in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=api
+    destination:
+      - - $namespace=${NAMESPACE}
+      - - $role=minio
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-api-clamav-intra-namespace-comms
+    app: eagle-epic
+  spec:
+    description: "allow api to talk to clamav in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=api
+    destination:
+      - - $namespace=${NAMESPACE}
+      - - $role=clamav
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-api-frontend-admin-intra-namespace-comms
+    app: eagle-epic
+  spec:
+    description: "allow api to talk to frontend-admin in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=api
+    destination:
+      - - $namespace=${NAMESPACE}
+      - - $role=frontend-admin
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-api-frontend-public-intra-namespace-comms
+    app: eagle-epic
+  spec:
+    description: "allow api to talk to frontend-public in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=api
+    destination:
+      - - $namespace=${NAMESPACE}
+      - - $role=frontend-public
+
+
+
+# Cluster API Communication Policies
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: int-cluster-k8s-api-comms
+    app: eagle-epic
+  spec:
+    description: "allow ${NAMESPACE} pods to talk to the k8s api"
+    destination:
+    - - int:network=internal-cluster-api-endpoint
+    source:
+    - - $namespace=${NAMESPACE}
