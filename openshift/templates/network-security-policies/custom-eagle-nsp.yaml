@@ -2,6 +2,27 @@ apiVersion: template.openshift.io/v1
 kind: Template
 parameters:
 - name: NAMESPACE
+- name: GROUP_NAME
+  description: the value of the 'app' label on all of the deployments for this instance
+  value: eagle-epic
+- name: API_NAME
+  description: the value of the api deployments 'role' label without the group name appended
+  value: api
+- name: DATABASE_NAME
+  description: the value of the database deployments 'role' label without the group name appended
+  value: database
+- name: MINIO_NAME
+  description: the value of the minio deployments 'role' label without the group name appended
+  value: minio
+- name: FRONTEND_ADMIN_NAME
+  description: the value of the admin frontend deployments 'role' label without the group name appended
+  value: frontend-admin
+- name: FRONTEND_PUBLIC_NAME
+  description: the value of the public frontend deployments 'role' label without the group name appended
+  value: frontend-public
+- name: CLAMAV_NAME
+  description: the value of the clamav deployments 'role' label without the group name appended
+  value: clamav
 objects:
 
 
@@ -11,52 +32,52 @@ objects:
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: custom-api-egress-internet
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-${API_NAME}-egress-internet
+    app: ${GROUP_NAME}
   spec:
     description: "allow api to talk to the internet in ${NAMESPACE}."
     source:
       - - $namespace=${NAMESPACE}
-      - - $role=api
+      - - $role=${API_NAME}-${GROUP_NAME}
     destination:
       - - ext:network=any
 
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: custom-frontend-admin-egress-internet
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-${FRONTEND_ADMIN_NAME}-egress-internet
+    app: ${GROUP_NAME}
   spec:
     description: "allow frontend-admin to talk to the internet in ${NAMESPACE}."
     source:
       - - $namespace=${NAMESPACE}
-      - - $role=frontend-admin
+      - - $role=${FRONTEND_ADMIN_NAME}-${GROUP_NAME}
     destination:
       - - ext:network=any
 
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: custom-frontend-public-egress-internet
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-${FRONTEND_PUBLIC_NAME}-egress-internet
+    app: ${GROUP_NAME}
   spec:
     description: "allow frontend-public to talk to the internet in ${NAMESPACE}."
     source:
       - - $namespace=${NAMESPACE}
-      - - $role=frontend-public
+      - - $role=${FRONTEND_PUBLIC_NAME}-${GROUP_NAME}
     destination:
       - - ext:network=any
 
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: custom-minio-egress-internet
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-${MINIO_NAME}-egress-internet
+    app: ${GROUP_NAME}
   spec:
     description: "allow minio to talk to the internet in ${NAMESPACE}."
     source:
       - - $namespace=${NAMESPACE}
-      - - $role=minio
+      - - $role=${MINIO_NAME}-${GROUP_NAME}
     destination:
       - - ext:network=any
 
@@ -67,72 +88,72 @@ objects:
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: custom-api-database-intra-namespace-comms
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-${API_NAME}-${DATABASE_NAME}-intra-namespace-comms
+    app: ${GROUP_NAME}
   spec:
     description: "allow api to talk to database in ${NAMESPACE}."
     source:
       - - $namespace=${NAMESPACE}
-      - - $role=api
+      - - $role=${API_NAME}-${GROUP_NAME}
     destination:
       - - $namespace=${NAMESPACE}
-      - - $role=database
+      - - $role=${DATABASE_NAME}-${GROUP_NAME}
 
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: custom-api-minio-intra-namespace-comms
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-${API_NAME}-${MINIO_NAME}-intra-namespace-comms
+    app: ${GROUP_NAME}
   spec:
     description: "allow api to talk to minio in ${NAMESPACE}."
     source:
       - - $namespace=${NAMESPACE}
-      - - $role=api
+      - - $role=${API_NAME}-${GROUP_NAME}
     destination:
       - - $namespace=${NAMESPACE}
-      - - $role=minio
+      - - $role=${MINIO_NAME}-${GROUP_NAME}
 
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: custom-api-clamav-intra-namespace-comms
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-${API_NAME}-${CLAMAV_NAME}-intra-namespace-comms
+    app: ${GROUP_NAME}
   spec:
     description: "allow api to talk to clamav in ${NAMESPACE}."
     source:
       - - $namespace=${NAMESPACE}
-      - - $role=api
+      - - $role=${API_NAME}-${GROUP_NAME}
     destination:
       - - $namespace=${NAMESPACE}
-      - - $role=clamav
+      - - $role=${CLAMAV_NAME}
 
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: custom-api-frontend-admin-intra-namespace-comms
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-${API_NAME}-${FRONTEND_ADMIN_NAME}-intra-namespace-comms
+    app: ${GROUP_NAME}
   spec:
     description: "allow api to talk to frontend-admin in ${NAMESPACE}."
     source:
       - - $namespace=${NAMESPACE}
-      - - $role=api
+      - - $role=${API_NAME}-${GROUP_NAME}
     destination:
       - - $namespace=${NAMESPACE}
-      - - $role=frontend-admin
+      - - $role=${FRONTEND_ADMIN_NAME}-${GROUP_NAME}
 
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: custom-api-frontend-public-intra-namespace-comms
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-${API_NAME}-${FRONTEND_PUBLIC_NAME}-intra-namespace-comms
+    app: ${GROUP_NAME}
   spec:
     description: "allow api to talk to frontend-public in ${NAMESPACE}."
     source:
       - - $namespace=${NAMESPACE}
-      - - $role=api
+      - - $role=${API_NAME}-${GROUP_NAME}
     destination:
       - - $namespace=${NAMESPACE}
-      - - $role=frontend-public
+      - - $role=${FRONTEND_PUBLIC_NAME}-${GROUP_NAME}
 
 
 
@@ -141,8 +162,8 @@ objects:
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy
   metadata:
-    name: int-cluster-k8s-api-comms
-    app: eagle-epic
+    name: custom-${GROUP_NAME}-cluster-k8s-api-comms
+    app: ${GROUP_NAME}
   spec:
     description: "allow ${NAMESPACE} pods to talk to the k8s api"
     destination:

@@ -64,6 +64,9 @@ deployApi() {
     oc -n ${TARGET_PROJECT} process -f ${API_DC_MINIO_TEMPLATE_FILENAME} --param-file=${API_DC_MINIO_PARAMS} | oc create -f -
     oc -n ${TARGET_PROJECT} process -f ${API_DC_NODEJS_AND_MONGO_TEMPLATE_FILENAME} --param-file=${API_DC_NODEJS_AND_MONGO_PARAMS} | oc create -f -
 
+    # deploy the instance's network security policies, this includes public and admin communication policies
+    oc -n ${TARGET_PROJECT} process -f ../${API_DC_NSP_TEMPLATE_FOLDER_PATH}${API_DC_NSP_TEMPLATE_FILENAME} -p NAMESPACE=${TARGET_PROJECT} -p GROUP_NAME=${GROUP_NAME}  | oc apply -f -
+
     echo -e \\n"deploy-api: Post deployment tasks."\\n;
 
     oc project ${original_namespace};
