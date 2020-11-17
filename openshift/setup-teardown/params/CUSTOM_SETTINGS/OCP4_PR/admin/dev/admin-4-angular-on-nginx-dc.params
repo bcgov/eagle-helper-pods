@@ -6,4 +6,3 @@ TAG_NAME=latest
 BANNER_COLOUR=orange
 REMOTE_API_PATH=https://eagle-pr-placeholder-dev.apps.silver.devops.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://eagle-pr-placeholder-dev.apps.silver.devops.gov.bc.ca
-KEYCLOAK_CLIENT_ID=eagle-admin-pr-console

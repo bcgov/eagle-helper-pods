@@ -84,6 +84,7 @@ cleanAdmin() {
     removeFromProject ${ADMIN_ANGULAR_BUILDER_BUILD_NAME} ${TOOLS_PROJECT};
     removeFromProject ${ADMIN_NGINX_RUNTIME_BUILD_NAME} ${TOOLS_PROJECT};
     removeFromProject ${ADMIN_ANGULAR_ON_NGINX_BUILD_NAME} ${TOOLS_PROJECT};
+    removeFromProject ${ADMIN_ANGULAR_ON_NGINX_IMAGE_NAME} ${TOOLS_PROJECT};
 
     echo -e \\n"clean-admin: Removing deployments."\\n;
 
@@ -105,6 +106,7 @@ cleanPublic() {
     removeFromProject ${PUBLIC_ANGULAR_BUILDER_BUILD_NAME} ${TOOLS_PROJECT};
     removeFromProject ${PUBLIC_NGINX_RUNTIME_BUILD_NAME} ${TOOLS_PROJECT};
     removeFromProject ${PUBLIC_ANGULAR_ON_NGINX_BUILD_NAME} ${TOOLS_PROJECT};
+    removeFromProject ${PUBLIC_ANGULAR_ON_NGINX_IMAGE_NAME} ${TOOLS_PROJECT};
 
     echo -e \\n"clean-public: Removing deployments."\\n;
 

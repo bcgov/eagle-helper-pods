@@ -9,5 +9,13 @@ APP_IMAGE_NAMESPACE=noexist-tools
 APP_DEPLOYMENT_TAG=prod
 ENABLE_VIRUS_SCANNING=true
 GETOK_ENDPOINT=https://oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
-CHES_ENDPOINT=https://ches-master-9f0fbe-prod.pathfinder.gov.bc.ca/
-
+CHES_ENDPOINT=https://ches.pathfinder.gov.bc.ca/
+SSO_ISSUER=https://oidc.gov.bc.ca/auth/realms/eagle
+SSO_JWKSURI=https://oidc.gov.bc.ca/auth/realms/eagle/protocol/openid-connect/certs
+KEYCLOAK_CLIENT_ID=eagle-admin-console
+KEYCLOAK_URL=https://oidc.gov.bc.ca/auth
+KEYCLOAK_REALM=eagle
+KEYCLOAK_ENABLED=true
+API_LOCATION=https://eagle-prod.pathfinder.gov.bc.ca
+API_PATH=/api
+API_PUBLIC_PATH=/api/public
