@@ -18,3 +18,6 @@ KEYCLOAK_CLIENT_ID=eagle-admin-console
 KEYCLOAK_URL=https://test.oidc.gov.bc.ca/auth
 KEYCLOAK_REALM=eagle
 KEYCLOAK_ENABLED=true
+API_LOCATION=https://eagle-test.pathfinder.gov.bc.ca
+API_PATH=/api
+API_PUBLIC_PATH=/api/public

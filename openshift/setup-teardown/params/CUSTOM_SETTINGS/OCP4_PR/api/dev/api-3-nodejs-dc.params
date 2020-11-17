@@ -25,3 +25,6 @@ KEYCLOAK_CLIENT_ID=eagle-admin-pr-console
 KEYCLOAK_URL=https://dev.oidc.gov.bc.ca/auth
 KEYCLOAK_REALM=eagle
 KEYCLOAK_ENABLED=true
+API_LOCATION=https://eagle-dev.pathfinder.gov.bc.ca
+API_PATH=/api
+API_PUBLIC_PATH=/api/public
