@@ -12,4 +12,8 @@ GETOK_ENDPOINT=https://oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-conne
 CHES_ENDPOINT=https://ches.pathfinder.gov.bc.ca/
 SSO_ISSUER=https://oidc.gov.bc.ca/auth/realms/eagle
 SSO_JWKSURI=https://oidc.gov.bc.ca/auth/realms/eagle/protocol/openid-connect/certs
+KEYCLOAK_CLIENT_ID=eagle-admin-console
+KEYCLOAK_URL=https://oidc.gov.bc.ca/auth
+KEYCLOAK_REALM=eagle
+KEYCLOAK_ENABLED=true
 

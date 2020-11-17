@@ -6,4 +6,4 @@ TAG_NAME=prod
 BANNER_COLOUR=
 REMOTE_API_PATH=https://eagle-prod.apps.silver.devops.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://eagle-prod.apps.silver.devops.gov.bc.ca
-KEYCLOAK_CLIENT_ID=eagle-admin-console
+
