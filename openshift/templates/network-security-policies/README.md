@@ -5,5 +5,5 @@ quickstart-nsp.yaml is from https://github.com/BCDevOps/platform-services/blob/m
 to apply our custom network security policies, use:
 
 ```
-oc process -f ./custom-eagle-nsp.yaml -p NAMESPACE=your-namespace | oc apply -f -
+oc process -f ./custom-eagle-nsp.yaml -p NAMESPACE=your-namespace -p GROUP_NAME=your-group-name | oc apply -f -
 ```

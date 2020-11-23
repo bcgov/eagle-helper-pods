@@ -1,0 +1,70 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+parameters:
+- name: NAMESPACE
+- name: GROUP_NAME
+  description: the value of the 'app' label on all of the deployments for this instance
+  value: eagle-epic
+- name: API_NAME
+  description: the value of the api deployments 'role' label without the group name appended
+  value: api
+- name: DATABASE_NAME
+  description: the value of the database deployments 'role' label without the group name appended
+  value: database
+- name: METABASE_EPIC_NAME
+  description: the value of the database deployments 'role' label without the group name appended
+  value: metabase-epic
+- name: METABASE_POSTGRES_NAME
+  description: the value of the database deployments 'role' label without the group name appended
+  value: metabase-postgres
+
+objects:
+
+
+
+# Internet Communication Policies
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-${METABASE_EPIC_NAME}-egress-internet
+    app: ${GROUP_NAME}
+  spec:
+    description: "allow metabase to talk to the internet in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=${METABASE_EPIC_NAME}
+    destination:
+      - - ext:network=any
+
+
+
+# Inter Pod Communication Policies
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-${GROUP_NAME}-${METABASE_EPIC_NAME}-${DATABASE_NAME}-intra-namespace-comms
+    app: ${GROUP_NAME}
+  spec:
+    description: "allow api to talk to database in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=${DATABASE_NAME}-${GROUP_NAME}
+    destination:
+      - - $namespace=${NAMESPACE}
+      - - $role=${METABASE_EPIC_NAME}
+
+- apiVersion: security.devops.gov.bc.ca/v1alpha1
+  kind: NetworkSecurityPolicy
+  metadata:
+    name: custom-${GROUP_NAME}-${METABASE_EPIC_NAME}-${METABASE_POSTGRES_NAME}-intra-namespace-comms
+    app: ${GROUP_NAME}
+  spec:
+    description: "allow api to talk to database in ${NAMESPACE}."
+    source:
+      - - $namespace=${NAMESPACE}
+      - - $role=${METABASE_POSTGRES_NAME}
+    destination:
+      - - $namespace=${NAMESPACE}
+      - - $role=${METABASE_EPIC_NAME}
