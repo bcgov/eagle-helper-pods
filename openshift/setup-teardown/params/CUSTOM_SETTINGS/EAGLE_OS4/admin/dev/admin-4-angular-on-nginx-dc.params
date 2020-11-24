@@ -6,3 +6,7 @@ TAG_NAME=dev
 BANNER_COLOUR=orange
 REMOTE_API_PATH=https://eagle-dev.apps.silver.devops.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://eagle-dev.apps.silver.devops.gov.bc.ca/
+NODEJS_CPU_REQUEST=10m
+NODEJS_CPU_LIMIT=250m
+NODEJS_MEMORY_REQUEST=100Mi
+NODEJS_MEMORY_LIMIT=200Mi
