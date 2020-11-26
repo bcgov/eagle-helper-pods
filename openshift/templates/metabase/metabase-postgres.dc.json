@@ -1,0 +1,268 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "metabase-postgres-dc"
+  },
+  "objects": [
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "apps.openshift.io/v1",
+      "metadata": {
+        "name": "${NAME_DATABASE}",
+        "annotations": {
+          "description": "Defines how to deploy the database"
+        }
+      },
+      "spec": {
+        "strategy": {
+          "type": "Recreate"
+        },
+        "triggers": [
+          {
+            "type": "ImageChange",
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "${NAME_DATABASE}"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "namespace": "${TOOLSNAMESPACE}",
+                "name": "${NAME_DATABASE}:${VERSION}"
+              }
+            }
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "${NAME_DATABASE}",
+          "app": "${NAME_DATABASE}"
+        },
+        "template": {
+          "metadata": {
+            "name": "${NAME_DATABASE}",
+            "labels": {
+              "name": "${NAME_DATABASE}",
+              "app": "${NAME_DATABASE}",
+              "role": "${NAME_DATABASE}-${ENVIRONMENT_NAME}"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "${NAME_DATABASE}",
+                "image": " ",
+                "ports": [
+                  {
+                    "containerPort": "${DATABASE_PORT}",
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "POSTGRESQL_USER",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "${NAME}-${SUFFIX}-secret",
+                        "key": "database-user"
+                      }
+                    }
+                  },
+                  {
+                    "name": "POSTGRESQL_DATABASE",
+                    "value": "${NAME}"
+                  },
+                  {
+                    "name": "POSTGRESQL_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "${NAME}-${SUFFIX}-secret",
+                        "key": "database-password"
+                      }
+                    }
+                  },
+                  {
+                    "name": "POSTGRESQL_ADMIN_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "${NAME}-${SUFFIX}-secret",
+                        "key": "database-admin-password"
+                      }
+                    }
+                  }
+                ],
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "/bin/bash",
+                      "-c",
+                      "pg_isready -h localhost -p 5432"
+                    ]
+                  },
+                  "initialDelaySeconds": 20,
+                  "timeoutSeconds": 15
+                },
+                "livenessProbe": {
+                  "initialDelaySeconds": 30,
+                  "tcpSocket": {
+                    "port": "${DATABASE_PORT}"
+                  },
+                  "timeoutSeconds": 10
+                },
+                "volumeMounts": [
+                  {
+                    "mountPath": "/var/lib/pgsql/data",
+                    "name": "${NAME_DATABASE}-${SUFFIX}-data"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "${DB_CPU_REQUEST}",
+                    "memory": "${DB_MEMORY_REQUEST}"
+                  },
+                  "limits": {
+                    "cpu": "${DB_CPU_LIMIT}",
+                    "memory": "${DB_MEMORY_LIMIT}"
+                  }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent",
+                "capabilities": {}
+              }
+            ],
+            "volumes": [
+              {
+                "name": "${NAME_DATABASE}-${SUFFIX}-data",
+                "persistentVolumeClaim": {
+                  "claimName": "${NAME_DATABASE}-${SUFFIX}"
+                }
+              }
+            ],
+            "restartPolicy": "Always",
+            "dnsPolicy": "ClusterFirst"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "template.openshift.io/expose-uri": "postgres://{.spec.clusterIP}:{.spec.ports[?(.name==\"postgresql\")].port}"
+        },
+        "name": "${NAME_DATABASE}"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "${NAME_DATABASE}",
+            "port": "${DATABASE_PORT}",
+            "protocol": "TCP",
+            "targetPort": "${DATABASE_PORT}"
+          }
+        ],
+        "selector": {
+          "name": "${NAME_DATABASE}",
+          "app": "${NAME_DATABASE}"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "PersistentVolumeClaim",
+      "metadata": {
+        "name": "${NAME_DATABASE}-${SUFFIX}",
+        "annotations": {
+          "volume.beta.kubernetes.io/storage-provisioner": "netapp.io/trident"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "${METABASE_PVC_SIZE}"
+          }
+        }
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "DB_CPU_LIMIT",
+      "value": "1"
+    },
+    {
+      "name": "DB_MEMORY_LIMIT",
+      "value": "2Gi"
+    },
+    {
+      "name": "DB_CPU_REQUEST",
+      "value": "500m"
+    },
+    {
+      "name": "DB_MEMORY_REQUEST",
+      "value": "1Gi"
+    },
+    {
+      "name": "ENVIRONMENT_NAME",
+      "value": "dev"
+    },
+    {
+      "name": "NAME",
+      "displayName": "Object names",
+      "description": "The name of the OpenShift objects.",
+      "value": "metabase",
+      "required": true
+    },
+    {
+      "name": "NAME_DATABASE",
+      "value": "metabase-postgres",
+      "required": true
+    },
+    {
+      "name": "SUFFIX",
+      "displayName": "Name Suffix",
+      "description": "A suffix appended to all objects",
+      "value": "epic",
+      "required": true
+    },
+    {
+      "name": "VERSION",
+      "displayName": "Build Image Stream version",
+      "description": "The version of the image stream that this corresponds to.  This should be the same as the VERSION in the metabase build config file.",
+      "value": "stable",
+      "required": true
+    },
+    {
+      "name": "TOOLSNAMESPACE",
+      "displayName": "Tools Namespace",
+      "description": "The OpenShift project namespace containing the builds and images",
+      "value": "esm",
+      "required": true
+    },
+    {
+      "name": "METABASE_PVC_SIZE",
+      "value": "10Gi",
+      "required": true
+    },
+    {
+      "name": "DATABASE_PORT",
+      "displayName": "Database Port",
+      "description": "Port used to conncet to Postgres backend DB.",
+      "value": 5432,
+      "required": true
+    }
+  ]
+}
