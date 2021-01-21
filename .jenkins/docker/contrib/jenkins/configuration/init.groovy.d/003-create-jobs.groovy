@@ -28,7 +28,7 @@ def name = appName.toLowerCase().replaceAll("/[^A-Za-z0-9 ]/", "").replaceAll("\
 def githubCredentialsId = "github-account"
 
 def pullRequestTraits = [
-    new ForkPullRequestDiscoveryTrait([ChangeRequestCheckoutStrategy.MERGE].toSet(),new ForkPullRequestDiscoveryTrait.TrustContributors()),
+    new ForkPullRequestDiscoveryTrait([ChangeRequestCheckoutStrategy.MERGE].toSet(),new ForkPullRequestDiscoveryTrait.TrustPermission()),
     new DisableStatusUpdateTrait(),
     new WipeWorkspaceTrait()
 ]
