@@ -1,9 +1,0 @@
-NAME=cap-ibm-api
-GROUP_NAME=cap-ibm-epic
-APPLICATION_DOMAIN=cap-ibm-prod.pathfinder.gov.bc.ca
-MINIO_HOST=cap-ibm-api-minio
-MINIO_SECRET_NAME=cap-ibm-api-minio-keys
-DATABASE_SERVICE_NAME=cap-ibm-api-mongodb
-APP_IMAGE_NAME=cap-ibm-api
-APP_IMAGE_NAMESPACE=oabrei-prod
-APP_DEPLOYMENT_TAG=prod

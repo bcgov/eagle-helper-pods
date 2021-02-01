@@ -1,9 +1,0 @@
-NAME=cap-ibm-admin
-GROUP_NAME=cap-ibm-epic
-IMAGE_NAMESPACE=oabrei-test
-APPLICATION_DOMAIN=cap-ibm-test.pathfinder.gov.bc.ca
-TAG_NAME=test
-BANNER_COLOUR=green
-REMOTE_API_PATH=https://cap-ibm-test.pathfinder.gov.bc.ca/api
-REMOTE_PUBLIC_PATH=https://cap-ibm-test.pathfinder.gov.bc.ca
-KEYCLOAK_CLIENT_ID=cap-admin-console

@@ -1,8 +1,6 @@
 NAME=pr-placeholder-eagle-api
 GROUP_NAME=pr-placeholder-epic
 APPLICATION_DOMAIN=eagle-pr-placeholder-dev.apps.silver.devops.gov.bc.ca
-MINIO_HOST=pr-placeholder-eagle-api-minio-6cdc9e-dev.apps.silver.devops.gov.bc.ca
-MINIO_SECRET_NAME=pr-placeholder-eagle-api-minio-keys
 DATABASE_SERVICE_NAME=pr-placeholder-eagle-api-mongodb
 APP_IMAGE_NAME=pr-placeholder-eagle-api
 APP_IMAGE_NAMESPACE=6cdc9e-tools

@@ -1,9 +1,0 @@
-NAME=cap-ibm-api-minio
-GROUP_NAME=cap-ibm-epic
-MINIO_IMAGE_NAME=cap-ibm-api-minio
-MINIO_IMAGE_NAMESPACE=oabrei-prod
-MINIO_IMAGE_TAG=prod
-STORAGE_CLASS=ibmc-block-bronze
-STORAGE_PROVIDER=ibm.io/ibmc-block
-MINIO_DATA_DIR=/data
-LOCAL_STORAGE_SIZE=20Gi
