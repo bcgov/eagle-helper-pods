@@ -1,3 +1,0 @@
-NAME=eagle-public
-ANGULAR_BUILDER_IMAGE=eagle-public-angular-builder
-NGINX_RUNTIME_IMAGE=eagle-public-nginx-runtime

@@ -1,9 +1,0 @@
-NAME=cap-ibm-admin
-GROUP_NAME=cap-ibm-epic
-IMAGE_NAMESPACE=oabrei-dev
-APPLICATION_DOMAIN=cap-ibm-dev.clouddiscovery-01dea2606d71f7a3540418b505a890bc-0002.mon01.containers.appdomain.cloud
-TAG_NAME=dev
-BANNER_COLOUR=orange
-REMOTE_API_PATH=https://cap-ibm-dev.clouddiscovery-01dea2606d71f7a3540418b505a890bc-0002.mon01.containers.appdomain.cloud/api
-REMOTE_PUBLIC_PATH=https://cap-ibm-dev.clouddiscovery-01dea2606d71f7a3540418b505a890bc-0002.mon01.containers.appdomain.cloud
-KEYCLOAK_CLIENT_ID=cap-admin-console

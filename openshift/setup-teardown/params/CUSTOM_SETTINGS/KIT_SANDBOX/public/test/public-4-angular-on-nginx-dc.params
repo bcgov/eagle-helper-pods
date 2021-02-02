@@ -1,8 +1,0 @@
-NAME=kit-sandbox-public
-GROUP_NAME=kit-sandbox-epic
-IMAGE_NAMESPACE=mem-mmti-tools
-APPLICATION_DOMAIN=kit-sandbox-mem-mmti-test.pathfinder.gov.bc.ca
-TAG_NAME=test
-BANNER_COLOUR=green
-REMOTE_API_PATH=https://kit-sandbox-mem-mmti-test.pathfinder.gov.bc.ca/api/public
-REMOTE_ADMIN_PATH=https://kit-sandbox-mem-mmti-test.pathfinder.gov.bc.ca/admin/

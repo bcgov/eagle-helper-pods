@@ -1,8 +1,0 @@
-NAME=pr-placeholder-eagle-admin
-GROUP_NAME=pr-placeholder-epic
-IMAGE_NAMESPACE=esm
-APPLICATION_DOMAIN=eagle-pr-placeholder-dev.pathfinder.gov.bc.ca
-TAG_NAME=latest
-BANNER_COLOUR=orange
-REMOTE_API_PATH=https://eagle-pr-placeholder-dev.pathfinder.gov.bc.ca/api
-REMOTE_PUBLIC_PATH=https://eagle-pr-placeholder-dev.pathfinder.gov.bc.ca

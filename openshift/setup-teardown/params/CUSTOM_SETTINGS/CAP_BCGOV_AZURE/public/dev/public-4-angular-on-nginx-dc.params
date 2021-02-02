@@ -1,8 +1,0 @@
-NAME=cap-bcgov-azure-public
-GROUP_NAME=cap-bcgov-azure-epic
-IMAGE_NAMESPACE=tnhlex-dev
-APPLICATION_DOMAIN=cap-bcgov-azure-dev.apps.ocp4lab.clearwater.devops.gov.bc.ca
-TAG_NAME=dev
-BANNER_COLOUR=orange
-REMOTE_API_PATH=https://cap-bcgov-azure-dev.apps.ocp4lab.clearwater.devops.gov.bc.ca/api/public
-REMOTE_ADMIN_PATH=https://cap-bcgov-azure-dev.apps.ocp4lab.clearwater.devops.gov.bc.ca/admin/

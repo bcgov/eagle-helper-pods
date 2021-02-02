@@ -11,9 +11,6 @@ parameters:
 - name: DATABASE_NAME
   description: the value of the database deployments 'role' label without the group name appended
   value: database
-- name: MINIO_NAME
-  description: the value of the minio deployments 'role' label without the group name appended
-  value: minio
 - name: FRONTEND_ADMIN_NAME
   description: the value of the admin frontend deployments 'role' label without the group name appended
   value: frontend-admin
@@ -68,20 +65,6 @@ objects:
     destination:
       - - ext:network=any
 
-- apiVersion: security.devops.gov.bc.ca/v1alpha1
-  kind: NetworkSecurityPolicy
-  metadata:
-    name: custom-${GROUP_NAME}-${MINIO_NAME}-egress-internet
-    app: ${GROUP_NAME}
-  spec:
-    description: "allow minio to talk to the internet in ${NAMESPACE}."
-    source:
-      - - $namespace=${NAMESPACE}
-      - - $role=${MINIO_NAME}-${GROUP_NAME}
-    destination:
-      - - ext:network=any
-
-
 
 # Inter Pod Communication Policies
 
@@ -98,20 +81,6 @@ objects:
     destination:
       - - $namespace=${NAMESPACE}
       - - $role=${DATABASE_NAME}-${GROUP_NAME}
-
-- apiVersion: security.devops.gov.bc.ca/v1alpha1
-  kind: NetworkSecurityPolicy
-  metadata:
-    name: custom-${GROUP_NAME}-${API_NAME}-${MINIO_NAME}-intra-namespace-comms
-    app: ${GROUP_NAME}
-  spec:
-    description: "allow api to talk to minio in ${NAMESPACE}."
-    source:
-      - - $namespace=${NAMESPACE}
-      - - $role=${API_NAME}-${GROUP_NAME}
-    destination:
-      - - $namespace=${NAMESPACE}
-      - - $role=${MINIO_NAME}-${GROUP_NAME}
 
 - apiVersion: security.devops.gov.bc.ca/v1alpha1
   kind: NetworkSecurityPolicy

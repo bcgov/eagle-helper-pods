@@ -39,7 +39,6 @@ cleanApi() {
 
     echo -e \\n"clean-api: Removing builds."\\n;
 
-    removeFromProject ${API_MINIO_BUILD_NAME} ${TOOLS_PROJECT}
     removeFromProject ${API_NODEJS_BUILD_NAME} ${TOOLS_PROJECT}
     removeFromProject ${API_NODEJS_BUILD_NAME}-generator ${TOOLS_PROJECT}
 
@@ -49,9 +48,6 @@ cleanApi() {
     removeFromProject ${API_NODEJS_DEPLOYMENT_NAME}-generator ${TARGET_PROJECT}
     removeFromProject ${API_MONGODB_DEPLOYMENT_NAME} ${TARGET_PROJECT}
     removeFromProject ${API_MONGODB_DEPLOYMENT_NAME}-data ${TARGET_PROJECT}
-    removeFromProject ${API_MINIO_DEPLOYMENT_NAME} ${TARGET_PROJECT}
-    removeFromProject ${API_MINIO_DEPLOYMENT_NAME}-docs ${TARGET_PROJECT}
-    removeFromProject ${API_MINIO_DEPLOYMENT_NAME}-keys ${TARGET_PROJECT}
 
     echo -e \\n"clean-api: Removing storage."\\n;
 
@@ -59,12 +55,6 @@ cleanApi() {
     outputRelevantOnly "${_cli_output}"
 
     _cli_output=$(oc -n ${TARGET_PROJECT} delete pvc ${API_NODEJS_DEPLOYMENT_NAME}-docs-pvc 2>&1)
-    outputRelevantOnly "${_cli_output}"
-
-    _cli_output=$(oc -n ${TARGET_PROJECT} delete pvc ${API_MINIO_DEPLOYMENT_NAME}-docs 2>&1)
-    outputRelevantOnly "${_cli_output}"
-
-    _cli_output=$(oc -n ${TARGET_PROJECT} delete pvc ${API_MINIO_DEPLOYMENT_NAME}-docs-pvc 2>&1)
     outputRelevantOnly "${_cli_output}"
 
     echo -e \\n"clean-api: Completed clean."\\n
