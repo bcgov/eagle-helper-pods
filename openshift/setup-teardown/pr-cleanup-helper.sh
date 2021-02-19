@@ -4,10 +4,10 @@
 setParamsToPR(){
 	local _deploy_name=$1
 
-	find . -name "projectset.config" -exec sed -i "" -e "s/^\( *TARGET_PROJECT_SET=*\)[^ ]*\(.*\)*$/\1PR\2/" {} \;
+	find . -name "projectset.config" -exec sed -i "" -e "s/^\( *TARGET_PROJECT_SET=*\)[^ ]*\(.*\)*$/\1OCP4_PR\2/" {} \;
 
 	# set unique name (ie. pr-branchName) for pr builds & deployments
-	cd params/CUSTOM_SETTINGS/PR
+	cd params/CUSTOM_SETTINGS/OCP4_PR
 	find . -name "*.params" -exec sed -i "" -e "s/pr-placeholder/${_deploy_name}/g" {} \;
 	find . -name "*.config" -exec sed -i "" -e "s/pr-placeholder/${_deploy_name}/g" {} \;
 }
