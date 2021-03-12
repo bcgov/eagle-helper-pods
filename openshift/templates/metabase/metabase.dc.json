@@ -112,7 +112,8 @@
           "metadata": {
             "name": "${NAME}-${SUFFIX}",
             "labels": {
-              "name": "${NAME}-${SUFFIX}"
+              "name": "${NAME}-${SUFFIX}",
+              "role": "${NAME_DATABASE}-${ENVIRONMENT_NAME}"
             }
           },
           "spec": {
