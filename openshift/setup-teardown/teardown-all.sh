@@ -57,6 +57,11 @@ cleanApi() {
     _cli_output=$(oc -n ${TARGET_PROJECT} delete pvc ${API_NODEJS_DEPLOYMENT_NAME}-docs-pvc 2>&1)
     outputRelevantOnly "${_cli_output}"
 
+    echo -e \\n"clean-api: Removing Network Policy"\\n;
+
+    _cli_output=$(oc -n ${TARGET_PROJECT} delete networkpolicy -l app=${GROUP_NAME} 2>&1)
+    outputRelevantOnly "${_cli_output}"
+
     echo -e \\n"clean-api: Completed clean."\\n
 }
 
