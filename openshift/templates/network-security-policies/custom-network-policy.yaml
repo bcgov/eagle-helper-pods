@@ -59,9 +59,6 @@ objects:
             - podSelector:
                 matchLabels:
                   role: backup
-            - podSelector:
-                matchLabels:
-                  role: cron
           ports:
             - protocol: TCP
               port: 27017
@@ -108,7 +105,10 @@ objects:
                   role: frontend-admin-${GROUP_NAME}
             - podSelector:
                 matchLabels:
-                  role: rproxy-${GROUP_NAME}
+                  role: rproxy-${GROUP_NAME}            
+            - podSelector:
+                matchLabels:
+                  role: cron
           ports:
             - protocol: TCP
               port: 3000
