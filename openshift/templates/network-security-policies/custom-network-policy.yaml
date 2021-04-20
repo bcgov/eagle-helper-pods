@@ -52,13 +52,16 @@ objects:
         - from:
             - podSelector:
                 matchLabels:
-                  role: api-${GROUP_NAME}
-            - podSelector:
-                matchLabels:
-                  role: backup-${GROUP_NAME}
+                  role: api-${GROUP_NAME}            
             - podSelector:
                 matchLabels:
                   role: metabase-${GROUP_NAME}
+            - podSelector:
+                matchLabels:
+                  role: backup
+            - podSelector:
+                matchLabels:
+                  role: cron
           ports:
             - protocol: TCP
               port: 27017
@@ -80,7 +83,7 @@ objects:
                   role: metabase-${GROUP_NAME}
             - podSelector:
                 matchLabels:
-                  role: backup-${GROUP_NAME}
+                  role: backup
           ports:
             - protocol: TCP
               port: 5432
