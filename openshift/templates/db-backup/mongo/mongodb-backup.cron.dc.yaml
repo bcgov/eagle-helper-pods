@@ -92,7 +92,7 @@ objects:
                   command:
                     - "/bin/bash"
                     - "-c"
-                    - "/backup.sh -1"
+                    - "sleep 30 && /backup.sh -1"
                   volumeMounts:
                     - mountPath: "${BACKUP_DIR}"
                       name: "backup"
