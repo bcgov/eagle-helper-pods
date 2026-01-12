@@ -8,7 +8,9 @@ ENV LC_CTYPE en_US.UTF-8
 RUN apk add --update bash git wget make gettext ttf-dejavu fontconfig java-cacerts
 
 # add Metabase jar
-RUN wget -q http://downloads.metabase.com/v0.34.3/metabase.jar
+# v0.42.6 is minimum version for MongoDB 4.4 compatibility (fixes path collision issue)
+# See: https://github.com/metabase/metabase/issues/19135
+RUN wget -q http://downloads.metabase.com/v0.42.6/metabase.jar
 
 # create the plugins directory, with writable permissions
 RUN chmod -R 777 /app
