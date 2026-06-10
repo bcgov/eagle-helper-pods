@@ -1,0 +1,7 @@
+backup:
+  pvc:
+    existingClaim: eagle-metabase-postgres-backup
+
+environment:
+  friendlyName: "Eagle Prod Postgres Backup"
+  name: "6cdc9e-prod"

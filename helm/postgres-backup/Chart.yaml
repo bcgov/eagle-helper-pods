@@ -1,0 +1,15 @@
+apiVersion: v2
+name: postgres-backup
+description: Metabase PostgreSQL backup CronJob for EPIC platform
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - backup
+  - postgres
+  - metabase
+  - epic
+  - eao
+maintainers:
+  - name: BC Gov EPIC Team
+    url: https://github.com/bcgov/eagle-helper-pods

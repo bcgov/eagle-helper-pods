@@ -1,0 +1,53 @@
+backup:
+  enabled: true
+  schedule: "0 8 * * *"       # Daily at 8 AM UTC
+  backoffLimit: 1              # Allow 1 retry on node failure
+  activeDeadlineSeconds: 1600  # ~27 min pod deadline; successful jobs run 11-15 min
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 2
+  image:
+    registry: image-registry.openshift-image-registry.svc:5000
+    namespace: 6cdc9e-tools
+    name: postgres-backup
+    tag: v1
+  strategy: rolling
+  dir: /backups/
+  retention:
+    daily: 7
+    weekly: 4
+    monthly: 1
+  tableSchema: public
+  resources:
+    requests:
+      cpu: 250m
+      memory: 500Mi
+    limits:
+      cpu: "1"
+      memory: 2Gi
+  pvc:
+    existingClaim: ""   # Set to reuse a pre-existing PVC (e.g. in prod)
+    size: 10Gi
+    storageClass: netapp-file-backup
+
+verification:
+  enabled: true
+  schedule: "0 9 * * *"  # 1 hour after backup
+
+database:
+  type: postgres
+  serviceName: metabase-postgres
+  port: 5432
+  name: metabase
+  existingSecret: metabase-epic-secret
+  userKey: database-user
+  passwordKey: database-password
+
+webhook:
+  existingSecret: backup-webhook
+  urlKey: webhook-url
+
+environment:
+  friendlyName: "Eagle Postgres Backup"
+  name: ""  # Set per-env, e.g. "6cdc9e-prod"
+
+serviceAccount: default

@@ -1,0 +1,6 @@
+backup:
+  enabled: false  # metabase-postgres does not run in dev
+
+environment:
+  friendlyName: "Eagle Dev Postgres Backup"
+  name: "6cdc9e-dev"

@@ -1,0 +1,17 @@
+{{- if and .Values.backup.enabled (not .Values.backup.pvc.existingClaim) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "postgres-backup.fullname" . }}
+  labels:
+    {{- include "postgres-backup.labels" . | nindent 4 }}
+    app.kubernetes.io/component: backup
+    role: backup
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.backup.pvc.size }}
+  storageClassName: {{ .Values.backup.pvc.storageClass }}
+{{- end }}

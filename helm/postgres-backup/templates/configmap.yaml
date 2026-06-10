@@ -1,0 +1,19 @@
+{{- if .Values.backup.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "postgres-backup.fullname" . }}-config
+  labels:
+    {{- include "postgres-backup.labels" . | nindent 4 }}
+    app.kubernetes.io/component: backup
+data:
+  backup.conf: "{{ .Values.database.type }}={{ .Values.database.serviceName }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
+  BACKUP_STRATEGY: {{ .Values.backup.strategy | quote }}
+  BACKUP_DIR: {{ .Values.backup.dir | quote }}
+  RETENTION.DAILY_BACKUPS: {{ .Values.backup.retention.daily | quote }}
+  RETENTION.WEEKLY_BACKUPS: {{ .Values.backup.retention.weekly | quote }}
+  RETENTION.MONTHLY_BACKUPS: {{ .Values.backup.retention.monthly | quote }}
+  ENVIRONMENT_FRIENDLY_NAME: {{ .Values.environment.friendlyName | quote }}
+  ENVIRONMENT_NAME: {{ .Values.environment.name | quote }}
+  TABLE_SCHEMA: {{ .Values.backup.tableSchema | quote }}
+{{- end }}

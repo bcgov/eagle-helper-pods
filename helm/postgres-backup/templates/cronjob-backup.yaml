@@ -1,0 +1,122 @@
+{{- if .Values.backup.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "postgres-backup.fullname" . }}
+  labels:
+    {{- include "postgres-backup.labels" . | nindent 4 }}
+    app.kubernetes.io/component: backup
+    role: backup
+spec:
+  schedule: {{ .Values.backup.schedule | quote }}
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: {{ .Values.backup.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.backup.failedJobsHistoryLimit }}
+  jobTemplate:
+    metadata:
+      labels:
+        {{- include "postgres-backup.labels" . | nindent 8 }}
+        app.kubernetes.io/component: backup
+        role: backup
+    spec:
+      backoffLimit: {{ .Values.backup.backoffLimit }}
+      template:
+        metadata:
+          labels:
+            {{- include "postgres-backup.selectorLabels" . | nindent 12 }}
+            app.kubernetes.io/component: backup
+            role: backup
+        spec:
+          restartPolicy: Never
+          terminationGracePeriodSeconds: 30
+          activeDeadlineSeconds: {{ .Values.backup.activeDeadlineSeconds }}
+          serviceAccountName: {{ .Values.serviceAccount }}
+          containers:
+          - name: {{ include "postgres-backup.name" . }}-cronjob
+            image: {{ include "postgres-backup.image" . }}
+            command:
+            - /bin/bash
+            - -c
+            - /backup.sh -1
+            env:
+            - name: BACKUP_DIR
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "postgres-backup.fullname" . }}-config
+                  key: BACKUP_DIR
+            - name: BACKUP_STRATEGY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "postgres-backup.fullname" . }}-config
+                  key: BACKUP_STRATEGY
+            - name: DAILY_BACKUPS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "postgres-backup.fullname" . }}-config
+                  key: RETENTION.DAILY_BACKUPS
+                  optional: true
+            - name: WEEKLY_BACKUPS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "postgres-backup.fullname" . }}-config
+                  key: RETENTION.WEEKLY_BACKUPS
+                  optional: true
+            - name: MONTHLY_BACKUPS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "postgres-backup.fullname" . }}-config
+                  key: RETENTION.MONTHLY_BACKUPS
+                  optional: true
+            - name: ENVIRONMENT_FRIENDLY_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "postgres-backup.fullname" . }}-config
+                  key: ENVIRONMENT_FRIENDLY_NAME
+                  optional: true
+            - name: ENVIRONMENT_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "postgres-backup.fullname" . }}-config
+                  key: ENVIRONMENT_NAME
+                  optional: true
+            - name: TABLE_SCHEMA
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "postgres-backup.fullname" . }}-config
+                  key: TABLE_SCHEMA
+                  optional: true
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.existingSecret }}
+                  key: {{ .Values.database.userKey }}
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.existingSecret }}
+                  key: {{ .Values.database.passwordKey }}
+            - name: WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.webhook.existingSecret }}
+                  key: {{ .Values.webhook.urlKey }}
+            resources:
+              {{- toYaml .Values.backup.resources | nindent 14 }}
+            volumeMounts:
+            - name: backup-storage
+              mountPath: {{ .Values.backup.dir }}
+            - name: backup-config
+              mountPath: /backup.conf
+              subPath: backup.conf
+          volumes:
+          - name: backup-storage
+            persistentVolumeClaim:
+              claimName: {{ .Values.backup.pvc.existingClaim | default (include "postgres-backup.fullname" .) }}
+          - name: backup-config
+            configMap:
+              name: {{ include "postgres-backup.fullname" . }}-config
+              items:
+              - key: backup.conf
+                path: backup.conf
+              defaultMode: 420
+{{- end }}
