@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.postgres.name }}
+  labels:
+    app: {{ .Values.postgres.name }}
+  annotations:
+    # Trigger automatic rollout when ImageStreamTag is updated
+    image.openshift.io/triggers: |
+      [
+        {
+          "from": {
+            "kind": "ImageStreamTag",
+            "name": "{{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag }}",
+            "namespace": "{{ .Values.postgres.image.namespace }}"
+          },
+          "fieldPath": "spec.template.spec.containers[?(@.name==\"{{ .Values.postgres.name }}\")].image"
+        }
+      ]
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.postgres.name }}
+      name: {{ .Values.postgres.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.postgres.name }}
+        name: {{ .Values.postgres.name }}
+        role: {{ .Values.postgres.name }}-eagle-{{ .Values.suffix }}
+    spec:
+      containers:
+        - name: {{ .Values.postgres.name }}
+          image: "{{ .Values.postgres.image.registry }}/{{ .Values.postgres.image.namespace }}/{{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.postgres.port }}
+              protocol: TCP
+          env:
+            - name: POSTGRESQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.existingSecret }}
+                  key: {{ .Values.secret.databaseUserKey }}
+            - name: POSTGRESQL_DATABASE
+              value: {{ .Values.postgres.databaseName | quote }}
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.existingSecret }}
+                  key: {{ .Values.secret.databasePasswordKey }}
+            - name: POSTGRESQL_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.existingSecret }}
+                  key: {{ .Values.secret.databaseAdminPasswordKey }}
+          readinessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - pg_isready -h localhost -p {{ .Values.postgres.port }}
+            initialDelaySeconds: {{ .Values.postgres.probes.readiness.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.postgres.probes.readiness.timeoutSeconds }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.postgres.port }}
+            initialDelaySeconds: {{ .Values.postgres.probes.liveness.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.postgres.probes.liveness.timeoutSeconds }}
+          resources:
+            {{- toYaml .Values.postgres.resources | nindent 12 }}
+          volumeMounts:
+            - name: metabase-postgres-data
+              mountPath: /var/lib/pgsql/data
+      volumes:
+        - name: metabase-postgres-data
+          persistentVolumeClaim:
+            claimName: {{ default (printf "%s-%s" .Values.postgres.name .Values.suffix) .Values.postgres.persistence.existingClaim }}

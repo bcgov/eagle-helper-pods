@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "metabase.fullname" . }}
+  labels:
+    {{- include "metabase.labels" . | nindent 4 }}
+  annotations:
+    # Trigger automatic rollout when ImageStreamTag is updated
+    image.openshift.io/triggers: |
+      [
+        {
+          "from": {
+            "kind": "ImageStreamTag",
+            "name": "{{ .Values.metabase.image.name }}:{{ .Values.metabase.image.tag }}",
+            "namespace": "{{ .Values.metabase.image.namespace }}"
+          },
+          "fieldPath": "spec.template.spec.containers[?(@.name==\"{{ .Chart.Name }}\")].image"
+        }
+      ]
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      name: {{ include "metabase.fullname" . }}
+  template:
+    metadata:
+      labels:
+        name: {{ include "metabase.fullname" . }}
+        role: metabase-eagle-{{ .Values.suffix }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.metabase.image.registry }}/{{ .Values.metabase.image.namespace }}/{{ .Values.metabase.image.name }}:{{ .Values.metabase.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          command:
+            - bash
+            - -c
+            - "cd /app && if [[ $PR_ENVIRONMENT == 'true' ]]; then tail -f /dev/null; else java -jar metabase.jar; fi"
+          ports:
+            - containerPort: {{ .Values.metabase.port }}
+              protocol: TCP
+          env:
+            - name: MB_PASSWORD_COMPLEXITY
+              value: "strong"
+            - name: MB_JETTY_HOST
+              value: "0.0.0.0"
+            - name: MB_DB_TYPE
+              value: "postgres"
+            - name: MB_DB_DBNAME
+              value: {{ .Values.postgres.databaseName | quote }}
+            - name: MB_DB_PORT
+              value: {{ .Values.postgres.port | quote }}
+            - name: MB_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.existingSecret }}
+                  key: {{ .Values.secret.databaseUserKey }}
+            - name: MB_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.existingSecret }}
+                  key: {{ .Values.secret.databasePasswordKey }}
+            - name: MB_DB_HOST
+              value: {{ .Values.postgres.name | quote }}
+            - name: ENVIRONMENT_NAME
+              value: {{ .Values.environmentName | quote }}
+            - name: MB_ENCRYPTION_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.existingSecret }}
+                  key: {{ .Values.secret.databasePasswordKey }}
+            - name: PR_ENVIRONMENT
+              value: {{ .Values.metabase.prEnvironment | quote }}
+          resources:
+            {{- toYaml .Values.metabase.resources | nindent 12 }}

@@ -1,0 +1,25 @@
+# Common configurations
+nameOverride: "clamav"
+fullnameOverride: "clamav"
+
+image:
+  registry: image-registry.openshift-image-registry.svc:5000
+  namespace: 6cdc9e-tools
+  name: clamav
+  tag: latest
+
+port: 3310
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  limits:
+    cpu: 500m
+    memory: 2Gi
+
+# Environment variables
+env:
+  realIpFrom: "${REAL_IP_FROM}"
+  additionalRealIpFromRules: "${AdditionalRealIpFromRules}"
+  ipFilterRules: "${IpFilterRules}"

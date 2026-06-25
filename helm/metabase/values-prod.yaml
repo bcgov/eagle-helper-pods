@@ -1,0 +1,10 @@
+# Production Overrides
+environmentName: "prod"
+
+postgres:
+  persistence:
+    existingClaim: "metabase-postgres-epic"
+
+metabase:
+  route:
+    host: "metabase-epic-6cdc9e-prod.apps.silver.devops.gov.bc.ca"

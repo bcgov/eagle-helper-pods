@@ -1,0 +1,6 @@
+# Test Overrides
+environmentName: "test"
+
+metabase:
+  route:
+    host: "metabase-epic-6cdc9e-test.apps.silver.devops.gov.bc.ca"

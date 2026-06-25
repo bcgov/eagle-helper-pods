@@ -1,0 +1,6 @@
+# Development Overrides
+environmentName: "dev"
+
+metabase:
+  route:
+    host: "metabase-epic-6cdc9e-dev.apps.silver.devops.gov.bc.ca"

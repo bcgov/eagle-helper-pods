@@ -1,0 +1,21 @@
+{{- if .Values.metabase.route.enabled }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "metabase.fullname" . }}
+  labels:
+    {{- include "metabase.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.metabase.route.host }}
+  host: {{ .Values.metabase.route.host }}
+  {{- end }}
+  path: {{ .Values.metabase.route.path | default "/" }}
+  to:
+    kind: Service
+    name: {{ include "metabase.fullname" . }}
+  port:
+    targetPort: 3000-tcp
+  tls:
+    insecureEdgeTerminationPolicy: {{ .Values.metabase.route.tls.insecureEdgeTerminationPolicy | default "Redirect" }}
+    termination: {{ .Values.metabase.route.tls.termination | default "edge" }}
+{{- end }}

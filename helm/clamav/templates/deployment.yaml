@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "clamav.fullname" . }}
+  labels:
+    {{- include "clamav.labels" . | nindent 4 }}
+  annotations:
+    # Trigger automatic rollout when ImageStreamTag is updated
+    image.openshift.io/triggers: |
+      [
+        {
+          "from": {
+            "kind": "ImageStreamTag",
+            "name": "{{ .Values.image.name }}:{{ .Values.image.tag }}",
+            "namespace": "{{ .Values.image.namespace }}"
+          },
+          "fieldPath": "spec.template.spec.containers[?(@.name==\"{{ .Chart.Name }}\")].image"
+        }
+      ]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "clamav.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        {{- include "clamav.selectorLabels" . | nindent 8 }}
+        app: clamav
+        deploymentconfig: clamav
+        role: clamav
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.namespace }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.port }}
+              protocol: TCP
+          env:
+            - name: RealIpFrom
+              value: {{ .Values.env.realIpFrom | quote }}
+            - name: AdditionalRealIpFromRules
+              value: {{ .Values.env.additionalRealIpFromRules | quote }}
+            - name: IpFilterRules
+              value: {{ .Values.env.ipFilterRules | quote }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

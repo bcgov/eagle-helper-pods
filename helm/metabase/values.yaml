@@ -1,0 +1,65 @@
+# Common configurations
+nameOverride: "metabase"
+fullnameOverride: "metabase-epic"
+suffix: "epic"
+environmentName: "dev"
+
+# Secret configuration (shared by metabase and postgres)
+secret:
+  existingSecret: "metabase-epic-secret"
+  databaseUserKey: "database-user"
+  databasePasswordKey: "database-password"
+  databaseAdminPasswordKey: "database-admin-password"
+
+# PostgreSQL configurations
+postgres:
+  name: "metabase-postgres"
+  image:
+    registry: image-registry.openshift-image-registry.svc:5000
+    namespace: 6cdc9e-tools
+    name: metabase-postgres
+    tag: stable
+  port: 5432
+  databaseName: "metabase"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 250Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  persistence:
+    existingClaim: ""
+    size: 10Gi
+    storageClass: netapp-file-standard
+  probes:
+    liveness:
+      initialDelaySeconds: 30
+      timeoutSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      timeoutSeconds: 15
+
+# Metabase application configurations
+metabase:
+  image:
+    registry: image-registry.openshift-image-registry.svc:5000
+    namespace: 6cdc9e-tools
+    name: metabase-epic
+    tag: stable
+  port: 3000
+  prEnvironment: "false"
+  resources:
+    requests:
+      cpu: 200m
+      memory: 1Gi
+    limits:
+      cpu: 500m
+      memory: 2Gi
+  route:
+    enabled: true
+    host: ""  # Define host or let OpenShift dynamically assign
+    path: "/"
+    tls:
+      termination: edge
+      insecureEdgeTerminationPolicy: Redirect
