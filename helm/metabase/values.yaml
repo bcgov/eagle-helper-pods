@@ -42,6 +42,7 @@ postgres:
 
 # Metabase application configurations
 metabase:
+  replicas: 1
   image:
     registry: image-registry.openshift-image-registry.svc:5000
     namespace: 6cdc9e-tools

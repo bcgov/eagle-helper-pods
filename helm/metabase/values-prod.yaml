@@ -6,5 +6,6 @@ postgres:
     existingClaim: "metabase-postgres-epic"
 
 metabase:
+  replicas: 2
   route:
     host: "metabase-epic-6cdc9e-prod.apps.silver.devops.gov.bc.ca"

@@ -18,7 +18,7 @@ metadata:
         }
       ]
 spec:
-  replicas: 1
+  replicas: {{ .Values.metabase.replicas | default 1 }}
   strategy:
     type: Recreate
   selector:
