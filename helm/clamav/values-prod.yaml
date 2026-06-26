@@ -1,3 +1,5 @@
 # Production Overrides
+replicaCount: 2
+
 image:
   tag: prod
