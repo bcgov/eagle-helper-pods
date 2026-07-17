@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eagle-public-dev
+  namespace: 6cdc9e-tools
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/bcgov/eagle-public.git'
+    targetRevision: develop
+    path: helm/eagle-public
+    helm:
+      valueFiles:
+        - values.yaml
+        - values-dev.yaml
+        - 'https://raw.githubusercontent.com/bcgov/eagle-helper-pods/master/argocd/environments/dev/values-eagle-public.yaml'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 6cdc9e-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
