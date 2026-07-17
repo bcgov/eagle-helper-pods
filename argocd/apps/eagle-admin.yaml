@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: 6cdc9e
+  project: default
   source:
     repoURL: 'https://github.com/bcgov/eagle-admin.git'
     targetRevision: develop
