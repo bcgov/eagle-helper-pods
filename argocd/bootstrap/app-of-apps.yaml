@@ -3,11 +3,13 @@ kind: Application
 metadata:
   name: epic-bootstrap
   namespace: 6cdc9e-tools
+  annotations:
+    argocd.argoproj.io/controller-instance-name: epic-argocd
 spec:
-  project: default
+  project: epic-project
   source:
     repoURL: 'https://github.com/bcgov/eagle-helper-pods.git'
-    targetRevision: main
+    targetRevision: master
     path: argocd/apps
   destination:
     server: 'https://kubernetes.default.svc'
