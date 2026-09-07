@@ -52,38 +52,13 @@ objects:
         - from:
             - podSelector:
                 matchLabels:
-                  role: api-${GROUP_NAME}            
-            - podSelector:
-                matchLabels:
-                  role: metabase-${GROUP_NAME}
+                  role: api-${GROUP_NAME}
             - podSelector:
                 matchLabels:
                   role: backup
           ports:
             - protocol: TCP
               port: 27017
-  - apiVersion: networking.k8s.io/v1
-    kind: NetworkPolicy
-    metadata:
-      name: ${GROUP_NAME}-allow-services-to-postgres
-      labels:
-        app: ${GROUP_NAME}
-    spec:
-      # Allow services to connect to postgres
-      podSelector:
-        matchLabels:
-          role: metabase-postgres-${GROUP_NAME}
-      ingress:
-        - from:
-            - podSelector:
-                matchLabels:
-                  role: metabase-${GROUP_NAME}
-            - podSelector:
-                matchLabels:
-                  role: backup
-          ports:
-            - protocol: TCP
-              port: 5432
   - apiVersion: networking.k8s.io/v1
     kind: NetworkPolicy
     metadata:
