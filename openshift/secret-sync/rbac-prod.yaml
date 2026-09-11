@@ -1,0 +1,60 @@
+# Namespace: 6cdc9e-prod
+# Secret and workload names are copied from the sync job mapping; add a name here
+# before adding it there, or the call gets 403.
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: secret-sync
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: secret-sync
+rules:
+  # target Secrets must exist before the sync runs; the sync refuses to create.
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "update"]
+    resourceNames:
+      - eagle-api-analytics
+      - eagle-api-appinsights
+      - eagle-api-front-door
+      - eagle-api-mongodb
+      - getok-secret
+      - nr-object-store-credential
+      - rproxy-basic-auth
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["patch"]
+    resourceNames:
+      - eagle-api
+      - eagle-api-mongodb
+      - rproxy
+  - apiGroups: ["batch"]
+    resources: ["cronjobs"]
+    verbs: ["patch"]
+    resourceNames:
+      - eagle-api-mongodb-backup
+      - eagle-cron-cold
+      - eagle-cron-hot
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: secret-sync
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: secret-sync
+subjects:
+  - kind: ServiceAccount
+    name: secret-sync
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-sync-token
+  annotations:
+    kubernetes.io/service-account.name: secret-sync
+type: kubernetes.io/service-account-token
