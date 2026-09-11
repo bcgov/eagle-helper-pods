@@ -27,6 +27,17 @@ oc apply -n 6cdc9e-prod -f openshift/secret-sync/rbac-prod.yaml
 the `eagle-automation` service account cannot manage `roles`/`rolebindings` and
 this apply will fail under that context.
 
+Every Secret named in the Role must already exist in the namespace — they all
+do today. The Role has no `create` verb, so a new mapping entry needs its
+Secret created by hand first:
+
+```
+oc create secret generic <name> --from-literal=<key>=placeholder -n <ns>
+```
+
+Add it to the sync job's mapping and the matching `rbac-<env>.yaml` after
+that; the sync then overwrites the placeholder with the real value.
+
 ## Read the token (once)
 
 The `secret-sync-token` Secret holds a long-lived token for the `secret-sync`

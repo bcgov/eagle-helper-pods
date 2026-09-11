@@ -12,11 +12,7 @@ kind: Role
 metadata:
   name: secret-sync
 rules:
-  # Kubernetes ignores resourceNames on create, so this rule cannot be narrowed;
-  # it only covers first creation, every later write goes through the named rule below.
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["create"]
+  # target Secrets must exist before the sync runs; the sync refuses to create.
   - apiGroups: [""]
     resources: ["secrets"]
     verbs: ["get", "update"]
