@@ -1,7 +1,7 @@
-# DB Backup Container
+# DB backup container
 
-Backup templates and jobs are sourced from: https://github.com/BCDevOps/backup-container
+The templates and jobs here are copies of [BCDevOps/backup-container](https://github.com/BCDevOps/backup-container) at tag 2.1.1.
 
-Copies of the parameters used for the backups can be found on the teams Confluence page [here](https://apps.nrs.gov.bc.ca/int/confluence/display/DEVGUILD/Database+Backups), this is limited to team member access only.
+The parameters used for the backups are on the team's [Confluence page](https://apps.nrs.gov.bc.ca/int/confluence/display/DEVGUILD/Database+Backups), which only team members can open.
 
-EPIC copies of the templates and jobs are based on *backup-container* tag **2.1.1**
+Prod Mongo backups run from eagle-api's `mongodb-backup-cronjob.yaml`, not these templates.

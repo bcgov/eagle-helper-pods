@@ -1,3 +1,3 @@
 # Deployment Package Description
 
-Settings and params for the main EPIC EAGLE environments on the OpenShift 4 platform.  This is a live production site, so some settings have had the text "noexist" inserted in lieu of the real OpenShift environment name as a safety measure to prevent accidental teardowns.
+This param set is the main EPIC Eagle environment on OpenShift 4. The text `noexist` stands in for the real namespace names, so an accidental teardown cannot hit them.
