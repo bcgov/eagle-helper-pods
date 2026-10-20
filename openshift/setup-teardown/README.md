@@ -1,30 +1,19 @@
+# Tear down a PR deployment
 
-#  Using pr-cleanup-helper Script
+`pr-cleanup-helper.sh` points the params at a PR name, and `teardown-all.sh` then deletes that PR's objects. `pr-cleanup-helper.sh` uses the BSD form `sed -i ""`. On GNU sed this prints a spurious `sed: can't read : No such file or directory` error for each file, but the files are still rewritten.
 
-log into OpenShift
+1. Log in to OpenShift and run `oc project` to select the target namespace.
+2. Change to this directory.
+3. Reset the checkout to the bcgov repository, where `upstream` is the bcgov remote:
+   ```
+   git checkout master
+   git fetch upstream
+   git reset --hard upstream/master
+   ```
+4. Run `./pr-cleanup-helper.sh your-pr-name`.
+5. Check that `TARGET_PROJECT_SET` in `projectset.config` is `OCP4_PR`.
+6. Check that the params in `params/CUSTOM_SETTINGS/OCP4_PR` carry your PR name.
+7. Run `./teardown-all.sh`.
+8. Run `git reset --hard upstream/master` again to revert the local changes.
 
-`oc project` to target namespace
-
-`cd` to this directory
-
-run `git checkout master`
-
-run `git fetch upstream`
-
-run `git reset --hard upstream/master`
-
-where upstream is the bcgov repository
-
-run `./pr-cleanup-helper.sh your-pr-name`
-
-check that `TARGET_PROJECT_SET` in projectset.config is set to `PR`
-
-check some of the params in the pr directory and make sure they've been changed to match the pr name that you provided
-
-run `./teardown-all.sh`
-
-run `git reset --hard upstream/master` again to revert changes to local env
-
-# Other PR Based Pipeline Documentation
-
-https://github.com/bcgov/eagle-dev-guides/blob/master/dev_guides/pull_request_pipeline.md
+See [pull_request_pipeline.md](https://github.com/bcgov/eagle-dev-guides/blob/master/dev_guides/pull_request_pipeline.md) for the PR pipeline.
