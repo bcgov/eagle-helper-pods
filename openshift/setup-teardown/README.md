@@ -1,6 +1,6 @@
 # Tear down a PR deployment
 
-`pr-cleanup-helper.sh` points the params at a PR name, and `teardown-all.sh` then deletes that PR's objects. `pr-cleanup-helper.sh` uses BSD `sed -i ""` syntax, so it runs on macOS, not with GNU sed.
+`pr-cleanup-helper.sh` points the params at a PR name, and `teardown-all.sh` then deletes that PR's objects. `pr-cleanup-helper.sh` uses the BSD form `sed -i ""`. On GNU sed this prints a spurious `sed: can't read : No such file or directory` error for each file, but the files are still rewritten.
 
 1. Log in to OpenShift and run `oc project` to select the target namespace.
 2. Change to this directory.
