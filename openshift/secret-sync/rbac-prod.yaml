@@ -1,4 +1,3 @@
-# Namespace: 6cdc9e-prod
 # Secret and workload names are copied from the sync job mapping; add a name here
 # before adding it there, or the call gets 403.
 ---
@@ -23,14 +22,12 @@ rules:
       - eagle-api-mongodb
       - getok-secret
       - nr-object-store-credential
-      - rproxy-basic-auth
   - apiGroups: ["apps"]
     resources: ["deployments"]
     verbs: ["patch"]
     resourceNames:
       - eagle-api
       - eagle-api-mongodb
-      - rproxy
   - apiGroups: ["batch"]
     resources: ["cronjobs"]
     verbs: ["patch"]
