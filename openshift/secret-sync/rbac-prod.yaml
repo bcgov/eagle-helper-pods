@@ -23,14 +23,12 @@ rules:
       - eagle-api-mongodb
       - getok-secret
       - nr-object-store-credential
-      - rproxy-basic-auth
   - apiGroups: ["apps"]
     resources: ["deployments"]
     verbs: ["patch"]
     resourceNames:
       - eagle-api
       - eagle-api-mongodb
-      - rproxy
   - apiGroups: ["batch"]
     resources: ["cronjobs"]
     verbs: ["patch"]

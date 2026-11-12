@@ -26,14 +26,12 @@ rules:
       - eagle-api-smoke-key
       - getok-secret
       - nr-object-store-credential
-      - rproxy-basic-auth
   - apiGroups: ["apps"]
     resources: ["deployments"]
     verbs: ["patch"]
     resourceNames:
       - eagle-api
       - eagle-api-mongodb
-      - rproxy
   - apiGroups: ["batch"]
     resources: ["cronjobs"]
     verbs: ["patch"]
