@@ -1,4 +1,3 @@
-# Namespace: 6cdc9e-test
 # Secret and workload names are copied from the sync job mapping; add a name here
 # before adding it there, or the call gets 403.
 ---
